@@ -1,0 +1,39 @@
+package com.walderman.darcrume;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+public class Controller_MainActivity extends AppCompatActivity {
+    DatabaseHelper myDb;
+    private Button btnManageFilms;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        myDb = new DatabaseHelper(this);
+        btnManageFilms = findViewById(R.id.btnManageFilms);
+
+        btnManageFilms.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                moveToManageFilms();
+            }
+        });
+        instantiateDatabase();
+    }
+
+    private void moveToManageFilms() {
+        Intent intent = new Intent(Controller_MainActivity.this, Controller_ManageFilms.class);
+        startActivity(intent);
+    }
+
+    private void instantiateDatabase() {
+
+    }
+
+}
