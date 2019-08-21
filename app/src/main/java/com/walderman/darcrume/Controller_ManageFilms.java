@@ -1,6 +1,8 @@
 package com.walderman.darcrume;
 
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,12 +16,21 @@ public class Controller_ManageFilms extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private TextView debugText;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_films);
 
         db = new DatabaseHelper(getApplicationContext());
+
+        //this section should be removed. using to populate w/ several films for testing purposes
+//        db.insertNewFilm(R.drawable.bw,"Ilford","HP5+","BW",400,36);
+//        db.insertNewFilm(R.drawable.color,"Kodak","Portra","Color",400,36);
+//        db.insertNewFilm(R.drawable.bw,"Ilford","Pan-F","BW",160,24);
+//        db.insertNewFilm(R.drawable.color,"FujiFilm","Velvia","Color",400,36);
+//        db.insertNewFilm(R.drawable.bw,"Kodak","T-Max","BW",400,36);
+//        db.insertNewFilm(R.drawable.color,"FilmZone","Lazer Crease","Color",400,36);
 
         ArrayList<Film> filmList = db.getAllFilms();
 
@@ -28,6 +39,8 @@ public class Controller_ManageFilms extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         adapter = new RVAdapter(filmList);
 
+        debugText = findViewById(R.id.debugText);
+        debugText.setText("Number of films: " + db.getAllFilms().size());
 
     }
 
