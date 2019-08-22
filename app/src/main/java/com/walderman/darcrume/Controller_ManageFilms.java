@@ -40,7 +40,7 @@ public class Controller_ManageFilms extends AppCompatActivity {
         adapter = new RVAdapter(filmList);
 
         debugText = findViewById(R.id.debugText);
-        debugText.setText("Number of films: " + db.getAllFilms().size());
+        debugText.setText("Number of films in ArrayList I'm trying to use: " + filmList.size());
 
     }
 
