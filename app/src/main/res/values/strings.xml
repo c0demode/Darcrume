@@ -1,3 +1,44 @@
 <resources>
     <string name="app_name">Darcrume</string>
+    <string name="btnFilms">Films</string>
+    <string name="btnChems">Chemistry</string>
+    <string name="btnNotes">Notes</string>
+    <string name="btnLog">Logbook</string>
+    <string name="btnDevelop">Develop Now</string>
+    <string name="btnShowFilms">Show Films</string>
+
+
+    //activity_films strings
+    <string name="textBrand">Mfr:</string>
+    <string name="textName">Name:</string>
+
+    <string name="radioGroupTypeHeader">Type:</string>
+    <string name="radioTypeBW">Black and White</string>
+    <string name="radioTypeC41">Color</string>
+
+    <string name="radioGroupExpHeader">Exposures:</string>
+    <string name="radioExp24">24 exposures</string>
+    <string name="radioExp36">36 exposures</string>
+
+    <string-array name="spinnerISOs">
+        <item>25 ISO</item>
+        <item>50 ISO</item>
+        <item>100 ISO</item>
+        <item>125 ISO</item>
+        <item>200 ISO</item>
+        <item>400 ISO</item>
+        <item>800 ISO</item>
+        <item>1600 ISO</item>
+    </string-array>
+
+    <string name="buttonAddFilm">Add New Film</string>
+    <string name="title_activity_see_films">activity_see_films</string>
+    <string name="btnAddFilm">Add new film</string>
+
+
+    //ShowFilmsActivity strings
+    <string name="row1col1">Row1Col1</string>
+    <string name="row1col2">Row1Col2</string>
+    <string name="row1col3">Row1Col3</string>
+
 </resources>
