@@ -48,6 +48,7 @@ public class Controller_ManageFilms extends AppCompatActivity {
             public void onItemClick(int position) {
                 //create a method and call it here
                 //that brings up more detail and option to edit item
+                debugText.setText("item clicked at position: "+position);
             }
         });
     }
