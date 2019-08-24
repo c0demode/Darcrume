@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#4F5D75</color><!--Black Coral-->
     <color name="colorPrimaryDark">#2d3142</color><!--Gunmetal-->
-    <color name="colorAccent">#ef8354</color><!--Light Red Ochre-->
+    <color name="colorAccent">#EF8354</color><!--Light Red Ochre-->
     <color name="colorLight">#bfc0c0</color><!--Silver-->
     <color name="colorWhite">#FFFFFF</color><!--White-->
 </resources>

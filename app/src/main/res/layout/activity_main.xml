@@ -27,7 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/main_activity_button_rounded"
             android:text="@string/btnFilms"
             android:textColor="@color/colorAccent"
             />
@@ -37,7 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/main_activity_button_rounded"
             android:text="@string/btnChems"
             android:textColor="@color/colorAccent"
             />
@@ -47,7 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/main_activity_button_rounded"
             android:text="@string/btnNotes"
             android:textColor="@color/colorAccent"
             />
@@ -57,7 +54,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/main_activity_button_rounded"
             android:text="@string/btnLog"
             android:textColor="@color/colorAccent"
             />
@@ -67,10 +63,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/main_activity_button_rounded"
             android:text="@string/btnDevelop"
             android:textColor="@color/colorAccent"
             />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/pickledebug"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text=""
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 

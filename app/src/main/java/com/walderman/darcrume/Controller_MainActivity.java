@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Controller_MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
     private Button btnManageFilms;
+    private TextView debugtextview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +19,8 @@ public class Controller_MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(this);
         btnManageFilms = findViewById(R.id.btnManageFilms);
+        debugtextview = findViewById(R.id.pickledebug);
+        debugtextview.setText("First film image resource# is: " + myDb.getAllFilms().get(0).getImageResource());
 
         btnManageFilms.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -24,7 +28,6 @@ public class Controller_MainActivity extends AppCompatActivity {
                 moveToManageFilms();
             }
         });
-        instantiateDatabase();
     }
 
     private void moveToManageFilms() {
@@ -32,8 +35,5 @@ public class Controller_MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void instantiateDatabase() {
-
-    }
 
 }

@@ -27,12 +27,8 @@ public class Controller_ManageFilms extends AppCompatActivity {
         createFilmList();
         buildRecyclerView();
 
-
-
-
         debugText = findViewById(R.id.debugText);
         debugText.setText("Number of films in ArrayList I'm trying to use: " + filmList.size() +"\nFirst item name: " + filmList.get(0).getBrand() + " " + filmList.get(0).getName());
-
     }
 
     private void buildRecyclerView() {
