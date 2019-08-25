@@ -15,7 +15,6 @@ public class Controller_ManageFilms extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RVAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private TextView debugText;
     private ArrayList<Film> filmList;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +26,7 @@ public class Controller_ManageFilms extends AppCompatActivity {
         createFilmList();
         buildRecyclerView();
 
-        debugText = findViewById(R.id.debugText);
-        debugText.setText("Number of films in ArrayList I'm trying to use: " + filmList.size() +"\nFirst item name: " + filmList.get(0).getBrand() + " " + filmList.get(0).getName());
-    }
+        }
 
     private void buildRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView);
@@ -44,7 +41,7 @@ public class Controller_ManageFilms extends AppCompatActivity {
             public void onItemClick(int position) {
                 //create a method and call it here
                 //that brings up more detail and option to edit item
-                debugText.setText("item clicked at position: "+position);
+
             }
         });
     }

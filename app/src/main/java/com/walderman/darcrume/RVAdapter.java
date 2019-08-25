@@ -63,10 +63,16 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position){
         Film currentItem = filmList.get(position);
-
-        holder.imageView.setImageResource(currentItem.getImageResource());
+        int drawableId=-1;
+        //holder.imageView.setImageResource(currentItem.getImageResource());
         holder.textView1.setText(currentItem.getBrand());
         holder.textView2.setText(currentItem.getName());
+        if(currentItem.getType().equals("BW")){
+            drawableId=R.drawable.bw;
+        }else{
+            drawableId=R.drawable.color;
+        }
+        holder.imageView.setImageResource(drawableId);
     }
 
     @Override

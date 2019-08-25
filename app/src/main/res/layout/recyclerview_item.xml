@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="4dp"
-    android:background="@color/colorPrimary"
-    app:cardCornerRadius="4dp">
+    android:background="@color/colorPrimaryDark"
+    app:cardBackgroundColor="@color/colorPrimaryDark"
+    app:cardCornerRadius="4dp"
+    app:cardPreventCornerOverlap="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,6 +27,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <!--            android:onClick="showPopup"-->
+
 
         <TextView
             android:id="@+id/textView1"
@@ -36,7 +40,7 @@
             android:layout_toEndOf="@+id/imageView1"
             android:layout_toRightOf="@+id/imageView1"
             android:text="Line 1"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorLight"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageView1"
@@ -52,6 +56,7 @@
             android:layout_toEndOf="@+id/imageView1"
             android:layout_toRightOf="@+id/imageView1"
             android:text="Line 2"
+            android:textColor="@color/colorLight"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView1"
