@@ -20,7 +20,6 @@ public class Controller_MainActivity extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
         btnManageFilms = findViewById(R.id.btnManageFilms);
         debugtextview = findViewById(R.id.pickledebug);
-        debugtextview.setText("First film image resource# is: " + myDb.getAllFilms().get(0).getImageResource());
 
         btnManageFilms.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -3,16 +3,14 @@ package com.walderman.darcrume;
 
 public class Film {
     private int film_id;
-    private int imageResource; //This will display either 2 black/white circles or 3 RGB circles to denote film type. database will need to be updated.
     private String brand;
     private String name;
     private String type;
     private int exp;
     private int iso;
 
-    public Film(int film_id, int imageResource, String brand, String name, String type, int exp, int iso) {
+    public Film(int film_id, String brand, String name, String type, int exp, int iso) {
         this.film_id = film_id;
-        this.imageResource = imageResource;
         this.brand = brand;
         this.name = name;
         this.type = type;
@@ -26,14 +24,6 @@ public class Film {
 
     public void setFilm_id(int film_id) {
         this.film_id = film_id;
-    }
-
-    public int getImageResource() {
-        return imageResource;
-    }
-
-    public void setImageResource(int imageResource) {
-        this.imageResource = imageResource;
     }
 
     public String getBrand() {

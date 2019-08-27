@@ -28,7 +28,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //TABLE_FILMS columns
     private static final String filmFILM_ID = "FILM_ID";
-    private static final String filmIMAGE_RESOURCE = "IMAGE_RESOURCE";
     private static final String filmBRAND = "BRAND";
     private static final String filmNAME = "NAME";
     private static final String filmBW_COLOR = "BW_COLOR";
@@ -67,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Table creation statements
     //TABLE_FILMS statement
     private static final String createTABLE_FILMS =
-            "CREATE TABLE " + TABLE_FILMS + " (" + filmFILM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + filmIMAGE_RESOURCE + " INTEGER, " + filmBRAND + " TEXT, " + filmNAME + " TEXT, " + filmBW_COLOR + " TEXT, " + filmISO + " INTEGER, " + filmEXP + " INTEGER)";
+            "CREATE TABLE " + TABLE_FILMS + " (" + filmFILM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + filmBRAND + " TEXT, " + filmNAME + " TEXT, " + filmBW_COLOR + " TEXT, " + filmISO + " INTEGER, " + filmEXP + " INTEGER)";
 
     //TABLE_CHEMISTRY statement
     private static final String createTABLE_CHEMISTRY =
@@ -127,7 +126,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             //prepare ContentValues to insert into database
             ContentValues cv = new ContentValues();
-            cv.put(filmIMAGE_RESOURCE, imageResource);
             cv.put(filmBRAND, brand);
             cv.put(filmNAME, name);
             cv.put(filmBW_COLOR, bw_color);
@@ -150,20 +148,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Film> getAllFilms(){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor result = db.rawQuery("select * from " + TABLE_FILMS, null);
+        Cursor result = db.rawQuery("select * from " + TABLE_FILMS + " Order by " + filmBRAND, null);
         ArrayList<Film> filmArray = new ArrayList<>();
         while(result.moveToNext()){
-            int film_id = result.getInt(0);
-            int imageResource = result.getInt( 1);
-            String brand = result.getString(2);
-            String name = result.getString(3);
-            String bw_color = result.getString(4);
-            int iso = result.getInt(5);
-            int exp = result.getInt(6);
-            Film film = new Film(film_id, imageResource, brand, name, bw_color, iso, exp);
+            int film_id = result.getInt(result.getColumnIndex(filmFILM_ID));
+            String brand = result.getString(result.getColumnIndex(filmBRAND));
+            String name = result.getString(result.getColumnIndex(filmNAME));
+            String bw_color = result.getString(result.getColumnIndex(filmBW_COLOR));
+            int iso = result.getInt(result.getColumnIndex(filmISO));
+            int exp = result.getInt(result.getColumnIndex(filmEXP));
+            Film film = new Film(film_id, brand, name, bw_color, exp, iso);
             filmArray.add(film);
         }
         return filmArray;
+    }
+
+    public void truncateFilmsTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete from " + TABLE_FILMS);
+        //reset auto increment
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='" + TABLE_FILMS + "\'");
     }
 
 }

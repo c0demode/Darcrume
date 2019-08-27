@@ -8,131 +8,7 @@
     android:orientation="vertical"
     tools:context=".Controller_ManageFilms">
 
-    <EditText
-        android:id="@+id/editText_Brand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Brand"
-        android:textColor="@color/colorLight"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vert2"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horz2" />
-
-    <EditText
-        android:id="@+id/editText_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:textColor="@color/colorLight"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vert3"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horz2" />
-
-    <EditText
-        android:id="@+id/editText_ISO"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:text="400"
-        android:textColor="@color/colorLight"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vert2"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horz3" />
-
     android:layout_width="wrap_content"
-
-    <EditText
-        android:id="@+id/editText_Exposures"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:text="24"
-        android:textColor="@color/colorLight"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vert3"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horz3" />
-
-    <TextView
-        android:id="@+id/textView_Brand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Brand:"
-        android:textColor="@color/colorLight"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_vert2"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horz2" />
-
-    <TextView
-        android:id="@+id/textView_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Name:"
-        android:textColor="@color/colorLight"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_vert3"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horz2" />
-
-    <TextView
-        android:id="@+id/textView_ISO"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="ISO: "
-        android:textColor="@color/colorLight"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_vert2"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horz3" />
-
-    <TextView
-        android:id="@+id/textView_Exposures"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Exposures:"
-        android:textColor="@color/colorLight"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_vert3"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horz3" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_horz1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".65" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_horz2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".75" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_horz3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".85" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_vert1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_vert2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.25304136"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_vert3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".75" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -143,6 +19,169 @@
         android:padding="4dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_horz1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toTopOf="parent" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horz1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.57" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horz1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/editTextFilmsMfr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:singleLine="false"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="#FF6F00"
+                android:textIsSelectable="false"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editTextFilmsName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextFilmsMfr" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:outlineAmbientShadowColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editTextFilmsMfr">
+
+                <RadioButton
+                    android:id="@+id/radioTypeColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/radioTypeC41"
+                    android:textColor="@color/colorAccent"
+                    tools:layout_editor_absoluteY="19dp" />
+
+                <RadioButton
+                    android:id="@+id/radioTypeBW"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/radioTypeBW"
+                    android:textColor="@color/colorAccent"
+                    tools:layout_editor_absoluteY="51dp" />
+
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/radioGroupExp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/radioGroupType"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroupType">
+
+                <RadioButton
+                    android:id="@+id/radioExp24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/radioExp24"
+                    android:textColor="@color/colorAccent"
+                    tools:layout_editor_absoluteY="19dp" />
+
+                <RadioButton
+                    android:id="@+id/radioExp36"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/radioExp36"
+                    android:textColor="@color/colorAccent"
+                    tools:layout_editor_absoluteY="51dp" />
+
+            </RadioGroup>
+
+            <Spinner
+                android:id="@+id/spinnerISOs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/btn_rounded_corners"
+                android:entries="@array/spinnerISOs"
+                android:theme="@style/AppTheme"
+                app:layout_constraintStart_toStartOf="@+id/editTextFilmsName"
+                app:layout_constraintTop_toBottomOf="@+id/editTextFilmsName" />
+
+            <TextView
+                android:id="@+id/textMfr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/textBrand"
+                android:textColor="@color/colorAccent"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editTextFilmsMfr"
+                tools:text="@string/textBrand"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/textName"
+                android:textColor="@color/colorAccent"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/textMfr"
+                app:layout_constraintTop_toTopOf="@+id/editTextFilmsName"
+                tools:text="@string/textName"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textView_ISO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ISO:"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="@+id/textName"
+                app:layout_constraintTop_toTopOf="@+id/spinnerISOs"
+                tools:text="@string/spinnerText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

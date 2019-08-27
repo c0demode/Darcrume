@@ -11,6 +11,7 @@
     //activity_films strings
     <string name="textBrand">Mfr:</string>
     <string name="textName">Name:</string>
+    <string name="spinnerText">ISO:</string>
 
     <string name="radioGroupTypeHeader">Type:</string>
     <string name="radioTypeBW">Black and White</string>
@@ -20,15 +21,16 @@
     <string name="radioExp24">24 exposures</string>
     <string name="radioExp36">36 exposures</string>
 
+
     <string-array name="spinnerISOs">
-        <item>25 ISO</item>
-        <item>50 ISO</item>
-        <item>100 ISO</item>
-        <item>125 ISO</item>
-        <item>200 ISO</item>
-        <item>400 ISO</item>
-        <item>800 ISO</item>
-        <item>1600 ISO</item>
+        <item>25</item>
+        <item>50</item>
+        <item>100</item>
+        <item>125</item>
+        <item>200</item>
+        <item>400</item>
+        <item>800</item>
+        <item>1600</item>
     </string-array>
 
     <string name="buttonAddFilm">Add New Film</string>
