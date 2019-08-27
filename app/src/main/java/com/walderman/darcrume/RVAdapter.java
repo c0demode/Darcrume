@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
@@ -61,7 +59,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_filmitem, parent, false);
         MyViewHolder mvh = new MyViewHolder(v, listener);
         return mvh;
     }

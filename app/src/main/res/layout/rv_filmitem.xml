@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="4dp"
-    android:background="@color/colorPrimaryDark"
-    app:cardBackgroundColor="@color/colorPrimaryDark"
+    android:background="@color/theme1ColorPrimaryDark"
+    app:cardBackgroundColor="@color/theme1ColorPrimaryDark"
     app:cardCornerRadius="4dp"
     app:cardPreventCornerOverlap="false">
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/theme1ColorPrimary">
 
         <ImageView
             android:id="@+id/imageView1"
@@ -40,7 +40,7 @@
             android:layout_toEndOf="@+id/imageView1"
             android:layout_toRightOf="@+id/imageView1"
             android:text="Line 1"
-            android:textColor="@color/colorLight"
+            android:textColor="@color/theme1ColorLight"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageView1"
@@ -55,7 +55,7 @@
             android:layout_toEndOf="@+id/imageView1"
             android:layout_toRightOf="@+id/imageView1"
             android:text="Line 2"
-            android:textColor="@color/colorLight"
+            android:textColor="@color/theme1ColorLight"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/textView_Brand"
             app:layout_constraintTop_toTopOf="@+id/textView_Brand" />
@@ -67,7 +67,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="TextView"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/theme1ColorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView_Brand"
             app:layout_constraintTop_toBottomOf="@+id/textView_Brand" />
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="TextView"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/theme1ColorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="@+id/textView_ISO"
             app:layout_constraintStart_toEndOf="@+id/textView_ISO" />
 

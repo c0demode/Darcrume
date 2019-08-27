@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4F5D75</color><!--Black Coral-->
-    <color name="colorPrimaryDark">#2D3142</color><!--Gunmetal-->
-    <color name="colorAccent">#EF8354</color><!--Light Red Ochre-->
-    <color name="colorLight">#BFC0C0</color><!--Silver-->
-    <color name="colorWhite">#FFFFFF</color><!--White-->
+
+    <color name="theme1ColorAccent">#EF8354</color><!--Light Red Ochre-->
+    <color name="theme1ColorWhite">#FFFFFF</color><!--White-->
+    <color name="theme1ColorLight">#BFC0C0</color><!--Silver-->
+    <color name="theme1ColorPrimary">#4F5D75</color><!--Black Coral-->
+    <color name="theme1ColorPrimaryDark">#2D3142</color><!--Gunmetal-->
+
+    <color name="theme2ColorAccent">#f50302</color>
+    <color name="theme2ColorLight">#b80000</color>
+    <color name="theme2ColorPrimary">#970002</color>
+    <color name="theme2ColorPrimaryDark">#3F0706</color>
+    <color name="theme2ColorBlack">#100102</color>
 </resources>
