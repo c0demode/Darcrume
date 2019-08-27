@@ -12,6 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * TODO
+ * add ability to Add / Save / Delete / Copy
+ * How easy to add circle "+" symbol for Add?
+ */
+
 public class Controller_ManageFilms extends AppCompatActivity {
     //on create, call a method from DatabaseHelper that fills an ArrayList<Film> and thus populates the recyclerview in activity_manage_films.xml
     DatabaseHelper db;

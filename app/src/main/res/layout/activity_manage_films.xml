@@ -32,14 +32,16 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline_horz1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/editTextFilmsMfr"
@@ -75,11 +77,12 @@
                 android:id="@+id/radioGroupType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:outlineAmbientShadowColor="@color/colorPrimary"
                 android:textColor="@color/colorAccent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/editTextFilmsMfr">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerISOs">
 
                 <RadioButton
                     android:id="@+id/radioTypeColor"
@@ -106,9 +109,9 @@
                 android:id="@+id/radioGroupExp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="@+id/radioGroupType"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroupType">
+                android:layout_marginStart="24dp"
+                app:layout_constraintStart_toEndOf="@+id/radioGroupType"
+                app:layout_constraintTop_toTopOf="@+id/radioGroupType">
 
                 <RadioButton
                     android:id="@+id/radioExp24"
@@ -134,7 +137,7 @@
                 android:id="@+id/spinnerISOs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/btn_rounded_corners"
                 android:entries="@array/spinnerISOs"
                 android:theme="@style/AppTheme"

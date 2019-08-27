@@ -64,21 +64,22 @@
             android:id="@+id/textView_ISO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="TextView"
-            android:textColor="@color/colorLight"
+            android:textColor="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView_Brand" />
+            app:layout_constraintStart_toStartOf="@+id/textView_Brand"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Brand" />
 
         <TextView
             android:id="@+id/textView_Exposures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
             android:text="TextView"
-            android:textColor="@color/colorLight"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_ISO"
             app:layout_constraintStart_toEndOf="@+id/textView_ISO" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
