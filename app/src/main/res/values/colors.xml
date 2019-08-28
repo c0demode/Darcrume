@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="theme1ColorAccent">#EF8354</color><!--Light Red Ochre-->
     <color name="theme1ColorWhite">#FFFFFF</color><!--White-->
     <color name="theme1ColorLight">#BFC0C0</color><!--Silver-->

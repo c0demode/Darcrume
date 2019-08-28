@@ -170,4 +170,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='" + TABLE_FILMS + "\'");
     }
 
+    public void updateFilm(Film film) {
+        int filmId = film.getFilm_id();
+        String brand = film.getBrand();
+        String name = film.getName();
+        int iso = film.getIso();
+        int exp = film.getExp();
+        String type = film.getType();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        //try this https://stackoverflow.com/questions/9798473/sqlite-in-android-how-to-update-a-specific-row
+        db.execSQL("update " + TABLE_FILMS + "set " +
+                "(" + filmBRAND + "," + filmNAME + "," + filmISO + "," + filmEXP + "," + filmBW_COLOR + ") " +
+                "= (" + brand + "," + name + "," + iso + "," + exp + "," + type + ") " +
+                "where " + filmFILM_ID + " = " + filmId);
+
+    }
 }
