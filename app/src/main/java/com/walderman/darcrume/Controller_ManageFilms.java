@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Guideline;
@@ -99,7 +100,7 @@ public class Controller_ManageFilms extends AppCompatActivity {
      *
      * @param position
      */
-    private void getSelectedFilmInfo(int position) {
+    private void getSelectedFilmInfo(final int position) {
         final Film selectedFilm = filmList.get(position);
 
         editText_Brand.setText(selectedFilm.getBrand());
@@ -147,18 +148,25 @@ public class Controller_ManageFilms extends AppCompatActivity {
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveFilm(selectedFilm);
+                saveFilm(position);
             }
         });
     }
 
-    private void saveFilm(Film film) {
+    private void saveFilm(int position) {
+        Film film = filmList.get(position);
         film.setName(editText_Name.getText().toString());
         film.setBrand(editText_Brand.getText().toString());
         film.setIso(Integer.parseInt(spinnerISO.getSelectedItem().toString()));
         film.setExp(getRadioExpValue());
         film.setType(getRadioTypeValue());
-        db.updateFilm(film);
+        Film updatedFilm = db.updateFilm(film);
+        filmList.set(position, updatedFilm);
+        refreshRecyclerView(position);
+    }
+
+    private void refreshRecyclerView(int position) {
+        adapter.notifyItemChanged(position);
     }
 
     private int getRadioExpValue(){
@@ -177,11 +185,10 @@ public class Controller_ManageFilms extends AppCompatActivity {
         }
     }
 
-
     private void createFilmList() {
         //these first 2 methods should be used sparingly
-        db.truncateFilmsTable();
-        addSampleFilm();
+        //db.truncateFilmsTable();
+        //addSampleFilm();
         filmList = db.getAllFilms();
 
     }

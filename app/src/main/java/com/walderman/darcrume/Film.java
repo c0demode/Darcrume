@@ -18,6 +18,15 @@ public class Film {
         this.iso = iso;
     }
 
+    public Film() {
+        this.film_id = -1;
+        this.brand = "Error";
+        this.name = "Error";
+        this.type = "Error";
+        this.exp = -1;
+        this.iso = -1;
+    }
+
     public int getFilm_id() {
         return film_id;
     }

@@ -151,16 +151,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery("select * from " + TABLE_FILMS + " Order by " + filmBRAND, null);
         ArrayList<Film> filmArray = new ArrayList<>();
         while(result.moveToNext()){
-            int film_id = result.getInt(result.getColumnIndex(filmFILM_ID));
-            String brand = result.getString(result.getColumnIndex(filmBRAND));
-            String name = result.getString(result.getColumnIndex(filmNAME));
-            String bw_color = result.getString(result.getColumnIndex(filmBW_COLOR));
-            int iso = result.getInt(result.getColumnIndex(filmISO));
-            int exp = result.getInt(result.getColumnIndex(filmEXP));
-            Film film = new Film(film_id, brand, name, bw_color, exp, iso);
+            Film film = processFilmCursor(result);
             filmArray.add(film);
         }
         return filmArray;
+    }
+
+    /**
+     * Takes an int "film_id" and queries the database for that film_id. Creates and returns a Film object based on that result.
+     * @param film_Id
+     * @return
+     */
+    public Film selectFilm(int film_Id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Film film = new Film();
+        Cursor result = db.rawQuery("select * from " + TABLE_FILMS + " where " + filmFILM_ID + " = " + film_Id, null);
+        while(result.moveToNext()){
+            film = processFilmCursor(result);
+        }
+        return film;
+    }
+
+    /**
+     * Takes a Cursor (result) from db query and creates and returns a Film object based on that result
+     * @param cursor
+     * @return
+     */
+    public Film processFilmCursor(Cursor cursor){
+        int film_id = cursor.getInt(cursor.getColumnIndex(filmFILM_ID));
+        String brand = cursor.getString(cursor.getColumnIndex(filmBRAND));
+        String name = cursor.getString(cursor.getColumnIndex(filmNAME));
+        String bw_color = cursor.getString(cursor.getColumnIndex(filmBW_COLOR));
+        int iso = cursor.getInt(cursor.getColumnIndex(filmISO));
+        int exp = cursor.getInt(cursor.getColumnIndex(filmEXP));
+        Film film = new Film(film_id, brand, name, bw_color, exp, iso);
+        return film;
     }
 
     public void truncateFilmsTable(){
@@ -170,7 +195,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='" + TABLE_FILMS + "\'");
     }
 
-    public void updateFilm(Film film) {
+    /**
+     * takes a film object and updates Films table for that film_id
+     * Once row is updated on the table, queries the table for that film_id and returns a new Film object based on that row
+     * @param film
+     * @return
+     */
+    public Film updateFilm(Film film) {
         int filmId = film.getFilm_id();
         String brand = film.getBrand();
         String name = film.getName();
@@ -181,10 +212,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         //try this https://stackoverflow.com/questions/9798473/sqlite-in-android-how-to-update-a-specific-row
-        db.execSQL("update " + TABLE_FILMS + "set " +
+        //DID NOT update
+        db.execSQL("update " + TABLE_FILMS + " set " +
                 "(" + filmBRAND + "," + filmNAME + "," + filmISO + "," + filmEXP + "," + filmBW_COLOR + ") " +
-                "= (" + brand + "," + name + "," + iso + "," + exp + "," + type + ") " +
+                "= ('" + brand + "','" + name + "','" + iso + "','" + exp + "','" + type + "') " +
                 "where " + filmFILM_ID + " = " + filmId);
 
+        Film updatedFilm = selectFilm(filmId);
+        return updatedFilm;
     }
 }

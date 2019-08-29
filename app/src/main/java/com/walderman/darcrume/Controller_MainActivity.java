@@ -11,7 +11,9 @@ import android.widget.TextView;
 public class Controller_MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
     private Button btnManageFilms;
+    private Button btnDevelop;
     private TextView debugtextview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,7 @@ public class Controller_MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(this);
         btnManageFilms = findViewById(R.id.btnManageFilms);
+        btnDevelop = findViewById(R.id.btnDevelop);
         debugtextview = findViewById(R.id.pickledebug);
 
         btnManageFilms.setOnClickListener(new View.OnClickListener(){
@@ -27,6 +30,18 @@ public class Controller_MainActivity extends AppCompatActivity {
                 moveToManageFilms();
             }
         });
+
+        btnDevelop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveToDevelop();
+            }
+        });
+    }
+
+    private void moveToDevelop() {
+        Intent intent = new Intent(Controller_MainActivity.this,Controller_Develop.class);
+        startActivity(intent);
     }
 
     private void moveToManageFilms() {
