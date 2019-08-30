@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,17 +12,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Locale;
 
 public class Controller_Develop extends AppCompatActivity {
-    private static final long START_TIME_IN_MILlISECONDS = 600000;
+    private static long startTimeInMilliseconds = 0;
 
+    private Spinner spinnerMinutes;
+    private Spinner spinnerSeconds;
     private TextView textViewCountDown;
+    private Button btnSetTimer;
     private Button btnStartPause;
     private Button btnReset;
-
     private CountDownTimer countDownTimer;
+    private Boolean timerIsRunning = false;
+    private long timeRemainingInMilliseconds = startTimeInMilliseconds;
 
-    private Boolean timerIsRunning;
 
-    private long timeRemainingInMilliseconds = START_TIME_IN_MILlISECONDS;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -29,6 +32,12 @@ public class Controller_Develop extends AppCompatActivity {
 
         findViewsForVariables();
 
+        btnSetTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTimer();
+            }
+        });
         btnStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +57,13 @@ public class Controller_Develop extends AppCompatActivity {
         });
 
         updateCountDownText();
+    }
+
+    private void setTimer() {
+        int spinMin = 60000 * Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
+        int spinSec = 1000 *Integer.parseInt(spinnerSeconds.getSelectedItem().toString());
+        int timeToSet = spinMin + spinSec;
+        timeRemainingInMilliseconds =timeToSet;
     }
 
     private void startTimer() {
@@ -89,13 +105,17 @@ public class Controller_Develop extends AppCompatActivity {
     }
 
     private void resetTimer() {
-        timeRemainingInMilliseconds = START_TIME_IN_MILlISECONDS;
+        timeRemainingInMilliseconds = startTimeInMilliseconds;
         updateCountDownText();
         btnReset.setVisibility(View.INVISIBLE);
         btnStartPause.setVisibility(View.VISIBLE);
     }
 
     private void findViewsForVariables() {
+        spinnerMinutes = findViewById(R.id.spinner_Minutes);
+        spinnerSeconds = findViewById(R.id.spinner_Seconds);
+        btnSetTimer = findViewById(R.id.btn_setTimer);
+
         textViewCountDown = findViewById(R.id.textView_Countdown);
         btnStartPause = findViewById(R.id.btn_start_pause);
         btnReset = findViewById(R.id.btn_reset);

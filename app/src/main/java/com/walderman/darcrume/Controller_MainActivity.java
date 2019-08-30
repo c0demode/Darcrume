@@ -40,7 +40,7 @@ public class Controller_MainActivity extends AppCompatActivity {
     }
 
     private void moveToDevelop() {
-        Intent intent = new Intent(Controller_MainActivity.this,Controller_Develop.class);
+        Intent intent = new Intent(Controller_MainActivity.this, Controller_Develop.class);
         startActivity(intent);
     }
 
