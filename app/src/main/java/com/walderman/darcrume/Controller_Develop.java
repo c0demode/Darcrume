@@ -59,15 +59,22 @@ public class Controller_Develop extends AppCompatActivity {
         updateCountDownText();
     }
 
-    private void setTimer() {
+    /**
+     * Take user's selection from 2 spinners, assign to variable and set timer
+     * @return
+     */
+    private int setTimer() {
         int spinMin = 60000 * Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
         int spinSec = 1000 *Integer.parseInt(spinnerSeconds.getSelectedItem().toString());
         int timeToSet = spinMin + spinSec;
+        String formattedText = formatMillisecondsToMinutesSecond(timeToSet);
+        textViewCountDown.setText(formattedText);
         timeRemainingInMilliseconds =timeToSet;
+        return timeToSet;
     }
 
     private void startTimer() {
-        countDownTimer = new CountDownTimer(timeRemainingInMilliseconds,1000) {
+        countDownTimer = new CountDownTimer(setTimer(),1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeRemainingInMilliseconds = millisUntilFinished;
@@ -88,13 +95,26 @@ public class Controller_Develop extends AppCompatActivity {
         btnReset.setVisibility(View.INVISIBLE);
     }
 
-    private void updateCountDownText() {
-        int minutes = (int) (timeRemainingInMilliseconds / 1000) / 60;
-        int seconds = (int) (timeRemainingInMilliseconds / 1000) % 60;
-
+    /**
+     * Take an int representing milliseconds and break apart into 2 ints representing minutes and seconds.
+     * Return a string representing MM:SS format.
+     * @param milliseconds
+     * @return
+     */
+    private String formatMillisecondsToMinutesSecond(int milliseconds){
+        int minutes = (milliseconds / 1000) / 60;
+        int seconds = (milliseconds / 1000) % 60;
         String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
+        return timeLeftFormatted;
+    }
 
-        textViewCountDown.setText(timeLeftFormatted);
+    /**
+     * Pass the timeRemainingInMilliseconds to a method and update as MM:SS format string.
+     * Use this new string to update the countdown timer.
+     */
+    private void updateCountDownText() {
+        String updatedCountDownText = formatMillisecondsToMinutesSecond((int) timeRemainingInMilliseconds);
+        textViewCountDown.setText(updatedCountDownText);
     }
 
     private void pauseTimer() {
@@ -105,7 +125,7 @@ public class Controller_Develop extends AppCompatActivity {
     }
 
     private void resetTimer() {
-        timeRemainingInMilliseconds = startTimeInMilliseconds;
+        timeRemainingInMilliseconds = setTimer();
         updateCountDownText();
         btnReset.setVisibility(View.INVISIBLE);
         btnStartPause.setVisibility(View.VISIBLE);
