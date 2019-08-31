@@ -22,6 +22,14 @@
     <string name="radioExp36">36 exposures</string>
 
 
+    <string name="buttonAddFilm">Add New Film</string>
+
+    <string name="title_activity_see_films">activity_see_films</string>
+    <string name="btnAddFilm">Add new film</string>
+    <string name="row1col1">Row1Col1</string>
+
+
+    //ShowFilmsActivity strings
     <string-array name="spinnerISOs">
         <item>25</item>
         <item>50</item>
@@ -33,113 +41,10 @@
         <item>1600</item>
     </string-array>
 
-    <string name="buttonAddFilm">Add New Film</string>
-    <string name="title_activity_see_films">activity_see_films</string>
-    <string name="btnAddFilm">Add new film</string>
-
-
-    //ShowFilmsActivity strings
-    <string name="row1col1">Row1Col1</string>
-    <string name="row1col2">Row1Col2</string>
-    <string name="row1col3">Row1Col3</string>
-
     //Values for Timer Activity
-    <string-array name="spinnerMinutes">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>24</item>
-        <item>25</item>
-        <item>26</item>
-        <item>27</item>
-        <item>28</item>
-        <item>29</item>
-        <item>30</item>
-    </string-array>
-
-    <string-array name="spinnerSeconds">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>24</item>
-        <item>25</item>
-        <item>26</item>
-        <item>27</item>
-        <item>28</item>
-        <item>29</item>
-        <item>30</item>
-        <item>31</item>
-        <item>32</item>
-        <item>33</item>
-        <item>34</item>
-        <item>35</item>
-        <item>36</item>
-        <item>37</item>
-        <item>38</item>
-        <item>39</item>
-        <item>40</item>
-        <item>41</item>
-        <item>42</item>
-        <item>43</item>
-        <item>44</item>
-        <item>45</item>
-        <item>46</item>
-        <item>47</item>
-        <item>48</item>
-        <item>49</item>
-        <item>50</item>
-        <item>51</item>
-        <item>52</item>
-        <item>53</item>
-        <item>54</item>
-        <item>55</item>
-        <item>56</item>
-        <item>57</item>
-        <item>58</item>
-        <item>59</item>
-        <item>60</item>
-    </string-array>
-
-
+    <string name="actDev_chem1">Chem 1</string>
+    <string name="actDev_chem2">Chem 2</string>
+    <string name="actDev_chem3">Chem 3</string>
+    <string name="actDev_chem4">Chem 4</string>
 
 </resources>

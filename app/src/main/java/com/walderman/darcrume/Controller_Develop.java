@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Locale;
 
 public class Controller_Develop extends AppCompatActivity {
-    private static long startTimeInMilliseconds = 0;
+    private static long startTimeInMilliseconds = 30000;
 
     private EditText editText_Minutes;
     private EditText editText_Seconds;
@@ -24,7 +24,7 @@ public class Controller_Develop extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private Boolean timerIsRunning = false;
     private long timeRemainingInMilliseconds = startTimeInMilliseconds;
-    private MediaPlayer sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
+    private MediaPlayer sound;// = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
 
 
     @Override
@@ -135,6 +135,7 @@ public class Controller_Develop extends AppCompatActivity {
     }
 
     private void findViewsForVariables() {
+        sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
         editText_Minutes = findViewById(R.id.editText_Min);
         editText_Seconds = findViewById(R.id.editText_Sec);
         btnSetTimer = findViewById(R.id.btn_setTimer);
