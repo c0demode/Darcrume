@@ -3,6 +3,9 @@ package com.walderman.darcrume;
 public class HoldsMyNotesAndIdeas {
     //store objects as blobs in database
     //  https://stackoverflow.com/questions/1243181/how-to-store-object-in-sqlite-database
+
+    //Use this to create a spinner used in Develop for films.
+    // https://www.youtube.com/watch?v=GeO5F0nnzAw
     /**
      * Black and White Chems
      * +Developer
