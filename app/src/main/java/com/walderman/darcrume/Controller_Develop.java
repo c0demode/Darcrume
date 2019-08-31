@@ -1,10 +1,11 @@
 package com.walderman.darcrume;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +15,8 @@ import java.util.Locale;
 public class Controller_Develop extends AppCompatActivity {
     private static long startTimeInMilliseconds = 0;
 
-    private Spinner spinnerMinutes;
-    private Spinner spinnerSeconds;
+    private EditText editText_Minutes;
+    private EditText editText_Seconds;
     private TextView textViewCountDown;
     private Button btnSetTimer;
     private Button btnStartPause;
@@ -23,12 +24,13 @@ public class Controller_Develop extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private Boolean timerIsRunning = false;
     private long timeRemainingInMilliseconds = startTimeInMilliseconds;
+    private MediaPlayer sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timer);
+        setContentView(R.layout.activity_develop);
 
         findViewsForVariables();
 
@@ -64,9 +66,9 @@ public class Controller_Develop extends AppCompatActivity {
      * @return
      */
     private int setTimer() {
-        int spinMin = 60000 * Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
-        int spinSec = 1000 *Integer.parseInt(spinnerSeconds.getSelectedItem().toString());
-        int timeToSet = spinMin + spinSec;
+        int timeMin = 60000 * Integer.parseInt(editText_Minutes.getText().toString());
+        int timeSec = 1000 *Integer.parseInt(editText_Seconds.getText().toString());
+        int timeToSet = timeMin + timeSec;
         String formattedText = formatMillisecondsToMinutesSecond(timeToSet);
         textViewCountDown.setText(formattedText);
         timeRemainingInMilliseconds =timeToSet;
@@ -122,6 +124,7 @@ public class Controller_Develop extends AppCompatActivity {
         timerIsRunning = false;
         btnStartPause.setText("Start");
         btnReset.setVisibility(View.VISIBLE);
+        sound.start();
     }
 
     private void resetTimer() {
@@ -132,8 +135,8 @@ public class Controller_Develop extends AppCompatActivity {
     }
 
     private void findViewsForVariables() {
-        spinnerMinutes = findViewById(R.id.spinner_Minutes);
-        spinnerSeconds = findViewById(R.id.spinner_Seconds);
+        editText_Minutes = findViewById(R.id.editText_Min);
+        editText_Seconds = findViewById(R.id.editText_Sec);
         btnSetTimer = findViewById(R.id.btn_setTimer);
 
         textViewCountDown = findViewById(R.id.textView_Countdown);

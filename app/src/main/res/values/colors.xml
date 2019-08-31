@@ -6,8 +6,8 @@
     <color name="theme1ColorPrimary">#4F5D75</color><!--Black Coral-->
     <color name="theme1ColorPrimaryDark">#2D3142</color><!--Gunmetal-->
 
-    <color name="theme2ColorAccent">#f50302</color>
-    <color name="theme2ColorLight">#b80000</color>
+    <color name="theme2ColorAccent">#F50302</color>
+    <color name="theme2ColorLight">#B80000</color>
     <color name="theme2ColorPrimary">#970002</color>
     <color name="theme2ColorPrimaryDark">#3F0706</color>
     <color name="theme2ColorBlack">#100102</color>

@@ -8,6 +8,17 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/btn_setTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:text="Set Timer"
+        app:layout_constraintBottom_toTopOf="@+id/textView_Countdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/btn_start_pause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,55 +53,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView_enterSeconds"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/editText_Min"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:text="Seconds:"
-        android:textColor="@color/theme2ColorAccent"
-        app:layout_constraintEnd_toStartOf="@+id/spinner_Seconds"
-        app:layout_constraintTop_toTopOf="@+id/spinner_Seconds" />
+        android:ems="10"
+        android:inputType="number"
+        android:text="00"
+        android:textAlignment="center"
+        android:textColor="@color/theme2ColorLight"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_colon"
+        app:layout_constraintEnd_toStartOf="@+id/textView_colon"
+        app:layout_constraintTop_toTopOf="@+id/textView_colon" />
+
+    <EditText
+        android:id="@+id/editText_Sec"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="00"
+        android:textAlignment="center"
+        android:textColor="@color/theme2ColorLight"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_colon"
+        app:layout_constraintStart_toEndOf="@+id/textView_colon"
+        app:layout_constraintTop_toTopOf="@+id/textView_colon" />
 
     <TextView
-        android:id="@+id/textView_EnterMinutes"
+        android:id="@+id/textView_colon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:text="Minutes:"
-        android:textColor="@color/theme2ColorAccent"
-        app:layout_constraintEnd_toStartOf="@+id/spinner_Minutes"
-        app:layout_constraintTop_toTopOf="@+id/spinner_Minutes" />
-
-    <Spinner
-        android:id="@+id/spinner_Minutes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="216dp"
-        android:background="@drawable/btn_rounded_corners_red"
-        android:entries="@array/spinnerMinutes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinner_Seconds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
-        android:background="@drawable/btn_rounded_corners_red"
-        android:entries="@array/spinnerSeconds"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner_Minutes" />
-
-    <Button
-        android:id="@+id/btn_setTimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Set Timer"
+        android:layout_marginTop="64dp"
+        android:text="\:"
+        android:textColor="@color/theme2ColorLight"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_Minutes" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_DevTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dev Time:"
+        android:textColor="@color/theme2ColorLight"
+        app:layout_constraintEnd_toStartOf="@+id/editText_Min"
+        tools:layout_editor_absoluteY="72dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
