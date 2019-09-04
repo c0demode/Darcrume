@@ -5,7 +5,7 @@ public class HoldsMyNotesAndIdeas {
     //  https://stackoverflow.com/questions/1243181/how-to-store-object-in-sqlite-database
 
     //Use this to create a spinner used in Develop for films.
-    // https://www.youtube.com/watch?v=GeO5F0nnzAw
+    //  https://www.youtube.com/watch?v=GeO5F0nnzAw
     /**
      * Black and White Chems
      * +Developer
