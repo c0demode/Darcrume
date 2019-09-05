@@ -31,10 +31,6 @@ public class Film {
         return film_id;
     }
 
-    public void setFilm_id(int film_id) {
-        this.film_id = film_id;
-    }
-
     public String getBrand() {
         return brand;
     }
@@ -74,4 +70,5 @@ public class Film {
     public void setIso(int iso) {
         this.iso = iso;
     }
+
 }

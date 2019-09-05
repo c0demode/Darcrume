@@ -6,15 +6,18 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Controller_Develop extends AppCompatActivity {
     private static long startTimeInMilliseconds = 30000;
 
+    private DatabaseHelper db;
     private EditText editText_Minutes;
     private EditText editText_Seconds;
     private TextView textViewCountDown;
@@ -25,12 +28,17 @@ public class Controller_Develop extends AppCompatActivity {
     private Boolean timerIsRunning = false;
     private long timeRemainingInMilliseconds = startTimeInMilliseconds;
     private MediaPlayer sound;// = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
+    private ArrayList<Film> filmList = new ArrayList<>();
+    private FilmArrayAdapter filmArrayAdapter;
+    private Spinner filmSpinner;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_develop);
+
+        db = new DatabaseHelper(getApplicationContext());
 
         findViewsForVariables();
 
@@ -43,9 +51,9 @@ public class Controller_Develop extends AppCompatActivity {
         btnStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(timerIsRunning){
+                if (timerIsRunning) {
                     pauseTimer();
-                }else{
+                } else {
                     startTimer();
                 }
             }
@@ -61,22 +69,38 @@ public class Controller_Develop extends AppCompatActivity {
         updateCountDownText();
     }
 
+    private void findViewsForVariables() {
+        filmList = db.getAllFilms();
+        filmArrayAdapter = new FilmArrayAdapter(this, filmList);
+        filmSpinner = findViewById(R.id.spinner_SelectFilm);
+        filmSpinner.setAdapter(filmArrayAdapter);
+        sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
+        editText_Minutes = findViewById(R.id.editText_Min);
+        editText_Seconds = findViewById(R.id.editText_Sec);
+        btnSetTimer = findViewById(R.id.btn_setTimer);
+
+        textViewCountDown = findViewById(R.id.textView_Countdown);
+        btnStartPause = findViewById(R.id.btn_start_pause);
+        btnReset = findViewById(R.id.btn_reset);
+    }
+
     /**
      * Take user's selection from 2 spinners, assign to variable and set timer
+     *
      * @return
      */
     private int setTimer() {
         int timeMin = 60000 * Integer.parseInt(editText_Minutes.getText().toString());
-        int timeSec = 1000 *Integer.parseInt(editText_Seconds.getText().toString());
+        int timeSec = 1000 * Integer.parseInt(editText_Seconds.getText().toString());
         int timeToSet = timeMin + timeSec;
         String formattedText = formatMillisecondsToMinutesSecond(timeToSet);
         textViewCountDown.setText(formattedText);
-        timeRemainingInMilliseconds =timeToSet;
+        timeRemainingInMilliseconds = timeToSet;
         return timeToSet;
     }
 
     private void startTimer() {
-        countDownTimer = new CountDownTimer(setTimer(),1000) {
+        countDownTimer = new CountDownTimer(setTimer(), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeRemainingInMilliseconds = millisUntilFinished;
@@ -100,13 +124,14 @@ public class Controller_Develop extends AppCompatActivity {
     /**
      * Take an int representing milliseconds and break apart into 2 ints representing minutes and seconds.
      * Return a string representing MM:SS format.
+     *
      * @param milliseconds
      * @return
      */
-    private String formatMillisecondsToMinutesSecond(int milliseconds){
+    private String formatMillisecondsToMinutesSecond(int milliseconds) {
         int minutes = (milliseconds / 1000) / 60;
         int seconds = (milliseconds / 1000) % 60;
-        String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         return timeLeftFormatted;
     }
 
@@ -133,15 +158,5 @@ public class Controller_Develop extends AppCompatActivity {
         btnReset.setVisibility(View.INVISIBLE);
         btnStartPause.setVisibility(View.VISIBLE);
     }
-
-    private void findViewsForVariables() {
-        sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
-        editText_Minutes = findViewById(R.id.editText_Min);
-        editText_Seconds = findViewById(R.id.editText_Sec);
-        btnSetTimer = findViewById(R.id.btn_setTimer);
-
-        textViewCountDown = findViewById(R.id.textView_Countdown);
-        btnStartPause = findViewById(R.id.btn_start_pause);
-        btnReset = findViewById(R.id.btn_reset);
-    }
 }
+

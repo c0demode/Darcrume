@@ -25,18 +25,18 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public ImageView imageView;
-        public TextView mTextView_Brand;
-        public TextView mTextView_Name;
-        public TextView mTextView_ISO;
-        public TextView mTextView_Exposures;
+        public TextView textView_Brand;
+        public TextView textView_Name;
+        public TextView textView_ISO;
+        public TextView textView_Exposures;
 
         public MyViewHolder(@NonNull View itemView, final OnItemClickListener listener){
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView1);
-            mTextView_Brand = itemView.findViewById(R.id.textView_Brand);
-            mTextView_Name = itemView.findViewById(R.id.textView_Name);
-            mTextView_ISO = itemView.findViewById(R.id.textView_ISO);
-            mTextView_Exposures = itemView.findViewById(R.id.textView_Exposures);
+            textView_Brand = itemView.findViewById(R.id.textView_Brand);
+            textView_Name = itemView.findViewById(R.id.textView_Name);
+            textView_ISO = itemView.findViewById(R.id.textView_ISO);
+            textView_Exposures = itemView.findViewById(R.id.textView_Exposures);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,10 +69,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         Film currentItem = filmList.get(position);
         int drawableId=-1;
         //holder.imageView.setImageResource(currentItem.getImageResource());
-        holder.mTextView_Brand.setText(currentItem.getBrand());
-        holder.mTextView_Name.setText(currentItem.getName());
-        holder.mTextView_ISO.setText("ISO: " + currentItem.getIso());
-        holder.mTextView_Exposures.setText("Exp: " + currentItem.getExp());
+        holder.textView_Brand.setText(currentItem.getBrand());
+        holder.textView_Name.setText(currentItem.getName());
+        holder.textView_ISO.setText("ISO: " + currentItem.getIso());
+        holder.textView_Exposures.setText("Exp: " + currentItem.getExp());
         if(currentItem.getType().equals("BW")){
             drawableId=R.drawable.bw;
         }else{

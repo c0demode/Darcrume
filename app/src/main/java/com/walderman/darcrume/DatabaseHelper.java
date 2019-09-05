@@ -8,10 +8,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ImageView;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -146,7 +146,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
     public ArrayList<Film> getAllFilms(){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor result = db.rawQuery("select * from " + TABLE_FILMS + " Order by " + filmBRAND, null);
         ArrayList<Film> filmArray = new ArrayList<>();
@@ -184,6 +184,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String bw_color = cursor.getString(cursor.getColumnIndex(filmBW_COLOR));
         int iso = cursor.getInt(cursor.getColumnIndex(filmISO));
         int exp = cursor.getInt(cursor.getColumnIndex(filmEXP));
+
         Film film = new Film(film_id, brand, name, bw_color, exp, iso);
         return film;
     }
