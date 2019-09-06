@@ -29,7 +29,9 @@ public class HoldsMyNotesAndIdeas {
      */
 
     /**
-     * In the long run it may make sense to create tables for different types of chemicals instead of having 1 big table of all chems.
-     * Maybe.
+     * I know I spent time making all those table creation strings based on variables.
+     * but it takes a lot of space and it's hard to read. And for what??
+     *
+     * Re-write these using plain ass text.
      */
 }

@@ -32,7 +32,7 @@ public class FilmArrayAdapter extends ArrayAdapter<Film> {
     private View initView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.rv_filmitem, parent, false
+                    R.layout.spinner_filmitem, parent, false
             );
         }
 

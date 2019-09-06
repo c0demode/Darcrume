@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -31,6 +32,10 @@ public class Controller_Develop extends AppCompatActivity {
     private ArrayList<Film> filmList = new ArrayList<>();
     private FilmArrayAdapter filmArrayAdapter;
     private Spinner filmSpinner;
+    private Spinner chem1Spinner;
+    private Spinner chem2Spinner;
+    private Spinner chem3Spinner;
+    private Film selectedFilm;
 
 
     @Override
@@ -67,18 +72,41 @@ public class Controller_Develop extends AppCompatActivity {
         });
 
         updateCountDownText();
+
+        filmSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedFilm = (Film) adapterView.getItemAtPosition(i);
+                activateChem1Spinner(selectedFilm);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
+
+    /**
+     * This method is called during onCreate. It finds views for all variables that needs views.
+     */
     private void findViewsForVariables() {
+        sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
+
+        //Relating to Film spinner
         filmList = db.getAllFilms();
         filmArrayAdapter = new FilmArrayAdapter(this, filmList);
         filmSpinner = findViewById(R.id.spinner_SelectFilm);
         filmSpinner.setAdapter(filmArrayAdapter);
-        sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
+
+        //Relating to Chem 1 spinner
+
+
+        //Relating to the Timer
         editText_Minutes = findViewById(R.id.editText_Min);
         editText_Seconds = findViewById(R.id.editText_Sec);
         btnSetTimer = findViewById(R.id.btn_setTimer);
-
         textViewCountDown = findViewById(R.id.textView_Countdown);
         btnStartPause = findViewById(R.id.btn_start_pause);
         btnReset = findViewById(R.id.btn_reset);
@@ -157,6 +185,10 @@ public class Controller_Develop extends AppCompatActivity {
         updateCountDownText();
         btnReset.setVisibility(View.INVISIBLE);
         btnStartPause.setVisibility(View.VISIBLE);
+    }
+
+    private void activateChem1Spinner(Film selectedFilm) {
+
     }
 }
 
