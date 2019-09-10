@@ -53,7 +53,7 @@ public class Controller_ManageFilms extends AppCompatActivity {
         findViewsForVariables();
         createFilmList();
         buildRecyclerView();
-
+        //addSampleFilm();
 
 
     }

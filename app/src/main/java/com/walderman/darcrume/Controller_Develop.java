@@ -188,7 +188,13 @@ public class Controller_Develop extends AppCompatActivity {
     }
 
     private void activateChem1Spinner(Film selectedFilm) {
+        if (selectedFilm.getType().equals("BW")){
+            //populate spinner w/ bw dev
+        }else{
+            //populate spinner w/ color dev
+        }
 
+        //create onitemselectedlistener to activate next spinner, repeat process
     }
 }
 

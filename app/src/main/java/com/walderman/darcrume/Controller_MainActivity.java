@@ -22,7 +22,6 @@ public class Controller_MainActivity extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
         btnManageFilms = findViewById(R.id.btnManageFilms);
         btnDevelop = findViewById(R.id.btnDevelop);
-        debugtextview = findViewById(R.id.pickledebug);
 
         btnManageFilms.setOnClickListener(new View.OnClickListener(){
             @Override

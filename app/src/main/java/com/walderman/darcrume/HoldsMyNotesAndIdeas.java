@@ -11,23 +11,20 @@ public class HoldsMyNotesAndIdeas {
     //scroll down to ArrayList or Array of Objects
     // https://codetheory.in/understanding-and-populating-android-spinners/
 
-
-    /*****************
-     * Black and White Chems
-     *****************
-     * +Developer
-     * +Stop Bath
-     * +Fixer
+    /**
+     * Weekend goals
+     *
+     * finish develop activity.
+     *  this means all spinners working together,
+     *  timer working with intervals,
+     *  ability to save session details
+     *  layout behaving sanely on different screen sizes
+     *
+     * Get chems activity working
      */
 
-    /*****************
-     * Color Chems   *
-     *****************
-     * +Developer
-     * +Blix
-     * +Stabilizer
-     */
-
+    //TODO
+    //I need to actually add the login component too. Thought: Can I create different databases for different users?
     /**
      * I know I spent time making all those table creation strings based on variables.
      * but it takes a lot of space and it's hard to read. And for what??
