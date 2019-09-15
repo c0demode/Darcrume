@@ -17,7 +17,7 @@
         android:background="@color/theme1ColorPrimary">
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageViewChem1"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="8dp"
@@ -29,55 +29,55 @@
 
 
         <TextView
-            android:id="@+id/textView_ItemBrand"
+            android:id="@+id/textView_ChemBrand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/imageView1"
-            android:layout_toRightOf="@+id/imageView1"
+            android:layout_toEndOf="@+id/imageViewChem1"
+            android:layout_toRightOf="@+id/imageViewChem1"
             android:text="Line 1"
             android:textColor="@color/theme1ColorLight"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView1"
-            app:layout_constraintStart_toEndOf="@+id/imageView1"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewChem1"
+            app:layout_constraintStart_toEndOf="@+id/imageViewChem1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView_ItemName"
+            android:id="@+id/textView_ChemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView_ItemBrand"
+            android:layout_below="@id/textView_ChemBrand"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/imageView1"
-            android:layout_toRightOf="@+id/imageView1"
+            android:layout_toEndOf="@+id/imageViewChem1"
+            android:layout_toRightOf="@+id/imageViewChem1"
             android:text="Line 2"
             android:textColor="@color/theme1ColorLight"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/textView_ItemBrand"
-            app:layout_constraintTop_toTopOf="@+id/textView_ItemBrand" />
+            app:layout_constraintStart_toEndOf="@+id/textView_ChemBrand"
+            app:layout_constraintTop_toTopOf="@+id/textView_ChemBrand" />
 
         <TextView
-            android:id="@+id/textView_ItemText1"
+            android:id="@+id/textView_ChemText1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:text="TextView"
             android:textColor="@color/theme1ColorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_ItemName"
-            app:layout_constraintStart_toEndOf="@+id/textView_ItemName"
-            app:layout_constraintTop_toTopOf="@+id/textView_ItemName" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView_ChemName"
+            app:layout_constraintStart_toEndOf="@+id/textView_ChemName"
+            app:layout_constraintTop_toTopOf="@+id/textView_ChemName" />
 
         <TextView
-            android:id="@+id/textView_ItemText2"
+            android:id="@+id/textView_ChemText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/theme1ColorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_ItemText1"
-            app:layout_constraintStart_toEndOf="@+id/textView_ItemText1" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView_ChemText1"
+            app:layout_constraintStart_toEndOf="@+id/textView_ChemText1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

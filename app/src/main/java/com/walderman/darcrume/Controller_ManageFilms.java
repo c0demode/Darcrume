@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Guideline;
@@ -39,7 +38,7 @@ public class Controller_ManageFilms extends AppCompatActivity {
     private Guideline guideline_horz1;
 
     private RecyclerView recyclerView;
-    private RVAdapter adapter;
+    private RecyclerViewFilmAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Film> filmList;
 
@@ -81,11 +80,11 @@ public class Controller_ManageFilms extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        adapter = new RVAdapter(filmList);
+        adapter = new RecyclerViewFilmAdapter(filmList);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new RVAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new RecyclerViewFilmAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 //create a method and call it here

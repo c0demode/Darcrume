@@ -6,6 +6,7 @@ package com.walderman.darcrume;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Switch;
@@ -26,20 +27,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         COL_Blix,
         COL_Stab;
     }
-    //Table names
-    private static final String TABLE_FILMS = "FILMS";
-    private static final String TABLE_BW_DEVELOPER = "BW_DEVELOPER";
-    private static final String TABLE_BW_STOP = "BW_STOP";
-    private static final String TABLE_BW_FIX = "BW_FIX";
-    private static final String TABLE_COLOR_DEVELOPER = "COLOR_DEVELOPER";
-    private static final String TABLE_COLOR_BLIX = "COLOR_BLIX";
-    private static final String TABLE_COLOR_STABILIZER = "COLOR_STABILIZER";
-    private static final String TABLE_RECIPE = "RECIPE";
-    private static final String TABLE_NOTES = "NOTES";
-    private static final String TABLE_SESSION_HISTORY = "SESSION_HISTORY";
 
     //TABLE_FILMS columns
-    private static final String filmFILM_ID = "FILM_ID";
     private static final String filmBRAND = "BRAND";
     private static final String filmNAME = "NAME";
     private static final String filmBW_COLOR = "BW_COLOR";
@@ -50,12 +39,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Create tables
      */
     private static final String createTABLE_FILMS           = "CREATE TABLE FILMS(FILM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, ISO INTEGER, EXPOSURES INTEGER)";
-    private static final String createTABLE_BW_DEV          = "CREATE TABLE BW_DEVELOPER(BW_DEV_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
-    private static final String createTABLE_BW_STOP         = "CREATE TABLE BW_STOP(BW_STOP_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
-    private static final String createTABLE_BW_FIX          = "CREATE TABLE BW_FIX(BW_FIX_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
-    private static final String createTABLE_COLOR_DEV       = "CREATE TABLE COLOR_DEVELOPER(COLOR_DEV_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
-    private static final String createTABLE_COLOR_BLIX      = "CREATE TABLE COLOR_BLIX(COLOR_BLIX_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
-    private static final String createTABLE_COLOR_STAB      = "CREATE TABLE COLOR_STAB(COLOR_STABILIZER INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
+    private static final String createTABLE_CHEMS           = "CREATE TABLE CHEMS(CHEM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, CHEM_ROLE TEXT)";
+//    private static final String createTABLE_BW_DEV          = "CREATE TABLE BW_DEVELOPER(BW_DEV_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
+//    private static final String createTABLE_BW_STOP         = "CREATE TABLE BW_STOP(BW_STOP_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
+//    private static final String createTABLE_BW_FIX          = "CREATE TABLE BW_FIX(BW_FIX_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
+//    private static final String createTABLE_COLOR_DEV       = "CREATE TABLE COLOR_DEVELOPER(COLOR_DEV_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
+//    private static final String createTABLE_COLOR_BLIX      = "CREATE TABLE COLOR_BLIX(COLOR_BLIX_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
+//    private static final String createTABLE_COLOR_STAB      = "CREATE TABLE COLOR_STAB(COLOR_STABILIZER INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
 
     //TABLE_NOTES statement
     private static final String createTABLE_NOTES           = "CREATE TABLE TABLE_NOTES(NOTE_ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTE_TEXT TEXT)";
@@ -71,14 +61,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //create the tables
         db.execSQL(createTABLE_FILMS);
+        db.execSQL(createTABLE_CHEMS);
+//        db.execSQL(createTABLE_BW_DEV);
+//        db.execSQL(createTABLE_BW_STOP);
+//        db.execSQL(createTABLE_BW_FIX);
 
-        db.execSQL(createTABLE_BW_DEV);
-        db.execSQL(createTABLE_BW_STOP);
-        db.execSQL(createTABLE_BW_FIX);
-
-        db.execSQL(createTABLE_COLOR_DEV);
-        db.execSQL(createTABLE_COLOR_BLIX);
-        db.execSQL(createTABLE_COLOR_STAB);
+//        db.execSQL(createTABLE_COLOR_DEV);
+//        db.execSQL(createTABLE_COLOR_BLIX);
+//        db.execSQL(createTABLE_COLOR_STAB);
 
         db.execSQL(createTABLE_SESSION_HISTORY);
         db.execSQL(createTABLE_NOTES);
@@ -87,28 +77,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //drop older tables on upgrade
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FILMS);
+        db.execSQL("DROP TABLE IF EXISTS FILMS");
+        db.execSQL("DROP TABLE IF EXISTS CHEMS");
 
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BW_DEVELOPER);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BW_STOP);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BW_FIX);
-
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COLOR_DEVELOPER);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COLOR_BLIX);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COLOR_STABILIZER);
-
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION_HISTORY);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTES);
+        db.execSQL("DROP TABLE IF EXISTS RECIPE");
+        db.execSQL("DROP TABLE IF EXISTS SESSION_HISTORY");
+        db.execSQL("DROP TABLE IF EXISTS NOTES");
 
         //now create new tables
         onCreate(db);
     }
 
-    //========== Methods for TABLE_FILM ==========//
-    //pass details about film, insert them into the database
-    //then create an actual film object, including the film_id generated
-    //by database insertion
+
+    /**
+     *          ######## #### ##       ##     ##  ######
+     *          ##        ##  ##       ###   ### ##    ##
+     *          ##        ##  ##       #### #### ##
+     *          ######    ##  ##       ## ### ##  ######
+     *          ##        ##  ##       ##     ##       ##
+     *          ##        ##  ##       ##     ## ##    ##
+     *          ##       #### ######## ##     ##  ######
+     */
+
     public Boolean insertNewFilm(int imageResource, String brand, String name, String bw_color, int iso, int exp){
 
         //try to insert a new film into database
@@ -125,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put(filmEXP, exp);
 
             //insert new film into database
-            db.insert(TABLE_FILMS, null, cv);
+            db.insert("FILMS", null, cv);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,12 +160,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
     public Film processFilmCursor(Cursor cursor){
-        int film_id = cursor.getInt(cursor.getColumnIndex(filmFILM_ID));
-        String brand = cursor.getString(cursor.getColumnIndex(filmBRAND));
-        String name = cursor.getString(cursor.getColumnIndex(filmNAME));
-        String bw_color = cursor.getString(cursor.getColumnIndex(filmBW_COLOR));
-        int iso = cursor.getInt(cursor.getColumnIndex(filmISO));
-        int exp = cursor.getInt(cursor.getColumnIndex(filmEXP));
+        int film_id = cursor.getInt(cursor.getColumnIndex("FILM_ID"));
+        String brand = cursor.getString(cursor.getColumnIndex("BRAND"));
+        String name = cursor.getString(cursor.getColumnIndex("NAME"));
+        String bw_color = cursor.getString(cursor.getColumnIndex("BW_COLOR"));
+        int iso = cursor.getInt(cursor.getColumnIndex("ISO"));
+        int exp = cursor.getInt(cursor.getColumnIndex("EXPOSURES"));
 
         Film film = new Film(film_id, brand, name, bw_color, exp, iso);
         return film;
@@ -210,24 +200,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return updatedFilm;
     }
 
+
+/**
+ *   ______  __    __   _______ .___  ___.      _______.
+ *  /      ||  |  |  | |   ____||   \/   |     /       |
+ * |  ,----'|  |__|  | |  |__   |  \  /  |    |   (----`
+ * |  |     |   __   | |   __|  |  |\/|  |     \   \
+ * |  `----.|  |  |  | |  |____ |  |  |  | .----)   |
+ *  \______||__|  |__| |_______||__|  |__| |_______/
+ *
+ */
+
     /**
      * Take an argument specifying the type of chemical
      * @return
      */
-    public ArrayList<Chem> getAllChems(ChemType chemType){
+    public ArrayList<Chem> getAllChems(){
         SQLiteDatabase db = this.getReadableDatabase();
-        StringBuilder tableName = new StringBuilder(); //maybe use a string builder?
-        StringBuilder query = new StringBuilder();
-        switch(chemType){
-            case BW_Dev: tableName.append("BW_DEVELOPER"); break;
-            case BW_Stop: tableName.append("BW_STOP"); break;
-            case BW_Fix: tableName.append("BW_FIX"); break;
-            case COL_Dev: tableName.append("COLOR_DEVELOPER"); break;
-            case COL_Blix: tableName.append("COLOR_BLIX"); break;
-            case COL_Stab: tableName.append("COLOR_STABILIZER"); break;
-        }
-        query.append("SELECT * FROM " + tableName + " ORDER BY BRAND");
-        Cursor result = db.rawQuery(query.toString(), null);
+        String query = "SELECT * FROM CHEMS WHERE CHEM_ID > 0 ORDER BY BRAND";
+        Cursor result = db.rawQuery(query, null);
+        //String debugstuff = DatabaseUtils.dumpCursorToString(result);
         ArrayList<Chem> chemArray = new ArrayList<>();
         while(result.moveToNext()){
             Chem chem = processChemCursor(result);
@@ -235,104 +227,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return chemArray;
     }
-
-    /**
-     * Query database for all BW Developers. From results, create Chem objects and add to an array of these Chem objects
-     * @return
-     */
-    public ArrayList<Chem> getAllBW_Devs(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor result = db.rawQuery("SELECT * FROM BW_DEVELOPER ORDER BY BRAND", null);
-        ArrayList<Chem> chemArray = new ArrayList<>();
-        while(result.moveToNext()){
-            Chem chem = processChemCursor(result);
-            chemArray.add(chem);
-        }
-        return chemArray;
-    }
-
-    /**
-     * Query database for all BW Stops. From results, create Chem objects and add to an array of these Chem objects
-     * @return
-     */
-    public ArrayList<Chem> getAllBW_Stops(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor result = db.rawQuery("SELECT * FROM BW_STOP ORDER BY BRAND", null);
-        ArrayList<Chem> chemArray = new ArrayList<>();
-        while(result.moveToNext()){
-            Chem chem = processChemCursor(result);
-            chemArray.add(chem);
-        }
-        return chemArray;
-    }
-
-    /**
-     * Query database for all BW Fixers. From results, create Chem objects and add to an array of these Chem objects
-     * @return
-     */
-    public ArrayList<Chem> getAllBW_Fix(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor result = db.rawQuery("SELECT * FROM BW_FIX ORDER BY BRAND", null);
-        ArrayList<Chem> chemArray = new ArrayList<>();
-        while(result.moveToNext()){
-            Chem chem = processChemCursor(result);
-            chemArray.add(chem);
-        }
-        return chemArray;
-    }
-
-    /**
-     * Query database for all Color Devs. From results, create Chem objects and add to an array of these Chem objects
-     * @return
-     */
-    public ArrayList<Chem> getAllColor_Devs(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor result = db.rawQuery("SELECT * FROM COLOR_DEVELOPER ORDER BY BRAND", null);
-        ArrayList<Chem> chemArray = new ArrayList<>();
-        while(result.moveToNext()){
-            Chem chem = processChemCursor(result);
-            chemArray.add(chem);
-        }
-        return chemArray;
-    }
-
-    /**
-     * Query database for all Color Blix. From results, create Chem objects and add to an array of these Chem objects
-     * @return
-     */
-    public ArrayList<Chem> getAllColor_Blix(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor result = db.rawQuery("SELECT * FROM COLOR_BLIX ORDER BY BRAND", null);
-        ArrayList<Chem> chemArray = new ArrayList<>();
-        while(result.moveToNext()){
-            Chem chem = processChemCursor(result);
-            chemArray.add(chem);
-        }
-        return chemArray;
-    }
-
-    /**
-     * Query database for all Color Stabilizers. From results, create Chem objects and add to an array of these Chem objects
-     * @return
-     */
-    public ArrayList<Chem> getAllColor_Stab(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor result = db.rawQuery("SELECT * FROM COLOR_STABILIZER ORDER BY BRAND", null);
-        ArrayList<Chem> chemArray = new ArrayList<>();
-        while(result.moveToNext()){
-            Chem chem = processChemCursor(result);
-            chemArray.add(chem);
-        }
-        return chemArray;
-    }
-
-    //TODO repeat above method for all bw and color chems
 
     /**
      * Takes a Cursor (result) from db query and creates and returns a Chem object based on that result
@@ -340,11 +234,69 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
     public Chem processChemCursor(Cursor cursor){
-        int chem_id = cursor.getInt(cursor.getInt(0));
-        String chem_brand = cursor.getString(1);
-        String chem_name = cursor.getString(2);
+        int chemId = cursor.getInt(cursor.getColumnIndex("CHEM_ID"));
+        String brand = cursor.getString(cursor.getColumnIndex("BRAND"));
+        String name = cursor.getString(cursor.getColumnIndex("NAME"));
+        String bw_Color = cursor.getString(cursor.getColumnIndex("BW_COLOR"));
+        String chemRole = cursor.getString(cursor.getColumnIndex("CHEM_ROLE"));
 
-        Chem chem = new Chem(chem_id, chem_brand, chem_name);
+        Chem chem = new Chem(chemId, brand, name, bw_Color, chemRole);
+        return chem;
+    }
+
+    /**
+     * Pass in arguments & Insert new chem record into database
+     * @param brand
+     * @param name
+     * @param bw_color
+     * @param chemRole
+     * @return
+     */
+    public Boolean insertNewChem(String brand, String name, String bw_color, String chemRole){
+
+        //try to insert a new film into database
+        try {
+            //get instance of database
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            //prepare ContentValues to insert into database
+            ContentValues cv = new ContentValues();
+            cv.put("BRAND", brand);
+            cv.put("NAME", name);
+            cv.put("BW_COLOR", bw_color);
+            cv.put("CHEM_ROLE", chemRole);
+
+            //insert new film into database
+            db.insert("CHEMS", null, cv);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public Chem updateChem(Chem chem) {
+        int chemId = chem.getChemId();
+        String brand = chem.getBrand();
+        String name = chem.getName();
+        String bw_Color = chem.getBw_Color();
+        String chemRole = chem.getChemRole();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("UPDATE CHEMS SET (BRAND, NAME, BW_COLOR, CHEM_ROLE) = ('" + brand + "','" + name + "','" + bw_Color + "','" + chemRole + "') WHERE CHEM_ID = " + chemId);
+
+        Chem updatedChem = selectChem(chemId);
+        return updatedChem;
+    }
+
+    public Chem selectChem(int chemId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Chem chem = new Chem();
+        Cursor result = db.rawQuery("SELECT * FROM CHEMS WHERE CHEM_ID = " + chemId, null);
+        while(result.moveToNext()){
+            chem = processChemCursor(result);
+        }
         return chem;
     }
 

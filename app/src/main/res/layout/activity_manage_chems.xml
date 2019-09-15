@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context=".Controller_ManageFilms">
+
+    android:layout_width="wrap_content"
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:cardBackgroundColor="@color/theme1ColorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_Chemhorz1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/btnChemSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/btn_rounded_corners_blue"
+                android:text="SAVE"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btnChemAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/btn_rounded_corners_blue"
+                android:text="ADD NEW"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <EditText
+                android:id="@+id/editTextChemsMfr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:singleLine="false"
+                android:textAllCaps="false"
+                android:textColor="@color/theme1ColorAccent"
+                android:textColorHint="#FF6F00"
+                android:textIsSelectable="false"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editTextChemsName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/theme1ColorAccent"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextChemsMfr" />
+
+            <Spinner
+                android:id="@+id/spinnerChems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:entries="@array/chemRoles"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextChemsName" />
+
+            <TextView
+                android:id="@+id/textChemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/textName"
+                android:textColor="@color/theme1ColorAccent"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/textChemMfr"
+                app:layout_constraintTop_toTopOf="@+id/editTextChemsName"
+                tools:text="@string/textName"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textChemMfr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/textBrand"
+                android:textColor="@color/theme1ColorAccent"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editTextChemsMfr"
+                tools:text="@string/textBrand"
+                tools:visibility="visible" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupChemBwCol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextChemsName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editTextChemsMfr"
+                app:layout_constraintTop_toTopOf="@+id/editTextChemsMfr">
+
+                <RadioButton
+                    android:id="@+id/radBtnChemBw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Black &amp; White" />
+
+                <RadioButton
+                    android:id="@+id/radBtnChemCol"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Color" />
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Chemhorz1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.57" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewChem"
+        scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/darker_gray"
+        android:padding="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Chemhorz1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutChem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewChooseBwOrColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Select Chem Type:"
+            android:textColor="@color/theme1ColorPrimary" />
+
+        <CheckBox
+            android:id="@+id/cbBW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:buttonTint="@color/theme1ColorLight"
+            android:shadowColor="@android:color/background_dark"
+            android:text="Black and White"
+            android:textColor="@color/theme1ColorAccent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <CheckBox
+            android:id="@+id/cbColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/theme1ColorLight"
+            android:shadowColor="@android:color/background_dark"
+            android:text="Color"
+            android:textColor="@color/theme1ColorAccent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutChem">
+
+        <TextView
+            android:id="@+id/textViewBwChems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="B&amp;W Chems:"
+            android:textColor="@color/theme1ColorPrimary" />
+
+        <CheckBox
+            android:id="@+id/cbBwDev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/theme1ColorLight"
+            android:text="Developer"
+            android:textColor="@color/theme1ColorAccent" />
+
+        <CheckBox
+            android:id="@+id/cbBwStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/theme1ColorLight"
+            android:text="Stop Bath"
+            android:textColor="@color/theme1ColorAccent" />
+
+        <CheckBox
+            android:id="@+id/cbBwFixer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/theme1ColorLight"
+            android:text="Fixer"
+            android:textColor="@color/theme1ColorAccent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/textViewColorChems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Color Chems:"
+            android:textColor="@color/theme1ColorPrimary" />
+
+        <CheckBox
+            android:id="@+id/cbColorDeveloper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/theme1ColorLight"
+            android:text="Developer"
+            android:textColor="@color/theme1ColorAccent" />
+
+        <CheckBox
+            android:id="@+id/cbColorBlix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/theme1ColorLight"
+            android:text="Blix"
+            android:textColor="@color/theme1ColorAccent" />
+
+        <CheckBox
+            android:id="@+id/cbColorStab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/theme1ColorLight"
+            android:text="Stabilizer"
+            android:textColor="@color/theme1ColorAccent" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

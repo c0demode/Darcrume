@@ -13,9 +13,9 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class FilmArrayAdapter extends ArrayAdapter<Film> {
-    public FilmArrayAdapter(@NonNull Context context, ArrayList<Film> filmList) {
-        super(context, 0, filmList);
+public class ChemArrayAdapter extends ArrayAdapter<Chem> {
+    public ChemArrayAdapter(@NonNull Context context, ArrayList<Chem> chemList) {
+        super(context, 0, chemList);
     }
 
     @NonNull
@@ -32,28 +32,24 @@ public class FilmArrayAdapter extends ArrayAdapter<Film> {
     private View initView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.spinner_filmitem, parent, false
+                    R.layout.spinner_chemitem, parent, false
             );
         }
 
-        ImageView imageView = convertView.findViewById(R.id.imageView1);
-        TextView textView_Brand = convertView.findViewById(R.id.textView_ItemBrand);
-        TextView textView_Name = convertView.findViewById(R.id.textView_ItemName);
-        TextView textView_ISO = convertView.findViewById(R.id.textView_ItemText1);
-        TextView textView_Exposures = convertView.findViewById(R.id.textView_ItemText2);
+        ImageView imageView = convertView.findViewById(R.id.imageViewChem1);
+        TextView textView_Brand = convertView.findViewById(R.id.textView_ChemBrand);
+        TextView textView_Name = convertView.findViewById(R.id.textView_ChemName);
+        TextView textView_ChemText1 = convertView.findViewById(R.id.textView_ChemText1);
+        TextView textView_ChemText2 = convertView.findViewById(R.id.textView_ChemText2);
 
-        Film currentItem = getItem(position);
+        Chem currentItem = getItem(position);
 
-        if(currentItem.getType().equals("BW")){
-            imageView.setImageResource(R.drawable.bw);
-        }else{
-            imageView.setImageResource(R.drawable.color);
-        }
+        imageView.setImageResource(R.drawable.chem_placeholder);
 
         textView_Brand.setText(currentItem.getBrand());
         textView_Name.setText(currentItem.getName());
-        textView_ISO.setText("ISO: " + currentItem.getIso());
-        textView_Exposures.setText("Exp: " + currentItem.getExp());
+        textView_ChemText1.setText("placeholder");
+        textView_ChemText2.setText("placeholder2");
 
         return convertView;
     }

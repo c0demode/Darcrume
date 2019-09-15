@@ -41,6 +41,16 @@
         <item>1600</item>
     </string-array>
 
+    //activity_manage_chems chemRole array
+    <string-array name="chemRoles">
+        <item>BW Developer</item>
+        <item>BW Stop Bath</item>
+        <item>BW Fixer</item>
+        <item>Color Developer</item>
+        <item>Color Blix</item>
+        <item>Color Stabilizer</item>
+    </string-array>
+
     //Values for Timer Activity
     <string name="actDev_chem1">Chem 1</string>
     <string name="actDev_chem2">Chem 2</string>

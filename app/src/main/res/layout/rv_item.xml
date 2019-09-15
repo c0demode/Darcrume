@@ -31,7 +31,7 @@
 
 
         <TextView
-            android:id="@+id/textView_Brand"
+            android:id="@+id/textView_ItemBrand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -47,21 +47,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView_Name"
+            android:id="@+id/textView_ItemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView_Brand"
+            android:layout_below="@id/textView_ItemBrand"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/imageView1"
             android:layout_toRightOf="@+id/imageView1"
             android:text="Line 2"
             android:textColor="@color/theme1ColorLight"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/textView_Brand"
-            app:layout_constraintTop_toTopOf="@+id/textView_Brand" />
+            app:layout_constraintStart_toEndOf="@+id/textView_ItemBrand"
+            app:layout_constraintTop_toTopOf="@+id/textView_ItemBrand" />
 
         <TextView
-            android:id="@+id/textView_ISO"
+            android:id="@+id/textView_ItemText1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -69,18 +69,18 @@
             android:text="TextView"
             android:textColor="@color/theme1ColorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView_Brand"
-            app:layout_constraintTop_toBottomOf="@+id/textView_Brand" />
+            app:layout_constraintStart_toStartOf="@+id/textView_ItemBrand"
+            app:layout_constraintTop_toBottomOf="@+id/textView_ItemBrand" />
 
         <TextView
-            android:id="@+id/textView_Exposures"
+            android:id="@+id/textView_ItemText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/theme1ColorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_ISO"
-            app:layout_constraintStart_toEndOf="@+id/textView_ISO" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView_ItemText1"
+            app:layout_constraintStart_toEndOf="@+id/textView_ItemText1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

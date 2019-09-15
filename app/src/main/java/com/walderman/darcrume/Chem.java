@@ -1,37 +1,57 @@
 package com.walderman.darcrume;
 
 class Chem {
-    private int chemID;
-    private String chemBrand;
-    private String chemName;
+    private int chemId;
+    private String brand;
+    private String name;
+    private String bw_Color;
+    private String chemRole;
 
-    public Chem(int chemID, String chemBrand, String chemName) {
-        this.chemID = chemID;
-        this.chemBrand = chemBrand;
-        this.chemName = chemName;
+    public Chem() {
+
     }
 
-    public int getChemID() {
-        return chemID;
+    public Chem(int chemId, String brand, String name, String bw_Color, String chemRole) {
+        this.chemId = chemId;
+        this.brand = brand;
+        this.name = name;
+        this.bw_Color = bw_Color;
+        this.chemRole = chemRole;
     }
 
-    public void setChemID(int chemID) {
-        this.chemID = chemID;
+    public int getChemId() {
+        return chemId;
     }
 
-    public String getChemBrand() {
-        return chemBrand;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setChemBrand(String chemBrand) {
-        this.chemBrand = chemBrand;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public String getChemName() {
-        return chemName;
+    public String getName() {
+        return name;
     }
 
-    public void setChemName(String chemName) {
-        this.chemName = chemName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBw_Color() {
+        return bw_Color;
+    }
+
+    public void setBw_Color(String bw_Color) {
+        this.bw_Color = bw_Color;
+    }
+
+    public String getChemRole() {
+        return chemRole;
+    }
+
+    public void setChemRole(String chemRole) {
+        this.chemRole = chemRole;
     }
 }

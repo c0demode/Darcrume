@@ -12,17 +12,17 @@ public class HoldsMyNotesAndIdeas {
     // https://codetheory.in/understanding-and-populating-android-spinners/
 
     /**
-     * Weekend goals
-     *
-     * finish develop activity.
-     *  this means all spinners working together,
-     *  timer working with intervals,
-     *  ability to save session details
-     *  layout behaving sanely on different screen sizes
-     *
-     * Get chems activity working
+     *  SATURDAY 9-14
+     *  get ChemArrayAdapter working
+     *  get checkbox toggles working to filter ChemArray
+     *  get save & add buttons working
      */
 
+    /**
+     * SUNDAY 9-15
+     * get manageFilms Add button working
+     * get botton of screen/keyboard display worked out
+     */
     //TODO
     //I need to actually add the login component too. Thought: Can I create different databases for different users?
     /**

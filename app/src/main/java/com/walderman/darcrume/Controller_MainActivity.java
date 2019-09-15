@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class Controller_MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
     private Button btnManageFilms;
+    private Button btnManageChems;
     private Button btnDevelop;
     private TextView debugtextview;
 
@@ -21,6 +22,7 @@ public class Controller_MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(this);
         btnManageFilms = findViewById(R.id.btnManageFilms);
+        btnManageChems = findViewById(R.id.btnChems);
         btnDevelop = findViewById(R.id.btnDevelop);
 
         btnManageFilms.setOnClickListener(new View.OnClickListener(){
@@ -29,13 +31,23 @@ public class Controller_MainActivity extends AppCompatActivity {
                 moveToManageFilms();
             }
         });
-
+        btnManageChems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveToManageChems();
+            }
+        });
         btnDevelop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 moveToDevelop();
             }
         });
+    }
+
+    private void moveToManageChems() {
+        Intent intent = new Intent(Controller_MainActivity.this, Controller_ManageChems.class);
+        startActivity(intent);
     }
 
     private void moveToDevelop() {

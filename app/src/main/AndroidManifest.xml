@@ -19,6 +19,8 @@
 
         <activity android:name=".Controller_ManageFilms"></activity>
 
+        <activity android:name=".Controller_ManageChems"></activity>
+
         <activity android:name=".Controller_Develop"></activity>
 
     </application>
