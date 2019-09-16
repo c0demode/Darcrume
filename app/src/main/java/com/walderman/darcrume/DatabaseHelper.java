@@ -19,6 +19,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Database name & Version
     private static final String DATABASE_NAME = "darcrumeManager";
     private static final int DATABASE_VERSION = 1;
+
+
+
     private enum ChemType {
         BW_Dev,
         BW_Stop,
@@ -99,7 +102,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      *          ##       #### ######## ##     ##  ######
      */
 
-    public Boolean insertNewFilm(int imageResource, String brand, String name, String bw_color, int iso, int exp){
+    public Boolean insertNewFilm(Film newFilm){
 
         //try to insert a new film into database
         try {
@@ -108,11 +111,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             //prepare ContentValues to insert into database
             ContentValues cv = new ContentValues();
-            cv.put(filmBRAND, brand);
-            cv.put(filmNAME, name);
-            cv.put(filmBW_COLOR, bw_color);
-            cv.put(filmISO, iso);
-            cv.put(filmEXP, exp);
+            cv.put(filmBRAND, newFilm.getBrand());
+            cv.put(filmNAME, newFilm.getName());
+            cv.put(filmBW_COLOR, newFilm.getType());
+            cv.put(filmISO, newFilm.getIso());
+            cv.put(filmEXP, newFilm.getExp());
 
             //insert new film into database
             db.insert("FILMS", null, cv);
@@ -123,6 +126,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void insertDemoFilm(String brand, String name, String type, int iso, int exp) {
+        try {
+            //get instance of database
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            //prepare ContentValues to insert into database
+            ContentValues cv = new ContentValues();
+            cv.put(filmBRAND, brand);
+            cv.put(filmNAME, name);
+            cv.put(filmBW_COLOR, type);
+            cv.put(filmISO, iso);
+            cv.put(filmEXP, exp);
+
+            //insert new film into database
+            db.insert("FILMS", null, cv);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
     /**
      * Query database for all films. From results, create film objects and add to an array of these film objects
      * @return

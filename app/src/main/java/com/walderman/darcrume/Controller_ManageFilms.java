@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Guideline;
@@ -33,8 +34,9 @@ public class Controller_ManageFilms extends AppCompatActivity {
     private RadioButton radioBW;
     private RadioButton radioColor;
     private Spinner spinnerISO;
-    private Button button_save;
-    private Button button_add;
+    private Button btnSave;
+    private Button btnClear;
+    private Button btnAdd;
     private Guideline guideline_horz1;
 
     private RecyclerView recyclerView;
@@ -72,8 +74,9 @@ public class Controller_ManageFilms extends AppCompatActivity {
 
         spinnerISO = findViewById(R.id.spinnerISOs);
 
-        button_save = findViewById(R.id.btn_save);
-        button_add = findViewById(R.id.btn_add_new);
+        btnSave = findViewById(R.id.btnFilmsSave);
+        btnClear = findViewById(R.id.btnFilmsClear);
+        btnAdd = findViewById(R.id.btnFilmsAdd);
     }
 
     private void buildRecyclerView() {
@@ -144,30 +147,77 @@ public class Controller_ManageFilms extends AppCompatActivity {
                 break;
         }
 
-        button_save.setOnClickListener(new View.OnClickListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveFilm(position);
+                saveChangesToFilm(position);
+            }
+        });
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearFields();
             }
         });
     }
 
-    private void saveFilm(int position) {
-        Film film = filmList.get(position);
-        film.setName(editText_Name.getText().toString());
-        film.setBrand(editText_Brand.getText().toString());
-        film.setIso(Integer.parseInt(spinnerISO.getSelectedItem().toString()));
-        film.setExp(getRadioExpValue());
-        film.setType(getRadioTypeValue());
-        Film updatedFilm = db.updateFilm(film);
-        filmList.set(position, updatedFilm);
-        refreshRecyclerView(position);
+    /**
+     * Takes the index position of the film selected from filmList
+     * Ensures all fields have valid data before updating db with changes.
+     * @param position
+     */
+    private void saveChangesToFilm(int position) {
+        if(validateAllFields()) {
+            Film film = filmList.get(position);
+            film.setName(editText_Name.getText().toString());
+            film.setBrand(editText_Brand.getText().toString());
+            film.setIso(Integer.parseInt(spinnerISO.getSelectedItem().toString()));
+            film.setExp(getRadioExpValue());
+            film.setType(getRadioTypeValue());
+            Film updatedFilm = db.updateFilm(film);
+            filmList.set(position, updatedFilm);
+            refreshRecyclerViewItem(position);
+        }else{
+            Toast.makeText(this, "Cannot Save. Incomplete Data", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void refreshRecyclerView(int position) {
+    private void saveNewFilm(){
+        if(validateAllFields()) {
+            Film film = new Film();
+            film.setBrand(editText_Brand.getText().toString().trim());
+            film.setName(editText_Name.getText().toString().trim());
+            film.setIso(Integer.parseInt(spinnerISO.getSelectedItem().toString()));
+            film.setExp(getRadioExpValue());
+            film.setType(getRadioTypeValue());
+            db.insertNewFilm(film);
+            refreshEntireRecyclerView();
+        }
+    }
+
+    /**
+     * clear editText fields
+     * set ISO spinner to default value
+     * set all radioButtons to unchecked
+     */
+    private void clearFields(){
+        editText_Brand.setText("");
+        editText_Name.setText("");
+        spinnerISO.setSelection(0);
+        radioBW.setChecked(false);
+        radioColor.setChecked(false);
+        radioExp24.setChecked(false);
+        radioExp36.setChecked(false);
+    }
+
+    private void refreshRecyclerViewItem(int position) {
         adapter.notifyItemChanged(position);
     }
 
+    private void refreshEntireRecyclerView(){
+        adapter.notifyDataSetChanged();
+    }
     private int getRadioExpValue(){
         if (radioExp24.isChecked()){
             return 24;
@@ -192,18 +242,32 @@ public class Controller_ManageFilms extends AppCompatActivity {
 
     }
 
+    /**
+     * Call this method before allowing user to Save film.
+     * Checks fields that could be left empty or un-checked and returns 'false' if invalid data exists.
+     * @return
+     */
+    private Boolean validateAllFields(){
+        Boolean valid = true;
+
+        if(editText_Brand.getText().toString().trim().length() < 1 ) valid = false;
+        if(editText_Name.getText().toString().trim().length() < 1) valid = false;
+        if(radioBW.isChecked() == false && radioColor.isChecked() == false) valid = false;
+        if(radioExp24.isChecked() == false && radioExp36.isChecked() == false) valid = false;
+        return valid;
+    }
     private void addSampleFilm() {
         //this section should be removed. using to populate w/ several films for testing purposes
-        db.insertNewFilm(R.drawable.color, "Kodak", "Ektar", "Color", 100, 36);
-        db.insertNewFilm(R.drawable.color, "Kodak", "Portra", "Color", 400, 36);
-        db.insertNewFilm(R.drawable.color, "Fujifilm", "Fujicolor Superia", "Color", 1600, 24);
-        db.insertNewFilm(R.drawable.color, "Kodak", "Gold", "Color", 200, 36);
-        db.insertNewFilm(R.drawable.color, "Agfa", "Vista", "Color", 400, 36);
-        db.insertNewFilm(R.drawable.bw, "Ilford", "HP5 Plus", "BW", 400, 36);
-        db.insertNewFilm(R.drawable.bw, "Ilford", "Delta", "BW", 3200, 36);
-        db.insertNewFilm(R.drawable.bw, "Kodak", "TMAX", "BW", 800, 36);
-        db.insertNewFilm(R.drawable.bw, "Fuji", "Neopan ACROS", "BW", 100, 36);
-        db.insertNewFilm(R.drawable.bw, "Ilford", "Delta", "BW", 400, 36);
+        db.insertDemoFilm("Kodak", "Ektar", "Color", 100, 36);
+        db.insertDemoFilm("Kodak", "Portra", "Color", 400, 36);
+        db.insertDemoFilm("Fujifilm", "Fujicolor Superia", "Color", 1600, 24);
+        db.insertDemoFilm("Kodak", "Gold", "Color", 200, 36);
+        db.insertDemoFilm("Agfa", "Vista", "Color", 400, 36);
+        db.insertDemoFilm("Ilford", "HP5 Plus", "BW", 400, 36);
+        db.insertDemoFilm("Ilford", "Delta", "BW", 3200, 36);
+        db.insertDemoFilm("Kodak", "TMAX", "BW", 800, 36);
+        db.insertDemoFilm("Fuji", "Neopan ACROS", "BW", 100, 36);
+        db.insertDemoFilm("Ilford", "Delta", "BW", 400, 36);
     }
 
 }

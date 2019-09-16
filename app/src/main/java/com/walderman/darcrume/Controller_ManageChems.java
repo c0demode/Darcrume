@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,12 +22,12 @@ import java.util.ArrayList;
  */
 
 public class Controller_ManageChems extends AppCompatActivity {
-    //on create, call a method from DatabaseHelper that fills an ArrayList<Film> and thus populates the recyclerview in activity_manage_films.xml
     private DatabaseHelper db;
     private RecyclerView recyclerView;
     private RecyclerViewChemAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Chem> chemList;
+    private ArrayList<Chem> filteredChemList = new ArrayList<>();
     private Button btnChemSave;
     private Button btnChemAdd;
     private CheckBox cbBw;
@@ -52,17 +51,19 @@ public class Controller_ManageChems extends AppCompatActivity {
 
         db = new DatabaseHelper(getApplicationContext());
 
-        findViewsForVariables();
+        configureVariables();
+
         //addSampleChem();
         createChemList();
         buildRecyclerView();
     }
 
-    private void findViewsForVariables() {
+    private void configureVariables() {
         editText_ChemBrand = findViewById(R.id.editTextChemsMfr);
-        editText_ChemBrand = findViewById(R.id.editTextChemsName);
+        editText_ChemName = findViewById(R.id.editTextChemsName);
 
         cbBw = findViewById(R.id.cbBW);
+        cbColor = findViewById(R.id.cbColor);
         cbBwDev = findViewById(R.id.cbBwDev);
         cbBwStop = findViewById(R.id.cbBwStop);
         cbBwFix = findViewById(R.id.cbBwFixer);
@@ -77,13 +78,75 @@ public class Controller_ManageChems extends AppCompatActivity {
         radioGroupChemBwCol = findViewById(R.id.radioGroupChemBwCol);
         radBtnChemBw = findViewById(R.id.radBtnChemBw);
         radBtnChemCol = findViewById(R.id.radBtnChemCol);
+
+        //default checkboxes to disabled
+        toggleAvailableCheckboxes();
+
+        //configure click listeners
+        cbBw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleAvailableCheckboxes();
+                filterArrayList(chemList);
+            }
+        });
+
+        cbColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleAvailableCheckboxes();
+                filterArrayList(chemList);
+            }
+        });
+
+        cbBwDev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterArrayList(chemList);
+            }
+        });
+
+        cbBwStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterArrayList(chemList);
+            }
+        });
+
+        cbBwFix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterArrayList(chemList);
+            }
+        });
+
+        cbColDev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterArrayList(chemList);
+            }
+        });
+
+        cbColBlix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterArrayList(chemList);
+            }
+        });
+
+        cbColStab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterArrayList(chemList);
+            }
+        });
     }
 
     private void buildRecyclerView() {
         recyclerView = findViewById(R.id.recyclerViewChem);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        adapter = new RecyclerViewChemAdapter(chemList);
+        adapter = new RecyclerViewChemAdapter(filteredChemList);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
@@ -97,8 +160,53 @@ public class Controller_ManageChems extends AppCompatActivity {
         });
     }
 
+    private void refreshRecyclerView(int position) {
+        adapter.notifyItemChanged(position);
+    }
+
+    private void createChemList() {
+        //db.truncateChemsTable();
+        chemList = db.getAllChems();
+    }
+
+    private void toggleAvailableCheckboxes(){
+        //enable or disable checkboxes for black and white chems
+        if(cbBw.isChecked()){
+            //enable the checkboxes for black and white chems
+            cbBwDev.setEnabled(true);
+            cbBwStop.setEnabled(true);
+            cbBwFix.setEnabled(true);
+        }else{
+            //disable the checkboxes
+            cbBwDev.setEnabled(false);
+            cbBwStop.setEnabled(false);
+            cbBwFix.setEnabled(false);
+            //set them to un-checked
+            cbBwDev.setChecked(false);
+            cbBwStop.setChecked(false);
+            cbBwFix.setChecked(false);
+        }
+
+        //enable or disable checkboxes for color chems
+        if(cbColor.isChecked()){
+            //enable the color chem checkboxes
+            cbColDev.setEnabled(true);
+            cbColBlix.setEnabled(true);
+            cbColStab.setEnabled(true);
+        }else{
+            //disable the checkboxes
+            cbColDev.setEnabled(false);
+            cbColBlix.setEnabled(false);
+            cbColStab.setEnabled(false);
+            //set them to un-checked
+            cbColDev.setChecked(false);
+            cbColBlix.setChecked(false);
+            cbColStab.setChecked(false);
+        }
+    }
+
     /**
-     * Populate editable fields with data from Film object clicked by user
+     * Populate editable fields with data from Chem object clicked by user
      *
      * @param position
      */
@@ -149,24 +257,33 @@ public class Controller_ManageChems extends AppCompatActivity {
         refreshRecyclerView(position);
     }
 
-    private void refreshRecyclerView(int position) {
-        adapter.notifyItemChanged(position);
-    }
-
-    private String getRadioChemBwColValue() {
-        if (radBtnChemBw.isChecked()) {
-            return "BW";
-        } else {
-            return "Color";
+    private ArrayList<Chem> filterArrayList(ArrayList<Chem> chemListToFilter){
+        if(filteredChemList.size() >0){
+            filteredChemList.clear();
         }
-    }
 
-    private void createChemList() {
-        //these first 2 methods should be used sparingly
-        //db.truncateFilmsTable();
-        //addSampleFilm();
-        chemList = db.getAllChems();
+        //check each item in chemListToFilter.
+        //if the item matches one of the checkbox filters,
+        //add item to new list 'filteredList'
+        for(int i = 0; i < chemListToFilter.size(); i++){
+            //check each checkbox, if checked, include "type" in result list
 
+            if(cbBwDev.isChecked() && chemListToFilter.get(i).getChemRole().equals("BWDEV")){
+                filteredChemList.add(chemListToFilter.get(i));
+            }else if(cbBwStop.isChecked() && chemListToFilter.get(i).getChemRole().equals("BWSTP")){
+                filteredChemList.add(chemListToFilter.get(i));
+            }else if(cbBwFix.isChecked() && chemListToFilter.get(i).getChemRole().equals("BWFIX")){
+                filteredChemList.add(chemListToFilter.get(i));
+            }else if(cbColDev.isChecked() && chemListToFilter.get(i).getChemRole().equals("CLRDEV")){
+                filteredChemList.add(chemListToFilter.get(i));
+            }else if(cbColBlix.isChecked() && chemListToFilter.get(i).getChemRole().equals("CLRBLX")){
+                filteredChemList.add(chemListToFilter.get(i));
+            }else if(cbColStab.isChecked() && chemListToFilter.get(i).getChemRole().equals("CLRSTB")){
+                filteredChemList.add(chemListToFilter.get(i));
+            }
+        }
+        buildRecyclerView();
+        return filteredChemList;
     }
 
     private void addSampleChem() {
@@ -184,5 +301,4 @@ public class Controller_ManageChems extends AppCompatActivity {
         db.insertNewChem("Ilford","BW Stop","BW","BWSTP");
         db.insertNewChem("Ilford","BW Fix","BW","BWFIX");
   }
-
 }

@@ -13,22 +13,18 @@ public class HoldsMyNotesAndIdeas {
 
     /**
      *  SATURDAY 9-14
-     *  get ChemArrayAdapter working
-     *  get checkbox toggles working to filter ChemArray
-     *  get save & add buttons working
+     *  +++get ChemArrayAdapter working
+     *  +++get checkbox toggles working to filter ChemArray
      */
 
     /**
-     * SUNDAY 9-15
+     * Monday 9-16
+     * get save & add buttons working
      * get manageFilms Add button working
      * get botton of screen/keyboard display worked out
      */
+
     //TODO
     //I need to actually add the login component too. Thought: Can I create different databases for different users?
-    /**
-     * I know I spent time making all those table creation strings based on variables.
-     * but it takes a lot of space and it's hard to read. And for what??
-     *
-     * Re-write these using plain ass text.
-     */
+
 }
