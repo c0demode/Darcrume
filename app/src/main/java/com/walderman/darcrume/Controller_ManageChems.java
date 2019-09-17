@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ public class Controller_ManageChems extends AppCompatActivity {
     private ArrayList<Chem> chemList;
     private ArrayList<Chem> filteredChemList = new ArrayList<>();
     private Button btnChemSave;
+    private Button btnChemClear;
     private Button btnChemAdd;
     private CheckBox cbBw;
     private CheckBox cbColor;
@@ -73,13 +75,14 @@ public class Controller_ManageChems extends AppCompatActivity {
 
         spinnerChems = findViewById(R.id.spinnerChems);
         btnChemSave = findViewById(R.id.btnChemSave);
+        btnChemClear = findViewById(R.id.btnChemClear);
         btnChemAdd = findViewById(R.id.btnChemAdd);
 
         radioGroupChemBwCol = findViewById(R.id.radioGroupChemBwCol);
         radBtnChemBw = findViewById(R.id.radBtnChemBw);
         radBtnChemCol = findViewById(R.id.radBtnChemCol);
 
-        //default checkboxes to disabled
+        //set checkboxes to disabled state
         toggleAvailableCheckboxes();
 
         //configure click listeners
@@ -140,6 +143,49 @@ public class Controller_ManageChems extends AppCompatActivity {
                 filterArrayList(chemList);
             }
         });
+
+        radBtnChemBw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //can i assign spinner entries to use another array?
+            }
+        });
+
+        btnChemClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearFields();
+            }
+        });
+
+        btnChemAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewChem();
+            }
+        });
+    }
+
+    private void clearFields() {
+        editText_ChemBrand.setText("");
+        editText_ChemName.setText("");
+        radBtnChemBw.setChecked(false);
+        radBtnChemCol.setChecked(false);
+        spinnerChems.setSelection(0);
+    }
+
+    private void addNewChem(){
+        if(validateInput()){
+            Chem newChem = new Chem();
+            newChem.setBrand(editText_ChemBrand.getText().toString().trim());
+            newChem.setName(editText_ChemName.getText().toString().trim());
+            if(cbBw.isChecked())newChem.setBw_Color("BW");
+            if(cbColor.isChecked())newChem.setBw_Color("Color");
+            newChem.setChemRole(spinnerChems.getSelectedItem().toString());
+            db.insertNewChem(newChem);
+            createChemList();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void buildRecyclerView() {
@@ -211,46 +257,87 @@ public class Controller_ManageChems extends AppCompatActivity {
      * @param position
      */
     private void getSelectedChemInfo(final int position) {
-        final Chem selectedChem = chemList.get(position);
+        final Chem selectedChem = filteredChemList.get(position);
 
         editText_ChemBrand.setText(selectedChem.getBrand());
         editText_ChemName.setText(selectedChem.getName());
 
         switch (selectedChem.getChemRole()) {
             case "BWDEV":
-                spinnerChems.setSelection(0);
-                break;
-            case "BWSTB":
                 spinnerChems.setSelection(1);
                 break;
-            case "BWFIX":
+            case "BWSTB":
                 spinnerChems.setSelection(2);
                 break;
-            case "CLRDEV":
+            case "BWFIX":
                 spinnerChems.setSelection(3);
                 break;
-            case "CLRBLX":
+            case "CLRDEV":
                 spinnerChems.setSelection(4);
                 break;
-            case "CLRSTB":
+            case "CLRBLX":
                 spinnerChems.setSelection(5);
                 break;
+            case "CLRSTB":
+                spinnerChems.setSelection(6);
+                break;
+        }
 
+        if(selectedChem.getBw_Color().equals("BW")){
+            radBtnChemBw.setChecked(true);
+        }else{
+            radBtnChemCol.setChecked(true);
         }
 
         btnChemSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveChem(position);
+                if(validateInput()){
+                    saveChem(position);
+                }
             }
         });
     }
 
+    private boolean validateInput() {
+        if(editText_ChemBrand.getText().toString().trim().length()<1){
+            return false;
+        }
+        if(editText_ChemName.getText().toString().trim().length()<1){
+            return false;
+        }
+        if(radBtnChemBw.isChecked() == false && radBtnChemCol.isChecked() == false){
+            return false;
+        }
+        //do not allow color chems to be selected from spinner if bw chem radio button is selected
+        if(radBtnChemBw.isChecked() &&(spinnerChems.getSelectedItem().toString().contains("Color"))){
+            Toast.makeText(this, "Mismatch radio buttons and spinner BW to Col",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //do not allow bw chems to be selected from spinner if color chem radio button is selected
+        if(radBtnChemCol.isChecked() && (spinnerChems.getSelectedItem().toString().contains("BW"))){
+            Toast.makeText(this, "Mismatch radio buttons and spinner Col to BW",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        //do not allow selection of "Select a chem..." item from spinner
+        if(spinnerChems.getSelectedItemPosition() == 0){
+            Toast.makeText(this, "Select a chemistry role.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
     private void saveChem(int position) {
-        Chem chem = chemList.get(position);
+        Chem chem = filteredChemList.get(position);
         chem.setName(editText_ChemName.getText().toString());
         chem.setBrand(editText_ChemBrand.getText().toString());
-        chem.setBw_Color(spinnerChems.getSelectedItem().toString());
+        if(radBtnChemBw.isChecked()){
+            chem.setBw_Color("BW");
+        }
+        if(radBtnChemCol.isChecked()){
+            chem.setBw_Color("Color");
+        }
         chem.setChemRole(spinnerChems.getSelectedItem().toString());
         Chem updatedChem = db.updateChem(chem);
         chemList.set(position, updatedChem);

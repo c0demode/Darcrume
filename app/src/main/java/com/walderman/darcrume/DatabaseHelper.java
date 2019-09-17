@@ -93,13 +93,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     /**
-     *          ######## #### ##       ##     ##  ######
-     *          ##        ##  ##       ###   ### ##    ##
-     *          ##        ##  ##       #### #### ##
-     *          ######    ##  ##       ## ### ##  ######
-     *          ##        ##  ##       ##     ##       ##
-     *          ##        ##  ##       ##     ## ##    ##
-     *          ##       #### ######## ##     ##  ######
+     *           _______  __   __      .___  ___.      _______.
+     *          |   ____||  | |  |     |   \/   |     /       |
+     *          |  |__   |  | |  |     |  \  /  |    |   (----`
+     *          |   __|  |  | |  |     |  |\/|  |     \   \
+     *          |  |     |  | |  `----.|  |  |  | .----)   |
+     *          |__|     |__| |_______||__|  |__| |_______/
+     *
      */
 
     public Boolean insertNewFilm(Film newFilm){
@@ -126,7 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void insertDemoFilm(String brand, String name, String type, int iso, int exp) {
+    public void insertNewFilm(String brand, String name, String type, int iso, int exp) {
         try {
             //get instance of database
             SQLiteDatabase db = this.getWritableDatabase();
@@ -226,12 +226,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 /**
- *   ______  __    __   _______ .___  ___.      _______.
- *  /      ||  |  |  | |   ____||   \/   |     /       |
- * |  ,----'|  |__|  | |  |__   |  \  /  |    |   (----`
- * |  |     |   __   | |   __|  |  |\/|  |     \   \
- * |  `----.|  |  |  | |  |____ |  |  |  | .----)   |
- *  \______||__|  |__| |_______||__|  |__| |_______/
+ *                    ______  __    __   _______ .___  ___.      _______.
+ *                   /      ||  |  |  | |   ____||   \/   |     /       |
+ *                  |  ,----'|  |__|  | |  |__   |  \  /  |    |   (----`
+ *                  |  |     |   __   | |   __|  |  |\/|  |     \   \
+ *                  |  `----.|  |  |  | |  |____ |  |  |  | .----)   |
+ *                   \______||__|  |__| |_______||__|  |__| |_______/
  *
  */
 
@@ -289,6 +289,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put("NAME", name);
             cv.put("BW_COLOR", bw_color);
             cv.put("CHEM_ROLE", chemRole);
+
+            //insert new film into database
+            db.insert("CHEMS", null, cv);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Boolean insertNewChem(Chem newChem){
+
+        //try to insert a new film into database
+        try {
+            //get instance of database
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            //prepare ContentValues to insert into database
+            ContentValues cv = new ContentValues();
+            cv.put("BRAND", newChem.getBrand());
+            cv.put("NAME", newChem.getName());
+            cv.put("BW_COLOR", newChem.getBw_Color());
+            cv.put("CHEM_ROLE", newChem.getChemRole());
 
             //insert new film into database
             db.insert("CHEMS", null, cv);

@@ -258,16 +258,16 @@ public class Controller_ManageFilms extends AppCompatActivity {
     }
     private void addSampleFilm() {
         //this section should be removed. using to populate w/ several films for testing purposes
-        db.insertDemoFilm("Kodak", "Ektar", "Color", 100, 36);
-        db.insertDemoFilm("Kodak", "Portra", "Color", 400, 36);
-        db.insertDemoFilm("Fujifilm", "Fujicolor Superia", "Color", 1600, 24);
-        db.insertDemoFilm("Kodak", "Gold", "Color", 200, 36);
-        db.insertDemoFilm("Agfa", "Vista", "Color", 400, 36);
-        db.insertDemoFilm("Ilford", "HP5 Plus", "BW", 400, 36);
-        db.insertDemoFilm("Ilford", "Delta", "BW", 3200, 36);
-        db.insertDemoFilm("Kodak", "TMAX", "BW", 800, 36);
-        db.insertDemoFilm("Fuji", "Neopan ACROS", "BW", 100, 36);
-        db.insertDemoFilm("Ilford", "Delta", "BW", 400, 36);
+        db.insertNewFilm("Kodak", "Ektar", "Color", 100, 36);
+        db.insertNewFilm("Kodak", "Portra", "Color", 400, 36);
+        db.insertNewFilm("Fujifilm", "Fujicolor Superia", "Color", 1600, 24);
+        db.insertNewFilm("Kodak", "Gold", "Color", 200, 36);
+        db.insertNewFilm("Agfa", "Vista", "Color", 400, 36);
+        db.insertNewFilm("Ilford", "HP5 Plus", "BW", 400, 36);
+        db.insertNewFilm("Ilford", "Delta", "BW", 3200, 36);
+        db.insertNewFilm("Kodak", "TMAX", "BW", 800, 36);
+        db.insertNewFilm("Fuji", "Neopan ACROS", "BW", 100, 36);
+        db.insertNewFilm("Ilford", "Delta", "BW", 400, 36);
     }
 
 }

@@ -35,6 +35,17 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
+                android:id="@+id/btnChemClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/btn_rounded_corners_blue"
+                android:text="clear"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnChemAdd"
+                app:layout_constraintStart_toEndOf="@+id/btnChemSave" />
+
+            <Button
                 android:id="@+id/btnChemAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="64dp"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@color/theme1ColorAccent"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:singleLine="false"
@@ -68,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="64dp"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@color/theme1ColorAccent"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:textColor="@color/theme1ColorAccent"
@@ -79,8 +92,11 @@
                 android:id="@+id/spinnerChems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                android:entries="@array/chemRoles"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/btn_rounded_corners_blue"
+                android:entries="@array/chemRolesAll"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextChemsName" />
@@ -121,17 +137,28 @@
                 app:layout_constraintStart_toEndOf="@+id/editTextChemsMfr"
                 app:layout_constraintTop_toTopOf="@+id/editTextChemsMfr">
 
+                <TextView
+                    android:id="@+id/textViewChemRadGroupLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="For film type:"
+                    android:textColor="@color/theme1ColorPrimary" />
+
                 <RadioButton
                     android:id="@+id/radBtnChemBw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Black &amp; White" />
+                    android:buttonTint="@color/theme1ColorPrimary"
+                    android:text="Black &amp; White"
+                    android:textColor="@color/theme1ColorAccent" />
 
                 <RadioButton
                     android:id="@+id/radBtnChemCol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Color" />
+                    android:buttonTint="@color/theme1ColorPrimary"
+                    android:text="Color"
+                    android:textColor="@color/theme1ColorAccent" />
             </RadioGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

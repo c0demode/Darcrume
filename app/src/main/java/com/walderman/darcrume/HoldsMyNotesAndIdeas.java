@@ -19,7 +19,9 @@ public class HoldsMyNotesAndIdeas {
 
     /**
      * Monday 9-16
-     * get save & add buttons working
+     * +++get save & add buttons working
+     * ChemRole column needs to be fixed. conflict between abbreviation and full text of spinner.
+     *              if spinner = x, chemrole = y
      * get manageFilms Add button working
      * get botton of screen/keyboard display worked out
      */

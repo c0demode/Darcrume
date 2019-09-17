@@ -42,10 +42,25 @@
     </string-array>
 
     //activity_manage_chems chemRole array
-    <string-array name="chemRoles">
+    <string-array name="chemRolesAll">
+        <item>Select a Chemistry Role...</item>
         <item>BW Developer</item>
         <item>BW Stop Bath</item>
         <item>BW Fixer</item>
+        <item>Color Developer</item>
+        <item>Color Blix</item>
+        <item>Color Stabilizer</item>
+    </string-array>
+
+    //activity_manage_chems chemRole array
+    <string-array name="chemRolesBW">
+        <item>BW Developer</item>
+        <item>BW Stop Bath</item>
+        <item>BW Fixer</item>
+    </string-array>
+
+    //activity_manage_chems chemRole array
+    <string-array name="chemRolesColor">
         <item>Color Developer</item>
         <item>Color Blix</item>
         <item>Color Stabilizer</item>
