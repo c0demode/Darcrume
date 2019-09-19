@@ -51,15 +51,15 @@ public class Controller_ManageFilms extends AppCompatActivity {
 
         db = new DatabaseHelper(getApplicationContext());
 
-        findViewsForVariables();
-        createFilmList();
+        configureVariables();
+        buildFilmList();
         buildRecyclerView();
         //addSampleFilm();
 
 
     }
 
-    private void findViewsForVariables() {
+    private void configureVariables() {
         guideline_horz1 = findViewById(R.id.guideline_horz1);
         editText_Brand = findViewById(R.id.editTextFilmsMfr);
         editText_Name = findViewById(R.id.editTextFilmsName);
@@ -77,6 +77,13 @@ public class Controller_ManageFilms extends AppCompatActivity {
         btnSave = findViewById(R.id.btnFilmsSave);
         btnClear = findViewById(R.id.btnFilmsClear);
         btnAdd = findViewById(R.id.btnFilmsAdd);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addFilm();
+            }
+        });
     }
 
     private void buildRecyclerView() {
@@ -183,7 +190,7 @@ public class Controller_ManageFilms extends AppCompatActivity {
         }
     }
 
-    private void saveNewFilm(){
+    private void addFilm(){
         if(validateAllFields()) {
             Film film = new Film();
             film.setBrand(editText_Brand.getText().toString().trim());
@@ -191,8 +198,16 @@ public class Controller_ManageFilms extends AppCompatActivity {
             film.setIso(Integer.parseInt(spinnerISO.getSelectedItem().toString()));
             film.setExp(getRadioExpValue());
             film.setType(getRadioTypeValue());
+
             db.insertNewFilm(film);
-            refreshEntireRecyclerView();
+
+            //Since a new film has been added, our filmList is outdated and must be rebuilt
+            buildFilmList();
+
+            //The recyclerView must be refreshed to display the new filmList
+            buildRecyclerView();
+        }else{
+            Toast.makeText(this, "Incomplete data", Toast.LENGTH_SHORT);
         }
     }
 
@@ -215,9 +230,12 @@ public class Controller_ManageFilms extends AppCompatActivity {
         adapter.notifyItemChanged(position);
     }
 
-    private void refreshEntireRecyclerView(){
+    private void updateRecyclerView(){
+        filmList = db.getAllFilms();
         adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
     }
+
     private int getRadioExpValue(){
         if (radioExp24.isChecked()){
             return 24;
@@ -234,12 +252,8 @@ public class Controller_ManageFilms extends AppCompatActivity {
         }
     }
 
-    private void createFilmList() {
-        //these first 2 methods should be used sparingly
-        //db.truncateFilmsTable();
-        //addSampleFilm();
+    private void buildFilmList() {
         filmList = db.getAllFilms();
-
     }
 
     /**
@@ -256,18 +270,4 @@ public class Controller_ManageFilms extends AppCompatActivity {
         if(radioExp24.isChecked() == false && radioExp36.isChecked() == false) valid = false;
         return valid;
     }
-    private void addSampleFilm() {
-        //this section should be removed. using to populate w/ several films for testing purposes
-        db.insertNewFilm("Kodak", "Ektar", "Color", 100, 36);
-        db.insertNewFilm("Kodak", "Portra", "Color", 400, 36);
-        db.insertNewFilm("Fujifilm", "Fujicolor Superia", "Color", 1600, 24);
-        db.insertNewFilm("Kodak", "Gold", "Color", 200, 36);
-        db.insertNewFilm("Agfa", "Vista", "Color", 400, 36);
-        db.insertNewFilm("Ilford", "HP5 Plus", "BW", 400, 36);
-        db.insertNewFilm("Ilford", "Delta", "BW", 3200, 36);
-        db.insertNewFilm("Kodak", "TMAX", "BW", 800, 36);
-        db.insertNewFilm("Fuji", "Neopan ACROS", "BW", 100, 36);
-        db.insertNewFilm("Ilford", "Delta", "BW", 400, 36);
-    }
-
 }

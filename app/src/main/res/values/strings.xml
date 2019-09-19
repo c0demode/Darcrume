@@ -9,7 +9,7 @@
 
 
     //activity_films strings
-    <string name="textBrand">Mfr:</string>
+    <string name="textBrand">Brand:</string>
     <string name="textName">Name:</string>
     <string name="spinnerText">ISO:</string>
 

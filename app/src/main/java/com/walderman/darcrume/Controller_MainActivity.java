@@ -13,6 +13,7 @@ public class Controller_MainActivity extends AppCompatActivity {
     private Button btnManageFilms;
     private Button btnManageChems;
     private Button btnDevelop;
+    private Button btnNuke;
     private TextView debugtextview;
 
 
@@ -24,6 +25,7 @@ public class Controller_MainActivity extends AppCompatActivity {
         btnManageFilms = findViewById(R.id.btnManageFilms);
         btnManageChems = findViewById(R.id.btnChems);
         btnDevelop = findViewById(R.id.btnDevelop);
+        btnNuke = findViewById(R.id.btnNuke);
 
         btnManageFilms.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -43,6 +45,12 @@ public class Controller_MainActivity extends AppCompatActivity {
                 moveToDevelop();
             }
         });
+        btnNuke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetDbToDefault();
+            }
+        });
     }
 
     private void moveToManageChems() {
@@ -60,5 +68,10 @@ public class Controller_MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void resetDbToDefault(){
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+
+        db.resetTables();
+    }
 
 }

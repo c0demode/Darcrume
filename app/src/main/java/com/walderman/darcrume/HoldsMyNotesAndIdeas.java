@@ -12,21 +12,13 @@ public class HoldsMyNotesAndIdeas {
     // https://codetheory.in/understanding-and-populating-android-spinners/
 
     /**
-     *  SATURDAY 9-14
-     *  +++get ChemArrayAdapter working
-     *  +++get checkbox toggles working to filter ChemArray
-     */
-
-    /**
-     * Monday 9-16
-     * +++get save & add buttons working
-     * ChemRole column needs to be fixed. conflict between abbreviation and full text of spinner.
-     *              if spinner = x, chemrole = y
-     * get manageFilms Add button working
+     * Tuesday 9-17
+     * get Development timer fixed
+     * get Development spinners populating dynamically
      * get botton of screen/keyboard display worked out
      */
 
-    //TODO
-    //I need to actually add the login component too. Thought: Can I create different databases for different users?
+    //TODO - create Login
+    //TODO - create Notes
 
 }

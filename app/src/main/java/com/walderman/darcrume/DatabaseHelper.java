@@ -43,12 +43,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     private static final String createTABLE_FILMS           = "CREATE TABLE FILMS(FILM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, ISO INTEGER, EXPOSURES INTEGER)";
     private static final String createTABLE_CHEMS           = "CREATE TABLE CHEMS(CHEM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, CHEM_ROLE TEXT)";
-//    private static final String createTABLE_BW_DEV          = "CREATE TABLE BW_DEVELOPER(BW_DEV_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
-//    private static final String createTABLE_BW_STOP         = "CREATE TABLE BW_STOP(BW_STOP_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
-//    private static final String createTABLE_BW_FIX          = "CREATE TABLE BW_FIX(BW_FIX_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
-//    private static final String createTABLE_COLOR_DEV       = "CREATE TABLE COLOR_DEVELOPER(COLOR_DEV_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
-//    private static final String createTABLE_COLOR_BLIX      = "CREATE TABLE COLOR_BLIX(COLOR_BLIX_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
-//    private static final String createTABLE_COLOR_STAB      = "CREATE TABLE COLOR_STAB(COLOR_STABILIZER INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT)";
 
     //TABLE_NOTES statement
     private static final String createTABLE_NOTES           = "CREATE TABLE TABLE_NOTES(NOTE_ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTE_TEXT TEXT)";
@@ -65,14 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //create the tables
         db.execSQL(createTABLE_FILMS);
         db.execSQL(createTABLE_CHEMS);
-//        db.execSQL(createTABLE_BW_DEV);
-//        db.execSQL(createTABLE_BW_STOP);
-//        db.execSQL(createTABLE_BW_FIX);
-
-//        db.execSQL(createTABLE_COLOR_DEV);
-//        db.execSQL(createTABLE_COLOR_BLIX);
-//        db.execSQL(createTABLE_COLOR_STAB);
-
         db.execSQL(createTABLE_SESSION_HISTORY);
         db.execSQL(createTABLE_NOTES);
     }
@@ -82,7 +68,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //drop older tables on upgrade
         db.execSQL("DROP TABLE IF EXISTS FILMS");
         db.execSQL("DROP TABLE IF EXISTS CHEMS");
-
         db.execSQL("DROP TABLE IF EXISTS RECIPE");
         db.execSQL("DROP TABLE IF EXISTS SESSION_HISTORY");
         db.execSQL("DROP TABLE IF EXISTS NOTES");
@@ -154,7 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Film> getAllFilms(){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor result = db.rawQuery("select * from FILMS Order by BRAND", null);
+        Cursor result = db.rawQuery("select * from FILMS Order by upper(BRAND)", null);
         ArrayList<Film> filmArray = new ArrayList<>();
         while(result.moveToNext()){
             Film film = processFilmCursor(result);
@@ -241,9 +226,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public ArrayList<Chem> getAllChems(){
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM CHEMS WHERE CHEM_ID > 0 ORDER BY BRAND";
+        String query = "SELECT * FROM CHEMS WHERE CHEM_ID > 0 ORDER BY UPPER(BRAND)";
         Cursor result = db.rawQuery(query, null);
-        //String debugstuff = DatabaseUtils.dumpCursorToString(result);
         ArrayList<Chem> chemArray = new ArrayList<>();
         while(result.moveToNext()){
             Chem chem = processChemCursor(result);
@@ -347,4 +331,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return chem;
     }
 
+    public void truncateChemsTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete from CHEMS");
+        //Delete the sequence for TABLE_FILMS which will reset primary key.
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='CHEMS'");
+    }
+
+    public void resetTables(){
+        truncateChemsTable();
+        //this section should be removed / commented out. using to populate w/ several chems for testing purposes
+        insertNewChem("Arista","Color Dev","Color","CLRDEV");
+        insertNewChem("Arista","Color Blix","Color","CLRBLX");
+        insertNewChem("Arista","Color Stabilizer","Color","CLRSTB");
+        insertNewChem("Kodak","BW Dev","BW","BWDEV");
+        insertNewChem("Kodak","BW Stop","BW","BWSTP");
+        insertNewChem("Kodak","BW Fix","BW","BWFIX");
+        insertNewChem("Kodak","Color Dev","Color","CLRDEV");
+        insertNewChem("Kodak","Color Blix","Color","CLRBLX");
+        insertNewChem("Kodak","Color Stabilizer","Color","CLRSTB");
+        insertNewChem("Ilford","BW Dev","BW","BWDEV");
+        insertNewChem("Ilford","BW Stop","BW","BWSTP");
+        insertNewChem("Ilford","BW Fix","BW","BWFIX");
+
+        truncateFilmsTable();
+        insertNewFilm("Kodak", "Ektar", "Color", 100, 36);
+        insertNewFilm("Kodak", "Portra", "Color", 400, 36);
+        insertNewFilm("Fujifilm", "Fujicolor Superia", "Color", 1600, 24);
+        insertNewFilm("Kodak", "Gold", "Color", 200, 36);
+        insertNewFilm("Agfa", "Vista", "Color", 400, 36);
+        insertNewFilm("Ilford", "HP5 Plus", "BW", 400, 36);
+        insertNewFilm("Ilford", "Delta", "BW", 3200, 36);
+        insertNewFilm("Kodak", "TMAX", "BW", 800, 36);
+        insertNewFilm("Fuji", "Neopan ACROS", "BW", 100, 36);
+        insertNewFilm("Ilford", "Delta", "BW", 400, 36);
+    }
 }

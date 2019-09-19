@@ -166,27 +166,6 @@ public class Controller_ManageChems extends AppCompatActivity {
         });
     }
 
-    private void clearFields() {
-        editText_ChemBrand.setText("");
-        editText_ChemName.setText("");
-        radBtnChemBw.setChecked(false);
-        radBtnChemCol.setChecked(false);
-        spinnerChems.setSelection(0);
-    }
-
-    private void addNewChem(){
-        if(validateInput()){
-            Chem newChem = new Chem();
-            newChem.setBrand(editText_ChemBrand.getText().toString().trim());
-            newChem.setName(editText_ChemName.getText().toString().trim());
-            if(cbBw.isChecked())newChem.setBw_Color("BW");
-            if(cbColor.isChecked())newChem.setBw_Color("Color");
-            newChem.setChemRole(spinnerChems.getSelectedItem().toString());
-            db.insertNewChem(newChem);
-            createChemList();
-            adapter.notifyDataSetChanged();
-        }
-    }
 
     private void buildRecyclerView() {
         recyclerView = findViewById(R.id.recyclerViewChem);
@@ -344,11 +323,51 @@ public class Controller_ManageChems extends AppCompatActivity {
         refreshRecyclerView(position);
     }
 
+    private void clearFields() {
+        editText_ChemBrand.setText("");
+        editText_ChemName.setText("");
+        radBtnChemBw.setChecked(false);
+        radBtnChemCol.setChecked(false);
+        spinnerChems.setSelection(0);
+    }
+
+    private void addNewChem(){
+        if(validateInput()){
+            Chem newChem = new Chem();
+            newChem.setBrand(editText_ChemBrand.getText().toString().trim());
+            newChem.setName(editText_ChemName.getText().toString().trim());
+            if(cbBw.isChecked())newChem.setBw_Color("BW");
+            if(cbColor.isChecked())newChem.setBw_Color("Color");
+            switch(spinnerChems.getSelectedItem().toString()){
+                case"BW Developer":
+                    newChem.setChemRole("BWDEV");
+                    break;
+                case"BW Stop Bath":
+                    newChem.setChemRole("BWSTP");
+                    break;
+                case"BW Fixer":
+                    newChem.setChemRole("BWFIX");
+                    break;
+                case"Color Developer":
+                    newChem.setChemRole("CLRDEV");
+                    break;
+                case"Color Blix":
+                    newChem.setChemRole("CLRBLX");
+                    break;
+                case"Color Stabilizer":
+                    newChem.setChemRole("CLRSTB");
+                    break;
+            }
+            db.insertNewChem(newChem);
+            filterArrayList(db.getAllChems());
+            adapter.notifyDataSetChanged();
+        }
+    }
+
     private ArrayList<Chem> filterArrayList(ArrayList<Chem> chemListToFilter){
         if(filteredChemList.size() >0){
             filteredChemList.clear();
         }
-
         //check each item in chemListToFilter.
         //if the item matches one of the checkbox filters,
         //add item to new list 'filteredList'
@@ -373,19 +392,4 @@ public class Controller_ManageChems extends AppCompatActivity {
         return filteredChemList;
     }
 
-    private void addSampleChem() {
-        //this section should be removed / commented out. using to populate w/ several chems for testing purposes
-        db.insertNewChem("Arista","Color Dev","Color","CLRDEV");
-        db.insertNewChem("Arista","Color Blix","Color","CLRBLX");
-        db.insertNewChem("Arista","Color Stabilizer","Color","CLRSTB");
-        db.insertNewChem("Kodak","BW Dev","BW","BWDEV");
-        db.insertNewChem("Kodak","BW Stop","BW","BWSTP");
-        db.insertNewChem("Kodak","BW Fix","BW","BWFIX");
-        db.insertNewChem("Kodak","Color Dev","Color","CLRDEV");
-        db.insertNewChem("Kodak","Color Blix","Color","CLRBLX");
-        db.insertNewChem("Kodak","Color Stabilizer","Color","CLRSTB");
-        db.insertNewChem("Ilford","BW Dev","BW","BWDEV");
-        db.insertNewChem("Ilford","BW Stop","BW","BWSTP");
-        db.insertNewChem("Ilford","BW Fix","BW","BWFIX");
-  }
 }
