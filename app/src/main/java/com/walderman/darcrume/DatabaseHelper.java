@@ -22,13 +22,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    private enum ChemType {
-        BW_Dev,
-        BW_Stop,
-        BW_Fix,
-        COL_Dev,
-        COL_Blix,
-        COL_Stab;
+    public enum ChemRole {
+        BWDEV,
+        BWSTP,
+        BWFIX,
+        CLRDEV,
+        CLRBLX,
+        CLRSTB;
+    }
+
+    private enum FilmType {
+        BW,
+        COLOR;
     }
 
     //TABLE_FILMS columns
@@ -236,6 +241,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return chemArray;
     }
 
+    public ArrayList<Chem> getAllChemsOfRoleType(ChemRole chemRole){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM CHEMS WHERE CHEM_ID > 0 AND CHEM_ROLE = '" + chemRole.toString() + "'";
+        Cursor result = db.rawQuery(query, null);
+        ArrayList<Chem> chemArray = new ArrayList<>();
+        while(result.moveToNext()){
+            Chem chem = processChemCursor(result);
+            chemArray.add(chem);
+        }
+        return chemArray;
+    }
     /**
      * Takes a Cursor (result) from db query and creates and returns a Chem object based on that result
      * @param cursor

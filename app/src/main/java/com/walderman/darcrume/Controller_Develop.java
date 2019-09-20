@@ -17,7 +17,6 @@ import java.util.Locale;
 
 public class Controller_Develop extends AppCompatActivity {
     private static long startTimeInMilliseconds = 30000;
-
     private DatabaseHelper db;
     private EditText editText_Minutes;
     private EditText editText_Seconds;
@@ -29,13 +28,22 @@ public class Controller_Develop extends AppCompatActivity {
     private Boolean timerIsRunning = false;
     private long timeRemainingInMilliseconds = startTimeInMilliseconds;
     private MediaPlayer sound;// = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
+    private ArrayList<Chem> chem1List = new ArrayList<>();
+    private ArrayList<Chem> chem2List = new ArrayList<>();
+    private ArrayList<Chem> chem3List = new ArrayList<>();
     private ArrayList<Film> filmList = new ArrayList<>();
+    private ChemArrayAdapter chemArrayAdapter1;
+    private ChemArrayAdapter chemArrayAdapter2;
+    private ChemArrayAdapter chemArrayAdapter3;
     private FilmArrayAdapter filmArrayAdapter;
     private Spinner filmSpinner;
     private Spinner chem1Spinner;
     private Spinner chem2Spinner;
     private Spinner chem3Spinner;
     private Film selectedFilm;
+    private Chem selectedChem1;
+    private Chem selectedChem2;
+    private Chem selectedChem3;
 
 
     @Override
@@ -45,14 +53,53 @@ public class Controller_Develop extends AppCompatActivity {
 
         db = new DatabaseHelper(getApplicationContext());
 
-        findViewsForVariables();
+        configureVariables();
+        setOnClickListeners();
+    }
 
+
+    /**
+     * This method is called during onCreate. It finds views for all variables that needs views.
+     */
+    private void configureVariables() {
+        sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
+
+        //Relating to Film spinner
+        filmList = db.getAllFilms();
+        filmArrayAdapter = new FilmArrayAdapter(this, filmList);
+        filmSpinner = findViewById(R.id.spinner_SelectFilm);
+        filmSpinner.setAdapter(filmArrayAdapter);
+
+        //Relating to Chem spinners
+        chem1Spinner = findViewById(R.id.spinner_Chem1);
+        chemArrayAdapter1 = new ChemArrayAdapter(this, chem1List);
+        chem1Spinner.setAdapter(chemArrayAdapter1);
+
+        chem2Spinner = findViewById(R.id.spinner_Chem2);
+        chemArrayAdapter2 = new ChemArrayAdapter(this, chem2List);
+        chem2Spinner.setAdapter(chemArrayAdapter2);
+
+        chem3Spinner = findViewById(R.id.spinner_Chem3);
+        chemArrayAdapter3 = new ChemArrayAdapter(this, chem3List);
+        chem3Spinner.setAdapter(chemArrayAdapter3);
+
+        //Relating to the Timer
+        editText_Minutes = findViewById(R.id.editText_Min);
+        editText_Seconds = findViewById(R.id.editText_Sec);
+        btnSetTimer = findViewById(R.id.btn_setTimer);
+        textViewCountDown = findViewById(R.id.textView_Countdown);
+        btnStartPause = findViewById(R.id.btn_start_pause);
+        btnReset = findViewById(R.id.btn_reset);
+    }
+
+    private void setOnClickListeners(){
         btnSetTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setTimer();
             }
         });
+
         btnStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +124,7 @@ public class Controller_Develop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedFilm = (Film) adapterView.getItemAtPosition(i);
-                activateChem1Spinner(selectedFilm);
+                getChemsForSelectedFilm(selectedFilm);
             }
 
             @Override
@@ -87,30 +134,34 @@ public class Controller_Develop extends AppCompatActivity {
         });
     }
 
-
-    /**
-     * This method is called during onCreate. It finds views for all variables that needs views.
-     */
-    private void findViewsForVariables() {
-        sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
-
-        //Relating to Film spinner
-        filmList = db.getAllFilms();
-        filmArrayAdapter = new FilmArrayAdapter(this, filmList);
-        filmSpinner = findViewById(R.id.spinner_SelectFilm);
-        filmSpinner.setAdapter(filmArrayAdapter);
-
-        //Relating to Chem 1 spinner
-
-
-        //Relating to the Timer
-        editText_Minutes = findViewById(R.id.editText_Min);
-        editText_Seconds = findViewById(R.id.editText_Sec);
-        btnSetTimer = findViewById(R.id.btn_setTimer);
-        textViewCountDown = findViewById(R.id.textView_Countdown);
-        btnStartPause = findViewById(R.id.btn_start_pause);
-        btnReset = findViewById(R.id.btn_reset);
+    private void getChemsForSelectedFilm(Film selectedFilm){
+        if(selectedFilm.getType().toUpperCase().equals("BW")){
+            chem1List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.BWDEV);
+            chemArrayAdapter1.notifyDataSetChanged();
+            chem2List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.BWSTP);
+            chemArrayAdapter2.notifyDataSetChanged();
+            chem3List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.BWFIX);
+            chemArrayAdapter3.notifyDataSetChanged();
+        }
+        if(selectedFilm.getType().toUpperCase().equals("COLOR")){
+            chem1List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.CLRDEV);
+            chemArrayAdapter1.notifyDataSetChanged();
+            chem2List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.CLRBLX);
+            chemArrayAdapter2.notifyDataSetChanged();
+            chem3List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.CLRSTB);
+            chemArrayAdapter3.notifyDataSetChanged();
+        }
     }
+
+    /** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+     * .___________. __  .___  ___.  _______ .______       **
+     * |           ||  | |   \/   | |   ____||   _  \      **
+     * `---|  |----`|  | |  \  /  | |  |__   |  |_)  |     **
+     *     |  |     |  | |  |\/|  | |   __|  |      /      **
+     *     |  |     |  | |  |  |  | |  |____ |  |\  \----. **
+     *     |__|     |__| |__|  |__| |_______|| _| `._____| **
+     ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+     */
 
     /**
      * Take user's selection from 2 spinners, assign to variable and set timer
@@ -150,9 +201,7 @@ public class Controller_Develop extends AppCompatActivity {
     }
 
     /**
-     * Take an int representing milliseconds and break apart into 2 ints representing minutes and seconds.
-     * Return a string representing MM:SS format.
-     *
+     * Take an int representing milliseconds and break apart into 2 ints representing minutes and seconds. Return a string representing MM:SS format.
      * @param milliseconds
      * @return
      */
@@ -164,8 +213,7 @@ public class Controller_Develop extends AppCompatActivity {
     }
 
     /**
-     * Pass the timeRemainingInMilliseconds to a method and update as MM:SS format string.
-     * Use this new string to update the countdown timer.
+     * Pass the timeRemainingInMilliseconds to a method and update as MM:SS format string. Use this new string to update the countdown timer.
      */
     private void updateCountDownText() {
         String updatedCountDownText = formatMillisecondsToMinutesSecond((int) timeRemainingInMilliseconds);
@@ -185,16 +233,6 @@ public class Controller_Develop extends AppCompatActivity {
         updateCountDownText();
         btnReset.setVisibility(View.INVISIBLE);
         btnStartPause.setVisibility(View.VISIBLE);
-    }
-
-    private void activateChem1Spinner(Film selectedFilm) {
-        if (selectedFilm.getType().equals("BW")){
-            //populate spinner w/ bw dev
-        }else{
-            //populate spinner w/ color dev
-        }
-
-        //create onitemselectedlistener to activate next spinner, repeat process
     }
 }
 
