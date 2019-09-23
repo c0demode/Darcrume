@@ -32,6 +32,7 @@ public class Controller_Develop extends AppCompatActivity {
     private ArrayList<Chem> chem2List = new ArrayList<>();
     private ArrayList<Chem> chem3List = new ArrayList<>();
     private ArrayList<Film> filmList = new ArrayList<>();
+    private ArrayList<Chem> chemList = new ArrayList<>();
     private ChemArrayAdapter chemArrayAdapter1;
     private ChemArrayAdapter chemArrayAdapter2;
     private ChemArrayAdapter chemArrayAdapter3;
@@ -71,8 +72,9 @@ public class Controller_Develop extends AppCompatActivity {
         filmSpinner.setAdapter(filmArrayAdapter);
 
         //Relating to Chem spinners
+        chemList = db.getAllChems();
         chem1Spinner = findViewById(R.id.spinner_Chem1);
-        chemArrayAdapter1 = new ChemArrayAdapter(this, chem1List);
+        chemArrayAdapter1 = new ChemArrayAdapter(this, chemList);
         chem1Spinner.setAdapter(chemArrayAdapter1);
 
         chem2Spinner = findViewById(R.id.spinner_Chem2);
@@ -137,17 +139,22 @@ public class Controller_Develop extends AppCompatActivity {
     private void getChemsForSelectedFilm(Film selectedFilm){
         if(selectedFilm.getType().toUpperCase().equals("BW")){
             chem1List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.BWDEV);
+            chem1Spinner.setAdapter(chemArrayAdapter1);
             chemArrayAdapter1.notifyDataSetChanged();
+
             chem2List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.BWSTP);
             chemArrayAdapter2.notifyDataSetChanged();
+
             chem3List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.BWFIX);
             chemArrayAdapter3.notifyDataSetChanged();
         }
         if(selectedFilm.getType().toUpperCase().equals("COLOR")){
             chem1List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.CLRDEV);
             chemArrayAdapter1.notifyDataSetChanged();
+
             chem2List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.CLRBLX);
             chemArrayAdapter2.notifyDataSetChanged();
+
             chem3List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.CLRSTB);
             chemArrayAdapter3.notifyDataSetChanged();
         }
