@@ -32,8 +32,8 @@ public class Controller_ManageChems extends AppCompatActivity {
     private Button btnChemSave;
     private Button btnChemClear;
     private Button btnChemAdd;
-    private CheckBox cbBw;
-    private CheckBox cbColor;
+    private CheckBox cbChemBw;
+    private CheckBox cbChemColor;
     private CheckBox cbBwDev;
     private CheckBox cbBwStop;
     private CheckBox cbBwFix;
@@ -64,8 +64,8 @@ public class Controller_ManageChems extends AppCompatActivity {
         editText_ChemBrand = findViewById(R.id.editTextChemsMfr);
         editText_ChemName = findViewById(R.id.editTextChemsName);
 
-        cbBw = findViewById(R.id.cbBW);
-        cbColor = findViewById(R.id.cbColor);
+        cbChemBw = findViewById(R.id.cbChemBW);
+        cbChemColor = findViewById(R.id.cbChemColor);
         cbBwDev = findViewById(R.id.cbBwDev);
         cbBwStop = findViewById(R.id.cbBwStop);
         cbBwFix = findViewById(R.id.cbBwFixer);
@@ -86,7 +86,7 @@ public class Controller_ManageChems extends AppCompatActivity {
         toggleAvailableCheckboxes();
 
         //configure click listeners
-        cbBw.setOnClickListener(new View.OnClickListener() {
+        cbChemBw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggleAvailableCheckboxes();
@@ -94,7 +94,7 @@ public class Controller_ManageChems extends AppCompatActivity {
             }
         });
 
-        cbColor.setOnClickListener(new View.OnClickListener() {
+        cbChemColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggleAvailableCheckboxes();
@@ -196,7 +196,7 @@ public class Controller_ManageChems extends AppCompatActivity {
 
     private void toggleAvailableCheckboxes(){
         //enable or disable checkboxes for black and white chems
-        if(cbBw.isChecked()){
+        if(cbChemBw.isChecked()){
             //enable the checkboxes for black and white chems
             cbBwDev.setEnabled(true);
             cbBwStop.setEnabled(true);
@@ -213,7 +213,7 @@ public class Controller_ManageChems extends AppCompatActivity {
         }
 
         //enable or disable checkboxes for color chems
-        if(cbColor.isChecked()){
+        if(cbChemColor.isChecked()){
             //enable the color chem checkboxes
             cbColDev.setEnabled(true);
             cbColBlix.setEnabled(true);
@@ -336,8 +336,8 @@ public class Controller_ManageChems extends AppCompatActivity {
             Chem newChem = new Chem();
             newChem.setBrand(editText_ChemBrand.getText().toString().trim());
             newChem.setName(editText_ChemName.getText().toString().trim());
-            if(cbBw.isChecked())newChem.setBw_Color("BW");
-            if(cbColor.isChecked())newChem.setBw_Color("Color");
+            if(cbChemBw.isChecked())newChem.setBw_Color("BW");
+            if(cbChemColor.isChecked())newChem.setBw_Color("Color");
             switch(spinnerChems.getSelectedItem().toString()){
                 case"BW Developer":
                     newChem.setChemRole("BWDEV");

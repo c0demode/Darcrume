@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         CLRSTB;
     }
 
-    private enum FilmType {
+    public enum FilmType {
         BW,
         COLOR;
     }
@@ -137,6 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         }
     }
+
     /**
      * Query database for all films. From results, create film objects and add to an array of these film objects
      * @return
@@ -145,6 +146,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor result = db.rawQuery("select * from FILMS Order by upper(BRAND)", null);
+        ArrayList<Film> filmArray = new ArrayList<>();
+        while(result.moveToNext()){
+            Film film = processFilmCursor(result);
+            filmArray.add(film);
+        }
+        return filmArray;
+    }
+
+    /**
+     * Query database for all films of type BW or Col. From results, create film objects and add to an array of these film objects
+     * @return
+     */
+    public ArrayList<Film> getAllFilmsByType(FilmType filmType){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("select * from FILMS WHERE UPPER(BW_COLOR) = '" + filmType.toString() + "'  Order by upper(BRAND)", null);
         ArrayList<Film> filmArray = new ArrayList<>();
         while(result.moveToNext()){
             Film film = processFilmCursor(result);
@@ -357,25 +373,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void resetTables(){
         truncateChemsTable();
         //this section should be removed / commented out. using to populate w/ several chems for testing purposes
-        insertNewChem("Arista","Color Dev","Color","CLRDEV");
-        insertNewChem("Arista","Color Blix","Color","CLRBLX");
-        insertNewChem("Arista","Color Stabilizer","Color","CLRSTB");
+        insertNewChem("Arista","Color Dev","COLOR","CLRDEV");
+        insertNewChem("Arista","Color Blix","COLOR","CLRBLX");
+        insertNewChem("Arista","Color Stabilizer","COLOR","CLRSTB");
         insertNewChem("Kodak","BW Dev","BW","BWDEV");
         insertNewChem("Kodak","BW Stop","BW","BWSTP");
         insertNewChem("Kodak","BW Fix","BW","BWFIX");
-        insertNewChem("Kodak","Color Dev","Color","CLRDEV");
-        insertNewChem("Kodak","Color Blix","Color","CLRBLX");
-        insertNewChem("Kodak","Color Stabilizer","Color","CLRSTB");
+        insertNewChem("Kodak","Color Dev","COLOR","CLRDEV");
+        insertNewChem("Kodak","Color Blix","COLOR","CLRBLX");
+        insertNewChem("Kodak","Color Stabilizer","COLOR","CLRSTB");
         insertNewChem("Ilford","BW Dev","BW","BWDEV");
         insertNewChem("Ilford","BW Stop","BW","BWSTP");
         insertNewChem("Ilford","BW Fix","BW","BWFIX");
 
         truncateFilmsTable();
-        insertNewFilm("Kodak", "Ektar", "Color", 100, 36);
-        insertNewFilm("Kodak", "Portra", "Color", 400, 36);
-        insertNewFilm("Fujifilm", "Fujicolor Superia", "Color", 1600, 24);
-        insertNewFilm("Kodak", "Gold", "Color", 200, 36);
-        insertNewFilm("Agfa", "Vista", "Color", 400, 36);
+        insertNewFilm("Kodak", "Ektar", "COLOR", 100, 36);
+        insertNewFilm("Kodak", "Portra", "COLOR", 400, 36);
+        insertNewFilm("Fujifilm", "Fujicolor Superia", "COLOR", 1600, 24);
+        insertNewFilm("Kodak", "Gold", "COLOR", 200, 36);
+        insertNewFilm("Agfa", "Vista", "COLOR", 400, 36);
         insertNewFilm("Ilford", "HP5 Plus", "BW", 400, 36);
         insertNewFilm("Ilford", "Delta", "BW", 3200, 36);
         insertNewFilm("Kodak", "TMAX", "BW", 800, 36);

@@ -4,19 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme2ColorPrimaryDark"
+    android:background="@color/theme1ColorPrimaryDark"
     android:orientation="vertical">
-
-    <Button
-        android:id="@+id/btn_setTimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Set Timer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_Min" />
 
     <Button
         android:id="@+id/btn_start_pause"
@@ -41,71 +30,219 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_start_pause"
         tools:visibility="visible" />
 
-    <EditText
-        android:id="@+id/editText_Min"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="00"
-        android:textAlignment="center"
-        android:textColor="@color/theme2ColorLight"
-        app:layout_constraintEnd_toStartOf="@+id/textView_colon"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_Chem3" />
-
-    <EditText
-        android:id="@+id/editText_Sec"
-        android:layout_width="60dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:text="00"
-        android:textAlignment="center"
-        android:textColor="@color/theme2ColorLight"
-        app:layout_constraintBottom_toBottomOf="@+id/editText_Min"
-        app:layout_constraintStart_toEndOf="@+id/textView_colon"
-        app:layout_constraintTop_toTopOf="@+id/editText_Min" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_Chem3">
+
+        <Button
+            android:id="@+id/btn_setIntervalTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Timer"
+            app:layout_constraintBottom_toBottomOf="@+id/editText_IntervalSec"
+            app:layout_constraintStart_toEndOf="@+id/editText_IntervalSec"
+            app:layout_constraintTop_toTopOf="@+id/editText_IntervalSec" />
+
+        <Button
+            android:id="@+id/btn_setMainTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Timer"
+            app:layout_constraintBottom_toBottomOf="@+id/editText_DevSec"
+            app:layout_constraintStart_toEndOf="@+id/editText_DevSec"
+            app:layout_constraintTop_toTopOf="@+id/editText_DevSec" />
+
+        <EditText
+            android:id="@+id/editText_IntervalMin"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="00"
+            android:textAlignment="center"
+            android:textColor="@color/theme1ColorAccent"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_IntervalTime"
+            app:layout_constraintStart_toEndOf="@+id/textView_IntervalTime" />
+
+        <EditText
+            android:id="@+id/editText_IntervalSec"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:text="00"
+            android:textAlignment="center"
+            android:textColor="@color/theme1ColorAccent"
+            app:layout_constraintBottom_toBottomOf="@+id/editText_IntervalMin"
+            app:layout_constraintStart_toEndOf="@+id/textView_colon2"
+            app:layout_constraintTop_toTopOf="@+id/editText_IntervalMin" />
+
+        <EditText
+            android:id="@+id/editText_DevMin"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="00"
+            android:textAlignment="center"
+            android:textColor="@color/theme1ColorAccent"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_DevTime"
+            app:layout_constraintStart_toEndOf="@+id/textView_DevTime" />
+
+        <EditText
+            android:id="@+id/editText_DevSec"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:text="00"
+            android:textAlignment="center"
+            android:textColor="@color/theme1ColorAccent"
+            app:layout_constraintBottom_toBottomOf="@+id/editText_DevMin"
+            app:layout_constraintStart_toEndOf="@+id/textView_colon"
+            app:layout_constraintTop_toTopOf="@+id/editText_DevMin" />
+
+        <TextView
+            android:id="@+id/textView_colon2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\:"
+            android:textColor="@color/theme1ColorAccent"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editText_IntervalMin"
+            app:layout_constraintStart_toEndOf="@+id/editText_IntervalMin"
+            app:layout_constraintTop_toTopOf="@+id/editText_IntervalMin" />
+
+        <TextView
+            android:id="@+id/textView_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\:"
+            android:textColor="@color/theme1ColorAccent"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editText_DevMin"
+            app:layout_constraintStart_toEndOf="@+id/editText_DevMin"
+            app:layout_constraintTop_toTopOf="@+id/editText_DevMin" />
+
+        <TextView
+            android:id="@+id/textView_DevTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Dev Time:"
+            android:textColor="@color/theme1ColorAccent"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_IntervalTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="Dev Time:"
+            android:textColor="@color/theme1ColorAccent"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_DevTime" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutChem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewProcessType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Select Process Type:"
+                android:textColor="@color/theme1ColorPrimary" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radDevBW"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BW"
+                    android:textColor="@color/theme1ColorAccent"
+                    android:textColorHint="@color/theme1ColorAccent" />
+
+                <RadioButton
+                    android:id="@+id/radDevCol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Color"
+                    android:textColor="@color/theme1ColorAccent"
+                    android:textColorHint="@color/theme1ColorAccent" />
+
+                <Space
+                    android:layout_width="61dp"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <Spinner
         android:id="@+id/spinner_SelectFilm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="8dp"
         android:dropDownSelector="@android:drawable/arrow_down_float"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_SelectFilm" />
 
     <Spinner
         android:id="@+id/spinner_Chem1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:visibility="invisible"
-        tools:visibility="visible"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_SelectFilm" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_SelectChem1" />
 
     <Spinner
         android:id="@+id/spinner_Chem2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:visibility="invisible"
-        tools:visibility="visible"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_Chem1" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_SelectChem2" />
 
     <Spinner
         android:id="@+id/spinner_Chem3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:visibility="invisible"
-        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_Chem2" />
@@ -115,7 +252,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00:00"
-        android:textColor="@color/theme2ColorLight"
+        android:textColor="@color/theme1ColorAccent"
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -125,76 +262,50 @@
         app:layout_constraintVertical_bias="0.746" />
 
     <TextView
-        android:id="@+id/textView_colon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="\:"
-        android:textColor="@color/theme2ColorLight"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText_Min"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText_Min" />
-
-    <TextView
-        android:id="@+id/textView_DevTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dev Time:"
-        android:textColor="@color/theme2ColorLight"
-        app:layout_constraintBottom_toBottomOf="@+id/editText_Min"
-        app:layout_constraintEnd_toStartOf="@+id/editText_Min"
-        app:layout_constraintTop_toTopOf="@+id/editText_Min" />
-
-    <TextView
         android:id="@+id/textView_SelectFilm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:text="Select a film:"
-        android:textColor="@color/theme2ColorLight"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_SelectFilm"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="@color/theme1ColorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutChem" />
 
     <TextView
         android:id="@+id/textView_SelectChem1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/actDev_chem1"
-        android:textColor="@color/theme2ColorLight"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_Chem1"
+        android:textColor="@color/theme1ColorAccent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_SelectFilm" />
 
     <TextView
         android:id="@+id/textView_SelectChem2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/actDev_chem2"
-        android:textColor="@color/theme2ColorLight"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_Chem2"
+        android:textColor="@color/theme1ColorAccent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_Chem1" />
 
     <TextView
         android:id="@+id/textView_SelectChem3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/actDev_chem3"
-        android:textColor="@color/theme2ColorLight"
-        android:visibility="invisible"
+        android:textColor="@color/theme1ColorAccent"
         app:layout_constraintBottom_toTopOf="@+id/spinner_Chem3"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_Chem2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

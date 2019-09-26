@@ -11,13 +11,14 @@ public class HoldsMyNotesAndIdeas {
     //scroll down to ArrayList or Array of Objects
     // https://codetheory.in/understanding-and-populating-android-spinners/
 
-    /**
-     * Tuesday 9-17
-     * get Development timer fixed
-     * get Development spinners populating dynamically
-     * get botton of screen/keyboard display worked out
-     */
-
+/**
+ * simplify develop activity. Should have BW / Color check box,
+ * all spinners populate at once
+ * add interval timer
+ * consider changing timer input to dropdown or other
+ * fix start/stop/resume/reset
+ *
+ */
     //TODO - create Login
     //TODO - create Notes
 

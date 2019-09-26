@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,6 +19,9 @@ import java.util.Locale;
 public class Controller_Develop extends AppCompatActivity {
     private static long startTimeInMilliseconds = 30000;
     private DatabaseHelper db;
+    private TextView tvChem1;
+    private TextView tvChem2;
+    private TextView tvChem3;
     private EditText editText_Minutes;
     private EditText editText_Seconds;
     private TextView textViewCountDown;
@@ -32,7 +36,6 @@ public class Controller_Develop extends AppCompatActivity {
     private ArrayList<Chem> chem2List = new ArrayList<>();
     private ArrayList<Chem> chem3List = new ArrayList<>();
     private ArrayList<Film> filmList = new ArrayList<>();
-    private ArrayList<Chem> chemList = new ArrayList<>();
     private ChemArrayAdapter chemArrayAdapter1;
     private ChemArrayAdapter chemArrayAdapter2;
     private ChemArrayAdapter chemArrayAdapter3;
@@ -45,6 +48,9 @@ public class Controller_Develop extends AppCompatActivity {
     private Chem selectedChem1;
     private Chem selectedChem2;
     private Chem selectedChem3;
+    private RadioButton radDevBW;
+    private RadioButton radDevCol;
+
 
 
     @Override
@@ -65,36 +71,42 @@ public class Controller_Develop extends AppCompatActivity {
     private void configureVariables() {
         sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
 
-        //Relating to Film spinner
-        filmList = db.getAllFilms();
-        filmArrayAdapter = new FilmArrayAdapter(this, filmList);
+        tvChem1 = findViewById(R.id.textView_SelectChem1);
+        tvChem2 = findViewById(R.id.textView_SelectChem2);
+        tvChem3 = findViewById(R.id.textView_SelectChem3);
+
+        radDevBW = findViewById(R.id.radDevBW);
+        radDevCol = findViewById(R.id.radDevCol);
+
         filmSpinner = findViewById(R.id.spinner_SelectFilm);
-        filmSpinner.setAdapter(filmArrayAdapter);
-
-        //Relating to Chem spinners
-        chemList = db.getAllChems();
         chem1Spinner = findViewById(R.id.spinner_Chem1);
-        chemArrayAdapter1 = new ChemArrayAdapter(this, chemList);
-        chem1Spinner.setAdapter(chemArrayAdapter1);
-
         chem2Spinner = findViewById(R.id.spinner_Chem2);
-        chemArrayAdapter2 = new ChemArrayAdapter(this, chem2List);
-        chem2Spinner.setAdapter(chemArrayAdapter2);
-
         chem3Spinner = findViewById(R.id.spinner_Chem3);
-        chemArrayAdapter3 = new ChemArrayAdapter(this, chem3List);
-        chem3Spinner.setAdapter(chemArrayAdapter3);
 
         //Relating to the Timer
-        editText_Minutes = findViewById(R.id.editText_Min);
-        editText_Seconds = findViewById(R.id.editText_Sec);
-        btnSetTimer = findViewById(R.id.btn_setTimer);
+        editText_Minutes = findViewById(R.id.editText_DevMin);
+        editText_Seconds = findViewById(R.id.editText_DevSec);
+        btnSetTimer = findViewById(R.id.btn_setMainTimer);
         textViewCountDown = findViewById(R.id.textView_Countdown);
         btnStartPause = findViewById(R.id.btn_start_pause);
         btnReset = findViewById(R.id.btn_reset);
     }
 
     private void setOnClickListeners(){
+        radDevBW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                populateSpinners(DatabaseHelper.FilmType.BW);
+            }
+        });
+
+        radDevCol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                populateSpinners(DatabaseHelper.FilmType.COLOR);
+            }
+        });
+
         btnSetTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,8 +137,7 @@ public class Controller_Develop extends AppCompatActivity {
         filmSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedFilm = (Film) adapterView.getItemAtPosition(i);
-                getChemsForSelectedFilm(selectedFilm);
+                    selectedFilm = (Film) adapterView.getItemAtPosition(i);
             }
 
             @Override
@@ -136,29 +147,48 @@ public class Controller_Develop extends AppCompatActivity {
         });
     }
 
-    private void getChemsForSelectedFilm(Film selectedFilm){
-        if(selectedFilm.getType().toUpperCase().equals("BW")){
-            chem1List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.BWDEV);
-            chem1Spinner.setAdapter(chemArrayAdapter1);
-            chemArrayAdapter1.notifyDataSetChanged();
+    private void populateSpinners(DatabaseHelper.FilmType filmType) {
 
-            chem2List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.BWSTP);
-            chemArrayAdapter2.notifyDataSetChanged();
-
-            chem3List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.BWFIX);
-            chemArrayAdapter3.notifyDataSetChanged();
+        //Initialize variables
+        DatabaseHelper.ChemRole chem1 = null;
+        DatabaseHelper.ChemRole chem2 = null;
+        DatabaseHelper.ChemRole chem3 = null;
+        //Define variables according to filmType selected
+        if (filmType.equals(DatabaseHelper.FilmType.BW)){
+            chem1 = DatabaseHelper.ChemRole.BWDEV;
+            chem2 = DatabaseHelper.ChemRole.BWSTP;
+            chem3 = DatabaseHelper.ChemRole.BWFIX;
+            tvChem1.setText("Developer:");
+            tvChem2.setText("Stop Bath:");
+            tvChem3.setText("Fixer");
+        } else if (filmType.equals(DatabaseHelper.FilmType.COLOR)){
+            chem1 = DatabaseHelper.ChemRole.CLRDEV;
+            chem2 = DatabaseHelper.ChemRole.CLRBLX;
+            chem3 = DatabaseHelper.ChemRole.CLRSTB;
+            tvChem1.setText("Developer:");
+            tvChem2.setText("Blix:");
+            tvChem3.setText("Stabilizer:");
         }
-        if(selectedFilm.getType().toUpperCase().equals("COLOR")){
-            chem1List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.CLRDEV);
-            chemArrayAdapter1.notifyDataSetChanged();
+        //create lists of film and chems depending on filmType selected
+        filmList = db.getAllFilmsByType(filmType);
+        chem1List = db.getAllChemsOfRoleType(chem1);
+        chem2List = db.getAllChemsOfRoleType(chem2);
+        chem3List = db.getAllChemsOfRoleType(chem3);
 
-            chem2List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.CLRBLX);
-            chemArrayAdapter2.notifyDataSetChanged();
+        filmArrayAdapter = new FilmArrayAdapter(this, filmList);
+        filmSpinner.setAdapter(filmArrayAdapter);
 
-            chem3List = db.getAllChemsOfRoleType(DatabaseHelper.ChemRole.CLRSTB);
-            chemArrayAdapter3.notifyDataSetChanged();
-        }
+        chemArrayAdapter1 = new ChemArrayAdapter(this, chem1List);
+        chem1Spinner.setAdapter(chemArrayAdapter1);
+
+        chemArrayAdapter2 = new ChemArrayAdapter(this, chem2List);
+        chem2Spinner.setAdapter(chemArrayAdapter2);
+
+        chemArrayAdapter3 = new ChemArrayAdapter(this, chem3List);
+        chem3Spinner.setAdapter(chemArrayAdapter3);
+
     }
+
 
     /** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
      * .___________. __  .___  ___.  _______ .______       **

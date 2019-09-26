@@ -197,7 +197,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textViewChooseBwOrColor"
+            android:id="@+id/textViewProcessType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
@@ -205,7 +205,7 @@
             android:textColor="@color/theme1ColorPrimary" />
 
         <CheckBox
-            android:id="@+id/cbBW"
+            android:id="@+id/cbChemBW"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -218,7 +218,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <CheckBox
-            android:id="@+id/cbColor"
+            android:id="@+id/cbChemColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
