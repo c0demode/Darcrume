@@ -31,9 +31,11 @@
         tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_Chem3">
 
@@ -66,7 +68,7 @@
             android:textAlignment="center"
             android:textColor="@color/theme1ColorAccent"
             app:layout_constraintBottom_toBottomOf="@+id/textView_IntervalTime"
-            app:layout_constraintStart_toEndOf="@+id/textView_IntervalTime" />
+            app:layout_constraintStart_toEndOf="@+id/textView_DevTime" />
 
         <EditText
             android:id="@+id/editText_IntervalSec"
@@ -147,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="Dev Time:"
+            android:text="Interval \nTime:"
             android:textColor="@color/theme1ColorAccent"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -176,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:text="Select Process Type:"
-                android:textColor="@color/theme1ColorPrimary" />
+                android:textColor="@color/theme1ColorAccent" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -251,15 +253,14 @@
         android:id="@+id/textView_Countdown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="00:00"
         android:textColor="@color/theme1ColorAccent"
         android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.746" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <TextView
         android:id="@+id/textView_SelectFilm"
@@ -269,6 +270,7 @@
         android:layout_marginTop="8dp"
         android:text="Select a film:"
         android:textColor="@color/theme1ColorAccent"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutChem" />
 
@@ -280,6 +282,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/actDev_chem1"
         android:textColor="@color/theme1ColorAccent"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_SelectFilm" />
 
@@ -291,6 +294,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/actDev_chem2"
         android:textColor="@color/theme1ColorAccent"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_Chem1" />
 
@@ -303,6 +307,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/actDev_chem3"
         android:textColor="@color/theme1ColorAccent"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/spinner_Chem3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_Chem2" />

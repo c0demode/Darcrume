@@ -16,22 +16,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Controller_Develop extends AppCompatActivity {
+public class Controller_DevelopActivity extends AppCompatActivity {
     private static long startTimeInMilliseconds = 30000;
     private DatabaseHelper db;
     private TextView tvChem1;
     private TextView tvChem2;
     private TextView tvChem3;
-    private EditText editText_Minutes;
-    private EditText editText_Seconds;
+    private EditText editText_DevMinutes;
+    private EditText editText_DevSeconds;
+    private EditText editText_IntMinutes;
+    private EditText editText_IntSeconds;
     private TextView textViewCountDown;
     private Button btnSetTimer;
+    private Button btnSetInterval;
     private Button btnStartPause;
     private Button btnReset;
     private CountDownTimer countDownTimer;
     private Boolean timerIsRunning = false;
     private long timeRemainingInMilliseconds = startTimeInMilliseconds;
-    private MediaPlayer sound;// = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
+    private MediaPlayer sound;// = MediaPlayer.create(Controller_DevelopActivity.this, R.raw.accomplished);
     private ArrayList<Chem> chem1List = new ArrayList<>();
     private ArrayList<Chem> chem2List = new ArrayList<>();
     private ArrayList<Chem> chem3List = new ArrayList<>();
@@ -69,7 +72,7 @@ public class Controller_Develop extends AppCompatActivity {
      * This method is called during onCreate. It finds views for all variables that needs views.
      */
     private void configureVariables() {
-        sound = MediaPlayer.create(Controller_Develop.this, R.raw.accomplished);
+        sound = MediaPlayer.create(Controller_DevelopActivity.this, R.raw.accomplished);
 
         tvChem1 = findViewById(R.id.textView_SelectChem1);
         tvChem2 = findViewById(R.id.textView_SelectChem2);
@@ -84,9 +87,13 @@ public class Controller_Develop extends AppCompatActivity {
         chem3Spinner = findViewById(R.id.spinner_Chem3);
 
         //Relating to the Timer
-        editText_Minutes = findViewById(R.id.editText_DevMin);
-        editText_Seconds = findViewById(R.id.editText_DevSec);
+        editText_DevMinutes = findViewById(R.id.editText_DevMin);
+        editText_DevSeconds = findViewById(R.id.editText_DevSec);
+        editText_IntMinutes = findViewById(R.id.editText_IntervalMin);
+        editText_IntSeconds = findViewById(R.id.editText_IntervalSec);
+
         btnSetTimer = findViewById(R.id.btn_setMainTimer);
+        btnSetInterval = findViewById(R.id.btn_setIntervalTimer);
         textViewCountDown = findViewById(R.id.textView_Countdown);
         btnStartPause = findViewById(R.id.btn_start_pause);
         btnReset = findViewById(R.id.btn_reset);
@@ -113,6 +120,7 @@ public class Controller_Develop extends AppCompatActivity {
                 setTimer();
             }
         });
+
 
         btnStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,8 +214,8 @@ public class Controller_Develop extends AppCompatActivity {
      * @return
      */
     private int setTimer() {
-        int timeMin = 60000 * Integer.parseInt(editText_Minutes.getText().toString());
-        int timeSec = 1000 * Integer.parseInt(editText_Seconds.getText().toString());
+        int timeMin = 60000 * Integer.parseInt(editText_DevMinutes.getText().toString());
+        int timeSec = 1000 * Integer.parseInt(editText_DevSeconds.getText().toString());
         int timeToSet = timeMin + timeSec;
         String formattedText = formatMillisecondsToMinutesSecond(timeToSet);
         textViewCountDown.setText(formattedText);

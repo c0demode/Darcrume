@@ -50,15 +50,6 @@
             android:background="@drawable/btn_rounded_corners_blue"/>
 
         <Button
-            android:id="@+id/btnLog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/btnLog"
-            android:textColor="@color/theme1ColorAccent"
-            android:background="@drawable/btn_rounded_corners_blue"/>
-
-        <Button
             android:id="@+id/btnDevelop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,6 +57,10 @@
             android:text="@string/btnDevelop"
             android:textColor="@color/theme1ColorAccent"
             android:background="@drawable/btn_rounded_corners_blue"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="75dp" />
 
         <Button
             android:id="@+id/btnNuke"

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controller_MainActivity">
+
+        <activity android:name=".Controller_LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,11 +18,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Controller_ManageFilms"></activity>
+        <activity android:name=".Controller_MainActivity"></activity>
 
-        <activity android:name=".Controller_ManageChems"></activity>
+        <activity android:name=".Controller_ManageFilmsActivity"></activity>
 
-        <activity android:name=".Controller_Develop"></activity>
+        <activity android:name=".Controller_ManageChemsActivity"></activity>
+
+        <activity android:name=".Controller_Notes"></activity>
+
+        <activity android:name=".Controller_DevelopActivity"></activity>
 
     </application>
 

@@ -36,23 +36,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         COLOR;
     }
 
-    //TABLE_FILMS columns
-    private static final String filmBRAND = "BRAND";
-    private static final String filmNAME = "NAME";
-    private static final String filmBW_COLOR = "BW_COLOR";
-    private static final String filmISO = "ISO";
-    private static final String filmEXP = "EXPOSURES";
-
     /**
      * Create tables
      */
+    private static final String createTABLE_USERS           = "CREATE TABLE USERS(USERNAME TEXT PRIMARY KEY, PASSWORD TEXT)";
     private static final String createTABLE_FILMS           = "CREATE TABLE FILMS(FILM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, ISO INTEGER, EXPOSURES INTEGER)";
     private static final String createTABLE_CHEMS           = "CREATE TABLE CHEMS(CHEM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, CHEM_ROLE TEXT)";
-
-    //TABLE_NOTES statement
-    private static final String createTABLE_NOTES           = "CREATE TABLE TABLE_NOTES(NOTE_ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTE_TEXT TEXT)";
-
-    //TABLE_SESSION_HISTORY statement
+    private static final String createTABLE_NOTES           = "CREATE TABLE NOTES(NOTE_ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTE_TEXT TEXT)";
     private static final String createTABLE_SESSION_HISTORY = "CREATE TABLE SESSION_HISTORY(SESSION_ID INTEGER PRIMARY KEY AUTOINCREMENT, RECIPE_ID INTEGER, BW_COLOR TEXT, DATE DATE)";
 
     public DatabaseHelper(Context context) {
@@ -62,6 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //create the tables
+        db.execSQL(createTABLE_USERS);
         db.execSQL(createTABLE_FILMS);
         db.execSQL(createTABLE_CHEMS);
         db.execSQL(createTABLE_SESSION_HISTORY);
@@ -71,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //drop older tables on upgrade
+        db.execSQL("DROP TABLE IF EXISTS USERS");
         db.execSQL("DROP TABLE IF EXISTS FILMS");
         db.execSQL("DROP TABLE IF EXISTS CHEMS");
         db.execSQL("DROP TABLE IF EXISTS RECIPE");
@@ -101,11 +93,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             //prepare ContentValues to insert into database
             ContentValues cv = new ContentValues();
-            cv.put(filmBRAND, newFilm.getBrand());
-            cv.put(filmNAME, newFilm.getName());
-            cv.put(filmBW_COLOR, newFilm.getType());
-            cv.put(filmISO, newFilm.getIso());
-            cv.put(filmEXP, newFilm.getExp());
+            cv.put("BRAND", newFilm.getBrand());
+            cv.put("NAME", newFilm.getName());
+            cv.put("BW_COLOR", newFilm.getType());
+            cv.put("ISO", newFilm.getIso());
+            cv.put("EXPOSURES", newFilm.getExp());
 
             //insert new film into database
             db.insert("FILMS", null, cv);
@@ -123,11 +115,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             //prepare ContentValues to insert into database
             ContentValues cv = new ContentValues();
-            cv.put(filmBRAND, brand);
-            cv.put(filmNAME, name);
-            cv.put(filmBW_COLOR, type);
-            cv.put(filmISO, iso);
-            cv.put(filmEXP, exp);
+            cv.put("BRAND", brand);
+            cv.put("NAME", name);
+            cv.put("BW_COLOR", type);
+            cv.put("ISO", iso);
+            cv.put("EXPOSURES", exp);
 
             //insert new film into database
             db.insert("FILMS", null, cv);
@@ -338,7 +330,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
     public Chem updateChem(Chem chem) {
         int chemId = chem.getChemId();
         String brand = chem.getBrand();
@@ -370,6 +361,120 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='CHEMS'");
     }
 
+
+    /**
+     *  __    __       _______. _______ .______          _______.
+     * |  |  |  |     /       ||   ____||   _  \        /       |
+     * |  |  |  |    |   (----`|  |__   |  |_)  |      |   (----`
+     * |  |  |  |     \   \    |   __|  |      /        \   \
+     * |  `--'  | .----)   |   |  |____ |  |\  \----.----)   |
+     *  \______/  |_______/    |_______|| _| `._____|_______/
+     *
+     */
+
+    public boolean validateLogin(String username, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (username.length() > 0 && password.length() > 0){
+        Cursor result = db.rawQuery("SELECT * FROM USERS WHERE USERNAME = '" + username.toUpperCase() + "'", null);
+        while(result.moveToNext()){
+            if(password.equals(result.getString(result.getColumnIndex("PASSWORD")))){
+                return true;
+            }
+        }
+        }
+        return false;
+    }
+
+    public void truncateUsersTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete from USERS");
+        //Delete the sequence for TABLE_FILMS which will reset primary key.
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='USERS'");
+    }
+
+    public void insertNewUser(String username, String password) {
+        try {
+            //get instance of database
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            //prepare ContentValues to insert into database
+            ContentValues cv = new ContentValues();
+            cv.put("USERNAME", username);
+            cv.put("PASSWORD", password);
+
+            //insert new film into database
+            db.insert("USERS", null, cv);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+    /**
+     * .__   __.   ______   .___________. _______     _______.
+     * |  \ |  |  /  __  \  |           ||   ____|   /       |
+     * |   \|  | |  |  |  | `---|  |----`|  |__     |   (----`
+     * |  . `  | |  |  |  |     |  |     |   __|     \   \
+     * |  |\   | |  `--'  |     |  |     |  |____.----)   |
+     * |__| \__|  \______/      |__|     |_______|_______/
+     *
+     */
+
+    public boolean insertNewNote(String note){
+        try {
+            //get instance of database
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            //prepare ContentValues to insert into database
+            ContentValues cv = new ContentValues();
+            cv.put("NOTE_TEXT", note);
+
+            //insert new film into database
+            db.insert("NOTES", null, cv);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return false;
+    }
+
+    public void truncateNotesTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete from NOTES");
+        //Delete the sequence for TABLE_FILMS which will reset primary key.
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='NOTES'");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * .___  ___.      ___       __  .__   __. .___________. _______ .__   __.      ___      .__   __.   ______  _______
+     * |   \/   |     /   \     |  | |  \ |  | |           ||   ____||  \ |  |     /   \     |  \ |  |  /      ||   ____|
+     * |  \  /  |    /  ^  \    |  | |   \|  | `---|  |----`|  |__   |   \|  |    /  ^  \    |   \|  | |  ,----'|  |__
+     * |  |\/|  |   /  /_\  \   |  | |  . `  |     |  |     |   __|  |  . `  |   /  /_\  \   |  . `  | |  |     |   __|
+     * |  |  |  |  /  _____  \  |  | |  |\   |     |  |     |  |____ |  |\   |  /  _____  \  |  |\   | |  `----.|  |____
+     * |__|  |__| /__/     \__\ |__| |__| \__|     |__|     |_______||__| \__| /__/     \__\ |__| \__|  \______||_______|
+     *
+     */
+
     public void resetTables(){
         truncateChemsTable();
         //this section should be removed / commented out. using to populate w/ several chems for testing purposes
@@ -397,5 +502,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertNewFilm("Kodak", "TMAX", "BW", 800, 36);
         insertNewFilm("Fuji", "Neopan ACROS", "BW", 100, 36);
         insertNewFilm("Ilford", "Delta", "BW", 400, 36);
+
+        truncateUsersTable();
+        insertNewUser("WGU", "password");
+
+        truncateNotesTable();
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorPrimaryDark"
     android:orientation="vertical"
-    tools:context=".Controller_ManageFilms">
+    tools:context=".Controller_ManageFilmsActivity">
 
     android:layout_width="wrap_content"
 

@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * How easy to add circle "+" symbol for Add?
  */
 
-public class Controller_ManageChems extends AppCompatActivity {
+public class Controller_ManageChemsActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private RecyclerView recyclerView;
     private RecyclerViewChemAdapter adapter;
