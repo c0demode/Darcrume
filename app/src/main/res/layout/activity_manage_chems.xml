@@ -187,48 +187,6 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
-        android:id="@+id/linearLayoutChem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textViewProcessType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="Select Chem Type:"
-            android:textColor="@color/theme1ColorPrimary" />
-
-        <CheckBox
-            android:id="@+id/cbChemBW"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_weight="1"
-            android:buttonTint="@color/theme1ColorLight"
-            android:shadowColor="@android:color/background_dark"
-            android:text="Black and White"
-            android:textColor="@color/theme1ColorAccent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <CheckBox
-            android:id="@+id/cbChemColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/theme1ColorLight"
-            android:shadowColor="@android:color/background_dark"
-            android:text="Color"
-            android:textColor="@color/theme1ColorAccent" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -236,7 +194,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutChem">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textViewBwChems"
@@ -272,6 +230,7 @@
             android:buttonTint="@color/theme1ColorLight"
             android:text="Fixer"
             android:textColor="@color/theme1ColorAccent" />
+
     </LinearLayout>
 
     <LinearLayout

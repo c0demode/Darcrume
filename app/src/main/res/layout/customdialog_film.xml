@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/theme1ColorPrimary"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnFilmDialogSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="8dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFilmDialogIso" />
+
+    <Button
+        android:id="@+id/btnFilmDialogCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="8dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFilmDialogIso" />
+
+    <EditText
+        android:id="@+id/editTxtFilmDialogName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtFilmDialogBrand" />
+
+    <EditText
+        android:id="@+id/editTxtFilmDialogBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radGrpFilmDialogBwCol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtFilmDialogName">
+
+        <RadioButton
+            android:id="@+id/radBtnFilmDialogBw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Black and White" />
+
+        <RadioButton
+            android:id="@+id/radBtnFilmDialogCol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Color" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radGrpFilmDialogExp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtFilmDialogName">
+
+        <RadioButton
+            android:id="@+id/radBtnFilmDialog24Exp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="24 Exp." />
+
+        <RadioButton
+            android:id="@+id/radBtnFilmDialog36Exp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="36 Exp." />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/spinnerFilmDialogIso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:entries="@array/spinnerISOs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radGrpFilmDialogBwCol" />
+
+    <TextView
+        android:id="@+id/txtFilmDialogBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Brand:"
+        app:layout_constraintBottom_toBottomOf="@+id/editTxtFilmDialogBrand"
+        app:layout_constraintEnd_toStartOf="@+id/editTxtFilmDialogBrand"
+        app:layout_constraintTop_toTopOf="@+id/editTxtFilmDialogBrand" />
+
+    <TextView
+        android:id="@+id/txtFilmDialogName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Name:"
+        app:layout_constraintBottom_toBottomOf="@+id/editTxtFilmDialogName"
+        app:layout_constraintEnd_toStartOf="@+id/editTxtFilmDialogName"
+        app:layout_constraintTop_toTopOf="@+id/editTxtFilmDialogName" />
+
+    <TextView
+        android:id="@+id/txtFilmDialogIso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="ISO:"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerFilmDialogIso"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerFilmDialogIso"
+        app:layout_constraintTop_toTopOf="@+id/spinnerFilmDialogIso" />
+</androidx.constraintlayout.widget.ConstraintLayout>

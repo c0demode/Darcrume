@@ -24,7 +24,12 @@ public class Controller_LoginActivity extends AppCompatActivity {
 
         configureVariables();
         setOnClickListeners();
-        db.insertNewUser("WGU","password");
+
+        //make sure there's a user to login with. If not, call resetTables() which will insert the default user
+        if (db.getUsersCount() <= 0) {
+            db.resetTables();
+        }
+
     }
     private void configureVariables() {
         editTextUsername = findViewById(R.id.editTextUsername);
@@ -44,7 +49,7 @@ public class Controller_LoginActivity extends AppCompatActivity {
     private void validateLogin() {
         String username = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();
-        if (db.validateLogin(username, password)){ 
+        if (db.validateLogin(username, password)){
             openMainActivity();
         }else{
             Toast.makeText(this,"Incorrect username or password",Toast.LENGTH_SHORT).show();

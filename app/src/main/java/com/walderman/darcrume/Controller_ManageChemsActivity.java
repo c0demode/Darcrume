@@ -64,8 +64,6 @@ public class Controller_ManageChemsActivity extends AppCompatActivity {
         editText_ChemBrand = findViewById(R.id.editTextChemsMfr);
         editText_ChemName = findViewById(R.id.editTextChemsName);
 
-        cbChemBw = findViewById(R.id.cbChemBW);
-        cbChemColor = findViewById(R.id.cbChemColor);
         cbBwDev = findViewById(R.id.cbBwDev);
         cbBwStop = findViewById(R.id.cbBwStop);
         cbBwFix = findViewById(R.id.cbBwFixer);
@@ -82,26 +80,7 @@ public class Controller_ManageChemsActivity extends AppCompatActivity {
         radBtnChemBw = findViewById(R.id.radBtnChemBw);
         radBtnChemCol = findViewById(R.id.radBtnChemCol);
 
-        //set checkboxes to disabled state
-        toggleAvailableCheckboxes();
-
         //configure click listeners
-        cbChemBw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleAvailableCheckboxes();
-                filterArrayList(chemList);
-            }
-        });
-
-        cbChemColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleAvailableCheckboxes();
-                filterArrayList(chemList);
-            }
-        });
-
         cbBwDev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,43 +173,7 @@ public class Controller_ManageChemsActivity extends AppCompatActivity {
         chemList = db.getAllChems();
     }
 
-    private void toggleAvailableCheckboxes(){
-        //enable or disable checkboxes for black and white chems
-        if(cbChemBw.isChecked()){
-            //enable the checkboxes for black and white chems
-            cbBwDev.setEnabled(true);
-            cbBwStop.setEnabled(true);
-            cbBwFix.setEnabled(true);
-        }else{
-            //disable the checkboxes
-            cbBwDev.setEnabled(false);
-            cbBwStop.setEnabled(false);
-            cbBwFix.setEnabled(false);
-            //set them to un-checked
-            cbBwDev.setChecked(false);
-            cbBwStop.setChecked(false);
-            cbBwFix.setChecked(false);
-        }
-
-        //enable or disable checkboxes for color chems
-        if(cbChemColor.isChecked()){
-            //enable the color chem checkboxes
-            cbColDev.setEnabled(true);
-            cbColBlix.setEnabled(true);
-            cbColStab.setEnabled(true);
-        }else{
-            //disable the checkboxes
-            cbColDev.setEnabled(false);
-            cbColBlix.setEnabled(false);
-            cbColStab.setEnabled(false);
-            //set them to un-checked
-            cbColDev.setChecked(false);
-            cbColBlix.setChecked(false);
-            cbColStab.setChecked(false);
-        }
-    }
-
-    /**
+     /**
      * Populate editable fields with data from Chem object clicked by user
      *
      * @param position

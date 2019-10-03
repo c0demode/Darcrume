@@ -6,12 +6,8 @@ package com.walderman.darcrume;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Switch;
-
-
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -20,29 +16,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "darcrumeManager";
     private static final int DATABASE_VERSION = 1;
 
-
-
-    public enum ChemRole {
-        BWDEV,
-        BWSTP,
-        BWFIX,
-        CLRDEV,
-        CLRBLX,
-        CLRSTB;
-    }
-
-    public enum FilmType {
-        BW,
-        COLOR;
-    }
-
     /**
      * Create tables
      */
-    private static final String createTABLE_USERS           = "CREATE TABLE USERS(USERNAME TEXT PRIMARY KEY, PASSWORD TEXT)";
-    private static final String createTABLE_FILMS           = "CREATE TABLE FILMS(FILM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, ISO INTEGER, EXPOSURES INTEGER)";
-    private static final String createTABLE_CHEMS           = "CREATE TABLE CHEMS(CHEM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, CHEM_ROLE TEXT)";
-    private static final String createTABLE_NOTES           = "CREATE TABLE NOTES(NOTE_ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTE_TEXT TEXT)";
+    private static final String createTABLE_USERS = "CREATE TABLE USERS(USERNAME TEXT PRIMARY KEY, PASSWORD TEXT)";
+    private static final String createTABLE_FILMS = "CREATE TABLE FILMS(FILM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, ISO INTEGER, EXPOSURES INTEGER)";
+    private static final String createTABLE_CHEMS = "CREATE TABLE CHEMS(CHEM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, CHEM_ROLE TEXT)";
+    private static final String createTABLE_NOTES = "CREATE TABLE NOTES(NOTE_ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTE_TEXT TEXT)";
     private static final String createTABLE_SESSION_HISTORY = "CREATE TABLE SESSION_HISTORY(SESSION_ID INTEGER PRIMARY KEY AUTOINCREMENT, RECIPE_ID INTEGER, BW_COLOR TEXT, DATE DATE)";
 
     public DatabaseHelper(Context context) {
@@ -73,18 +53,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
     /**
-     *           _______  __   __      .___  ___.      _______.
-     *          |   ____||  | |  |     |   \/   |     /       |
-     *          |  |__   |  | |  |     |  \  /  |    |   (----`
-     *          |   __|  |  | |  |     |  |\/|  |     \   \
-     *          |  |     |  | |  `----.|  |  |  | .----)   |
-     *          |__|     |__| |_______||__|  |__| |_______/
-     *
+     * _______  __   __      .___  ___.      _______.
+     * |   ____||  | |  |     |   \/   |     /       |
+     * |  |__   |  | |  |     |  \  /  |    |   (----`
+     * |   __|  |  | |  |     |  |\/|  |     \   \
+     * |  |     |  | |  `----.|  |  |  | .----)   |
+     * |__|     |__| |_______||__|  |__| |_______/
      */
 
-    public Boolean insertNewFilm(Film newFilm){
+    public enum FilmType {
+        BW,
+        COLOR
+    }
+
+    public Boolean insertNewFilm(Film newFilm) {
 
         //try to insert a new film into database
         try {
@@ -132,14 +115,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Query database for all films. From results, create film objects and add to an array of these film objects
+     *
      * @return
      */
-    public ArrayList<Film> getAllFilms(){
+    public ArrayList<Film> getAllFilms() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor result = db.rawQuery("select * from FILMS Order by upper(BRAND)", null);
         ArrayList<Film> filmArray = new ArrayList<>();
-        while(result.moveToNext()){
+        while (result.moveToNext()) {
             Film film = processFilmCursor(result);
             filmArray.add(film);
         }
@@ -148,13 +132,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Query database for all films of type BW or Col. From results, create film objects and add to an array of these film objects
+     *
      * @return
      */
-    public ArrayList<Film> getAllFilmsByType(FilmType filmType){
+    public ArrayList<Film> getAllFilmsByType(FilmType filmType) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("select * from FILMS WHERE UPPER(BW_COLOR) = '" + filmType.toString() + "'  Order by upper(BRAND)", null);
         ArrayList<Film> filmArray = new ArrayList<>();
-        while(result.moveToNext()){
+        while (result.moveToNext()) {
             Film film = processFilmCursor(result);
             filmArray.add(film);
         }
@@ -163,14 +148,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Takes an int "film_id" and queries the database for that film_id. Creates and returns a Film object based on that result.
+     *
      * @param film_Id
      * @return
      */
-    public Film selectFilm(int film_Id){
+    public Film selectFilm(int film_Id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Film film = new Film();
         Cursor result = db.rawQuery("SELECT * FROM FILMS WHERE FILM_ID = " + film_Id, null);
-        while(result.moveToNext()){
+        while (result.moveToNext()) {
             film = processFilmCursor(result);
         }
         return film;
@@ -178,10 +164,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Takes a Cursor (result) from db query and creates and returns a Film object based on that result
+     *
      * @param cursor
      * @return
      */
-    public Film processFilmCursor(Cursor cursor){
+    public Film processFilmCursor(Cursor cursor) {
         int film_id = cursor.getInt(cursor.getColumnIndex("FILM_ID"));
         String brand = cursor.getString(cursor.getColumnIndex("BRAND"));
         String name = cursor.getString(cursor.getColumnIndex("NAME"));
@@ -193,7 +180,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return film;
     }
 
-    public void truncateFilmsTable(){
+    public void truncateFilmsTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("Delete from FILMS");
         //Delete the sequence for TABLE_FILMS which will reset primary key.
@@ -204,6 +191,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * takes a film object and updates Films table for that film_id
      * Once row is updated on the table, queries the table for that film_id and returns a new Film object based on that row.
      * This is used to save changes made by a user in the Manage Films activity.
+     *
      * @param film
      * @return
      */
@@ -223,49 +211,60 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-/**
- *                    ______  __    __   _______ .___  ___.      _______.
- *                   /      ||  |  |  | |   ____||   \/   |     /       |
- *                  |  ,----'|  |__|  | |  |__   |  \  /  |    |   (----`
- *                  |  |     |   __   | |   __|  |  |\/|  |     \   \
- *                  |  `----.|  |  |  | |  |____ |  |  |  | .----)   |
- *                   \______||__|  |__| |_______||__|  |__| |_______/
- *
- */
+    /**
+     * ______  __    __   _______ .___  ___.      _______.
+     * /      ||  |  |  | |   ____||   \/   |     /       |
+     * |  ,----'|  |__|  | |  |__   |  \  /  |    |   (----`
+     * |  |     |   __   | |   __|  |  |\/|  |     \   \
+     * |  `----.|  |  |  | |  |____ |  |  |  | .----)   |
+     * \______||__|  |__| |_______||__|  |__| |_______/
+     */
+
+    public enum ChemRole {
+        BWDEV,
+        BWSTP,
+        BWFIX,
+        CLRDEV,
+        CLRBLX,
+        CLRSTB
+    }
 
     /**
      * Take an argument specifying the type of chemical
+     *
      * @return
      */
-    public ArrayList<Chem> getAllChems(){
+    public ArrayList<Chem> getAllChems() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM CHEMS WHERE CHEM_ID > 0 ORDER BY UPPER(BRAND)";
         Cursor result = db.rawQuery(query, null);
         ArrayList<Chem> chemArray = new ArrayList<>();
-        while(result.moveToNext()){
+        while (result.moveToNext()) {
             Chem chem = processChemCursor(result);
             chemArray.add(chem);
         }
         return chemArray;
     }
 
-    public ArrayList<Chem> getAllChemsOfRoleType(ChemRole chemRole){
+    public ArrayList<Chem> getAllChemsOfRoleType(ChemRole chemRole) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM CHEMS WHERE CHEM_ID > 0 AND CHEM_ROLE = '" + chemRole.toString() + "'";
         Cursor result = db.rawQuery(query, null);
         ArrayList<Chem> chemArray = new ArrayList<>();
-        while(result.moveToNext()){
+        while (result.moveToNext()) {
             Chem chem = processChemCursor(result);
             chemArray.add(chem);
         }
         return chemArray;
     }
+
     /**
      * Takes a Cursor (result) from db query and creates and returns a Chem object based on that result
+     *
      * @param cursor
      * @return
      */
-    public Chem processChemCursor(Cursor cursor){
+    public Chem processChemCursor(Cursor cursor) {
         int chemId = cursor.getInt(cursor.getColumnIndex("CHEM_ID"));
         String brand = cursor.getString(cursor.getColumnIndex("BRAND"));
         String name = cursor.getString(cursor.getColumnIndex("NAME"));
@@ -278,13 +277,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Pass in arguments & Insert new chem record into database
+     *
      * @param brand
      * @param name
      * @param bw_color
      * @param chemRole
      * @return
      */
-    public Boolean insertNewChem(String brand, String name, String bw_color, String chemRole){
+    public Boolean insertNewChem(String brand, String name, String bw_color, String chemRole) {
 
         //try to insert a new film into database
         try {
@@ -307,7 +307,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean insertNewChem(Chem newChem){
+    public Boolean insertNewChem(Chem newChem) {
 
         //try to insert a new film into database
         try {
@@ -344,17 +344,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return updatedChem;
     }
 
-    public Chem selectChem(int chemId){
+    public Chem selectChem(int chemId) {
         SQLiteDatabase db = this.getWritableDatabase();
         Chem chem = new Chem();
         Cursor result = db.rawQuery("SELECT * FROM CHEMS WHERE CHEM_ID = " + chemId, null);
-        while(result.moveToNext()){
+        while (result.moveToNext()) {
             chem = processChemCursor(result);
         }
         return chem;
     }
 
-    public void truncateChemsTable(){
+    public void truncateChemsTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("Delete from CHEMS");
         //Delete the sequence for TABLE_FILMS which will reset primary key.
@@ -363,33 +363,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     /**
-     *  __    __       _______. _______ .______          _______.
+     * __    __       _______. _______ .______          _______.
      * |  |  |  |     /       ||   ____||   _  \        /       |
      * |  |  |  |    |   (----`|  |__   |  |_)  |      |   (----`
      * |  |  |  |     \   \    |   __|  |      /        \   \
      * |  `--'  | .----)   |   |  |____ |  |\  \----.----)   |
-     *  \______/  |_______/    |_______|| _| `._____|_______/
-     *
+     * \______/  |_______/    |_______|| _| `._____|_______/
      */
 
-    public boolean validateLogin(String username, String password){
+    public boolean validateLogin(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        if (username.length() > 0 && password.length() > 0){
-        Cursor result = db.rawQuery("SELECT * FROM USERS WHERE USERNAME = '" + username.toUpperCase() + "'", null);
-        while(result.moveToNext()){
-            if(password.equals(result.getString(result.getColumnIndex("PASSWORD")))){
-                return true;
+        if (username.length() > 0 && password.length() > 0) {
+            Cursor result = db.rawQuery("SELECT * FROM USERS WHERE USERNAME = '" + username.toUpperCase() + "'", null);
+            while (result.moveToNext()) {
+                if (password.equals(result.getString(result.getColumnIndex("PASSWORD")))) {
+                    return true;
+                }
             }
-        }
         }
         return false;
     }
 
-    public void truncateUsersTable(){
+    public void truncateUsersTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("Delete from USERS");
         //Delete the sequence for TABLE_FILMS which will reset primary key.
         db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='USERS'");
+    }
+
+    public int getUsersCount() {
+
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            Cursor result = db.rawQuery("SELECT COUNT(*) FROM USERS", null);
+            while (result.moveToNext()) {
+                return result.getInt(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public void insertNewUser(String username, String password) {
@@ -419,10 +433,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * |  . `  | |  |  |  |     |  |     |   __|     \   \
      * |  |\   | |  `--'  |     |  |     |  |____.----)   |
      * |__| \__|  \______/      |__|     |_______|_______/
-     *
      */
 
-    public boolean insertNewNote(String note){
+    public boolean insertNewNote(String note) {
         try {
             //get instance of database
             SQLiteDatabase db = this.getWritableDatabase();
@@ -441,28 +454,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public void truncateNotesTable(){
+    public void truncateNotesTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("Delete from NOTES");
         //Delete the sequence for TABLE_FILMS which will reset primary key.
         db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='NOTES'");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**
@@ -472,24 +469,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * |  |\/|  |   /  /_\  \   |  | |  . `  |     |  |     |   __|  |  . `  |   /  /_\  \   |  . `  | |  |     |   __|
      * |  |  |  |  /  _____  \  |  | |  |\   |     |  |     |  |____ |  |\   |  /  _____  \  |  |\   | |  `----.|  |____
      * |__|  |__| /__/     \__\ |__| |__| \__|     |__|     |_______||__| \__| /__/     \__\ |__| \__|  \______||_______|
-     *
      */
 
-    public void resetTables(){
+    public void resetTables() {
         truncateChemsTable();
         //this section should be removed / commented out. using to populate w/ several chems for testing purposes
-        insertNewChem("Arista","Color Dev","COLOR","CLRDEV");
-        insertNewChem("Arista","Color Blix","COLOR","CLRBLX");
-        insertNewChem("Arista","Color Stabilizer","COLOR","CLRSTB");
-        insertNewChem("Kodak","BW Dev","BW","BWDEV");
-        insertNewChem("Kodak","BW Stop","BW","BWSTP");
-        insertNewChem("Kodak","BW Fix","BW","BWFIX");
-        insertNewChem("Kodak","Color Dev","COLOR","CLRDEV");
-        insertNewChem("Kodak","Color Blix","COLOR","CLRBLX");
-        insertNewChem("Kodak","Color Stabilizer","COLOR","CLRSTB");
-        insertNewChem("Ilford","BW Dev","BW","BWDEV");
-        insertNewChem("Ilford","BW Stop","BW","BWSTP");
-        insertNewChem("Ilford","BW Fix","BW","BWFIX");
+        insertNewChem("Arista", "Color Dev", "COLOR", "CLRDEV");
+        insertNewChem("Arista", "Color Blix", "COLOR", "CLRBLX");
+        insertNewChem("Arista", "Color Stabilizer", "COLOR", "CLRSTB");
+        insertNewChem("Kodak", "BW Dev", "BW", "BWDEV");
+        insertNewChem("Kodak", "BW Stop", "BW", "BWSTP");
+        insertNewChem("Kodak", "BW Fix", "BW", "BWFIX");
+        insertNewChem("Kodak", "Color Dev", "COLOR", "CLRDEV");
+        insertNewChem("Kodak", "Color Blix", "COLOR", "CLRBLX");
+        insertNewChem("Kodak", "Color Stabilizer", "COLOR", "CLRSTB");
+        insertNewChem("Ilford", "BW Dev", "BW", "BWDEV");
+        insertNewChem("Ilford", "BW Stop", "BW", "BWSTP");
+        insertNewChem("Ilford", "BW Fix", "BW", "BWFIX");
 
         truncateFilmsTable();
         insertNewFilm("Kodak", "Ektar", "COLOR", 100, 36);

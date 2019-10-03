@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.57" />
+        app:layout_constraintGuide_percent=".85" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -40,182 +40,42 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
-
-            <EditText
-                android:id="@+id/editTextFilmsMfr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:singleLine="false"
-                android:textAllCaps="false"
-                android:textColor="@color/theme1ColorAccent"
-                android:textColorHint="#FF6F00"
-                android:textIsSelectable="false"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextFilmsName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textColor="@color/theme1ColorAccent"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextFilmsMfr" />
-
-            <RadioGroup
-                android:id="@+id/radioGroupType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:outlineAmbientShadowColor="@color/theme1ColorPrimary"
-                android:textColor="@color/theme1ColorAccent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerISOs">
-
-                <RadioButton
-                    android:id="@+id/radioTypeColor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/radioTypeC41"
-                    android:textColor="@color/theme1ColorAccent"
-                    tools:layout_editor_absoluteY="19dp" />
-
-                <RadioButton
-                    android:id="@+id/radioTypeBW"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/radioTypeBW"
-                    android:textColor="@color/theme1ColorAccent"
-                    tools:layout_editor_absoluteY="51dp" />
-
-
-            </RadioGroup>
-
-            <RadioGroup
-                android:id="@+id/radioGroupExp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/radioGroupType"
-                app:layout_constraintTop_toTopOf="@+id/radioGroupType">
-
-                <RadioButton
-                    android:id="@+id/radioExp24"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/radioExp24"
-                    android:textColor="@color/theme1ColorAccent"
-                    tools:layout_editor_absoluteY="19dp" />
-
-                <RadioButton
-                    android:id="@+id/radioExp36"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/radioExp36"
-                    android:textColor="@color/theme1ColorAccent"
-                    tools:layout_editor_absoluteY="51dp" />
-
-            </RadioGroup>
-
-            <Spinner
-                android:id="@+id/spinnerISOs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/btn_rounded_corners_blue"
-                android:entries="@array/spinnerISOs"
-                android:theme="@style/AppTheme"
-                app:layout_constraintStart_toStartOf="@+id/editTextFilmsName"
-                app:layout_constraintTop_toBottomOf="@+id/editTextFilmsName" />
-
-            <TextView
-                android:id="@+id/textMfr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/textBrand"
-                android:textColor="@color/theme1ColorAccent"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/editTextFilmsMfr"
-                tools:text="@string/textBrand"
-                tools:visibility="visible" />
-
-            <TextView
-                android:id="@+id/textName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/textName"
-                android:textColor="@color/theme1ColorAccent"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="@+id/textMfr"
-                app:layout_constraintTop_toTopOf="@+id/editTextFilmsName"
-                tools:text="@string/textName"
-                tools:visibility="visible" />
-
-            <TextView
-                android:id="@+id/textView_ItemText1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ISO:"
-                android:textColor="@color/theme1ColorAccent"
-                app:layout_constraintStart_toStartOf="@+id/textName"
-                app:layout_constraintTop_toTopOf="@+id/spinnerISOs"
-                tools:text="@string/spinnerText" />
-
-            <Button
-                android:id="@+id/btnFilmsSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/btn_rounded_corners_blue"
-                android:text="Save"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/btnFilmsAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
                 android:background="@drawable/btn_rounded_corners_blue"
-                android:text="ADD NEW"
+                android:text="ADD"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias=".9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/btnFilmsClear"
+                android:id="@+id/btnFilmEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:background="@drawable/btn_rounded_corners_blue"
-                android:text="Clear"
+                android:text="Edit"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnFilmsAdd"
-                app:layout_constraintStart_toEndOf="@+id/btnFilmsSave" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias=".1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/btnFilmDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_rounded_corners_blue"
+                android:text="Delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
