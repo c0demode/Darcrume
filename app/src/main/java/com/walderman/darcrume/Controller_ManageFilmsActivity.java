@@ -1,6 +1,5 @@
 package com.walderman.darcrume;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,10 +22,9 @@ import java.util.ArrayList;
  * How easy to add circle "+" symbol for Add?
  */
 
-public class Controller_ManageFilmsActivity extends AppCompatActivity implements ExampleDialog.ExampleDialogListener {
+public class Controller_ManageFilmsActivity extends AppCompatActivity {
     //on create, call a method from DatabaseHelper that fills an ArrayList<Film> and thus populates the recyclerview in activity_manage_films.xml
     private DatabaseHelper db;
-    private Dialog dialog;
     private EditText editText_Brand;
     private EditText editText_Name;
     private RadioGroup radioGroup_exp;
@@ -36,11 +34,9 @@ public class Controller_ManageFilmsActivity extends AppCompatActivity implements
     private RadioButton radioBW;
     private RadioButton radioColor;
     private Spinner spinnerISO;
-    private Button btnEdit;
-    private Button btnDelete;
-    private Button btnAdd;
     private Button btnSave;
     private Button btnClear;
+    private Button btnAdd;
     private Guideline guideline_horz1;
 
     private RecyclerView recyclerView;
@@ -59,62 +55,35 @@ public class Controller_ManageFilmsActivity extends AppCompatActivity implements
         buildFilmList();
         buildRecyclerView();
         //addSampleFilm();
-    }
 
-    private enum DialogType {
-        Edit,
-        Add
+
     }
 
     private void configureVariables() {
-        dialog = new Dialog(this);
+        guideline_horz1 = findViewById(R.id.guideline_horz1);
+        editText_Brand = findViewById(R.id.editTextFilmsMfr);
+        editText_Name = findViewById(R.id.editTextFilmsName);
 
-        btnEdit = findViewById(R.id.btnFilmEdit);
-        btnDelete = findViewById(R.id.btnFilmDelete);
+        radioGroup_exp = findViewById(R.id.radioGroupExp);
+        radioExp24 = findViewById(R.id.radioExp24);
+        radioExp36 = findViewById(R.id.radioExp36);
+
+        radioGroup_type = findViewById(R.id.radioGroupType);
+        radioBW = findViewById(R.id.radioTypeBW);
+        radioColor = findViewById(R.id.radioTypeColor);
+
+        spinnerISO = findViewById(R.id.spinnerISOs);
+
+        btnSave = findViewById(R.id.btnFilmsSave);
+        btnClear = findViewById(R.id.btnFilmsClear);
         btnAdd = findViewById(R.id.btnFilmsAdd);
 
-//        editText_Brand = findViewById(R.id.editTextFilmsMfr);
-//        editText_Name = findViewById(R.id.editTextFilmsName);
-//
-//        radioGroup_exp = findViewById(R.id.radioGroupExp);
-//        radioExp24 = findViewById(R.id.radioExp24);
-//        radioExp36 = findViewById(R.id.radioExp36);
-//
-//        radioGroup_type = findViewById(R.id.radioGroupType);
-//        radioBW = findViewById(R.id.radioTypeBW);
-//        radioColor = findViewById(R.id.radioTypeColor);
-//
-//        spinnerISO = findViewById(R.id.spinnerISOs);
-//
-//        btnSave = findViewById(R.id.btnFilmsSave);
-//        btnClear = findViewById(R.id.btnFilmsClear);
-    }
-
-    @Override
-    public void applyValues(Film film) {
-        db.insertNewFilm(film);
-    }
-
-    private void setListeners() {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog();
+                addFilm();
             }
         });
-
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog();
-            }
-        });
-    }
-
-    private void openDialog(View view) {
-//        ExampleDialog exampleDialog = new ExampleDialog();
-//        exampleDialog.show(getSupportFragmentManager(), "example dialog");
-        dialog.setContentView(R.layout.customdialog_film);
     }
 
     private void buildRecyclerView() {
@@ -141,73 +110,72 @@ public class Controller_ManageFilmsActivity extends AppCompatActivity implements
      * @param position
      */
     private void getSelectedFilmInfo(final int position) {
-//        final Film selectedFilm = filmList.get(position);
-//
-//        editText_Brand.setText(selectedFilm.getBrand());
-//        editText_Name.setText(selectedFilm.getName());
-//
-//        if (selectedFilm.getType().equals("BW")) {
-//            radioBW.setChecked(true);
-//        } else {
-//            radioColor.setChecked(true);
-//        }
-//
-//        if (selectedFilm.getExp() == 24) {
-//            radioExp24.setChecked(true);
-//        } else {
-//            radioExp36.setChecked(true);
-//        }
-//
-//        switch (selectedFilm.getIso()) {
-//            case 25:
-//                spinnerISO.setSelection(0);
-//                break;
-//            case 50:
-//                spinnerISO.setSelection(1);
-//                break;
-//            case 100:
-//                spinnerISO.setSelection(2);
-//                break;
-//            case 125:
-//                spinnerISO.setSelection(3);
-//                break;
-//            case 200:
-//                spinnerISO.setSelection(4);
-//                break;
-//            case 400:
-//                spinnerISO.setSelection(5);
-//                break;
-//            case 800:
-//                spinnerISO.setSelection(6);
-//                break;
-//            case 1600:
-//                spinnerISO.setSelection(7);
-//                break;
-//        }
-//
-//        btnSave.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                saveChangesToFilm(position);
-//            }
-//        });
-//
-//        btnClear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                clearFields();
-//            }
-//        });
+        final Film selectedFilm = filmList.get(position);
+
+        editText_Brand.setText(selectedFilm.getBrand());
+        editText_Name.setText(selectedFilm.getName());
+
+        if (selectedFilm.getType().equals("BW")) {
+            radioBW.setChecked(true);
+        } else {
+            radioColor.setChecked(true);
+        }
+
+        if (selectedFilm.getExp() == 24) {
+            radioExp24.setChecked(true);
+        } else {
+            radioExp36.setChecked(true);
+        }
+
+        switch (selectedFilm.getIso()) {
+            case 25:
+                spinnerISO.setSelection(0);
+                break;
+            case 50:
+                spinnerISO.setSelection(1);
+                break;
+            case 100:
+                spinnerISO.setSelection(2);
+                break;
+            case 125:
+                spinnerISO.setSelection(3);
+                break;
+            case 200:
+                spinnerISO.setSelection(4);
+                break;
+            case 400:
+                spinnerISO.setSelection(5);
+                break;
+            case 800:
+                spinnerISO.setSelection(6);
+                break;
+            case 1600:
+                spinnerISO.setSelection(7);
+                break;
+        }
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveChangesToFilm(position);
+            }
+        });
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearFields();
+            }
+        });
     }
 
     /**
      * Takes the index position of the film selected from filmList
      * Ensures all fields have valid data before updating db with changes.
-     *
      * @param position
      */
     private void saveChangesToFilm(int position) {
-        if (validateAllFields()) {
+        if(validateAllFields()) {
             Film film = filmList.get(position);
             film.setName(editText_Name.getText().toString());
             film.setBrand(editText_Brand.getText().toString());
@@ -217,13 +185,13 @@ public class Controller_ManageFilmsActivity extends AppCompatActivity implements
             Film updatedFilm = db.updateFilm(film);
             filmList.set(position, updatedFilm);
             refreshRecyclerViewItem(position);
-        } else {
+        }else{
             Toast.makeText(this, "Cannot Save. Incomplete Data", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void addFilm() {
-        if (validateAllFields()) {
+    private void addFilm(){
+        if(validateAllFields()) {
             Film film = new Film();
             film.setBrand(editText_Brand.getText().toString().trim());
             film.setName(editText_Name.getText().toString().trim());
@@ -238,7 +206,7 @@ public class Controller_ManageFilmsActivity extends AppCompatActivity implements
 
             //The recyclerView must be refreshed to display the new filmList
             buildRecyclerView();
-        } else {
+        }else{
             Toast.makeText(this, "Incomplete data", Toast.LENGTH_SHORT);
         }
     }
@@ -248,7 +216,7 @@ public class Controller_ManageFilmsActivity extends AppCompatActivity implements
      * set ISO spinner to default value
      * set all radioButtons to unchecked
      */
-    private void clearFields() {
+    private void clearFields(){
         editText_Brand.setText("");
         editText_Name.setText("");
         spinnerISO.setSelection(0);
@@ -262,24 +230,24 @@ public class Controller_ManageFilmsActivity extends AppCompatActivity implements
         adapter.notifyItemChanged(position);
     }
 
-    private void updateRecyclerView() {
+    private void updateRecyclerView(){
         filmList = db.getAllFilms();
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
     }
 
-    private int getRadioExpValue() {
-        if (radioExp24.isChecked()) {
+    private int getRadioExpValue(){
+        if (radioExp24.isChecked()){
             return 24;
-        } else {
+        }else{
             return 36;
         }
     }
 
-    private String getRadioTypeValue() {
-        if (radioBW.isChecked()) {
+    private String getRadioTypeValue(){
+        if (radioBW.isChecked()){
             return "BW";
-        } else {
+        }else{
             return "Color";
         }
     }
@@ -291,16 +259,15 @@ public class Controller_ManageFilmsActivity extends AppCompatActivity implements
     /**
      * Call this method before allowing user to Save film.
      * Checks fields that could be left empty or un-checked and returns 'false' if invalid data exists.
-     *
      * @return
      */
-    private Boolean validateAllFields() {
+    private Boolean validateAllFields(){
         Boolean valid = true;
 
-        if (editText_Brand.getText().toString().trim().length() < 1) valid = false;
-        if (editText_Name.getText().toString().trim().length() < 1) valid = false;
-        if (radioBW.isChecked() == false && radioColor.isChecked() == false) valid = false;
-        if (radioExp24.isChecked() == false && radioExp36.isChecked() == false) valid = false;
+        if(editText_Brand.getText().toString().trim().length() < 1 ) valid = false;
+        if(editText_Name.getText().toString().trim().length() < 1) valid = false;
+        if(radioBW.isChecked() == false && radioColor.isChecked() == false) valid = false;
+        if(radioExp24.isChecked() == false && radioExp36.isChecked() == false) valid = false;
         return valid;
     }
 }
