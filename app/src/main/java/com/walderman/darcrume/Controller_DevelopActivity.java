@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,21 +18,19 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class Controller_DevelopActivity extends AppCompatActivity {
-    private static long startTimeInMilliseconds = 30000;
+    private static long startTimeInMilliseconds = 0;
     private DatabaseHelper db;
     private TextView tvChem1;
     private TextView tvChem2;
     private TextView tvChem3;
     private EditText editText_DevMinutes;
     private EditText editText_DevSeconds;
-    private EditText editText_IntMinutes;
-    private EditText editText_IntSeconds;
     private TextView textViewCountDown;
     private Button btnSetTimer;
-    private Button btnSetInterval;
     private Button btnStartPause;
     private Button btnReset;
-    private CountDownTimer countDownTimer;
+    private CountDownTimer developTimer;
+    private CountDownTimer intervalTimer;
     private Boolean timerIsRunning = false;
     private long timeRemainingInMilliseconds = startTimeInMilliseconds;
     private MediaPlayer sound;// = MediaPlayer.create(Controller_DevelopActivity.this, R.raw.accomplished);
@@ -53,6 +52,7 @@ public class Controller_DevelopActivity extends AppCompatActivity {
     private Chem selectedChem3;
     private RadioButton radDevBW;
     private RadioButton radDevCol;
+    private int timeToSet;
 
 
 
@@ -65,6 +65,8 @@ public class Controller_DevelopActivity extends AppCompatActivity {
 
         configureVariables();
         setOnClickListeners();
+
+        populateSpinners(DatabaseHelper.FilmType.BW);
     }
 
 
@@ -89,11 +91,8 @@ public class Controller_DevelopActivity extends AppCompatActivity {
         //Relating to the Timer
         editText_DevMinutes = findViewById(R.id.editText_DevMin);
         editText_DevSeconds = findViewById(R.id.editText_DevSec);
-        editText_IntMinutes = findViewById(R.id.editText_IntervalMin);
-        editText_IntSeconds = findViewById(R.id.editText_IntervalSec);
 
         btnSetTimer = findViewById(R.id.btn_setMainTimer);
-        btnSetInterval = findViewById(R.id.btn_setIntervalTimer);
         textViewCountDown = findViewById(R.id.textView_Countdown);
         btnStartPause = findViewById(R.id.btn_start_pause);
         btnReset = findViewById(R.id.btn_reset);
@@ -120,7 +119,6 @@ public class Controller_DevelopActivity extends AppCompatActivity {
                 setTimer();
             }
         });
-
 
         btnStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +151,26 @@ public class Controller_DevelopActivity extends AppCompatActivity {
 
             }
         });
+
+        editText_DevMinutes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    editText_DevMinutes.setHint("");
+                else
+                    editText_DevMinutes.setHint("Your hint");
+            }
+        });
+
+        editText_DevMinutes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    editText_DevMinutes.setHint("");
+                else
+                    editText_DevMinutes.setHint("Your hint");
+            }
+        });
     }
+
 
     private void populateSpinners(DatabaseHelper.FilmType filmType) {
 
@@ -177,6 +194,7 @@ public class Controller_DevelopActivity extends AppCompatActivity {
             tvChem2.setText("Blix:");
             tvChem3.setText("Stabilizer:");
         }
+
         //create lists of film and chems depending on filmType selected
         filmList = db.getAllFilmsByType(filmType);
         chem1List = db.getAllChemsOfRoleType(chem1);
@@ -216,15 +234,18 @@ public class Controller_DevelopActivity extends AppCompatActivity {
     private int setTimer() {
         int timeMin = 60000 * Integer.parseInt(editText_DevMinutes.getText().toString());
         int timeSec = 1000 * Integer.parseInt(editText_DevSeconds.getText().toString());
-        int timeToSet = timeMin + timeSec;
-        String formattedText = formatMillisecondsToMinutesSecond(timeToSet);
-        textViewCountDown.setText(formattedText);
+        timeToSet = timeMin + timeSec;
+
+        //pass timeToSet to a method that will divide out minutes and seconds, and put a colon between them,
+        String formattedTime = formatMillisecondsToMinutesSecond(timeToSet);
+        textViewCountDown.setText(formattedTime);
         timeRemainingInMilliseconds = timeToSet;
         return timeToSet;
     }
 
     private void startTimer() {
-        countDownTimer = new CountDownTimer(setTimer(), 1000) {
+
+        developTimer = new CountDownTimer(timeToSet, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeRemainingInMilliseconds = millisUntilFinished;
@@ -240,9 +261,30 @@ public class Controller_DevelopActivity extends AppCompatActivity {
             }
         }.start();
 
+        intervalTimer = new CountDownTimer(timeToSet, 30000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeRemainingInMilliseconds = millisUntilFinished;
+                if ( timeToSet - millisUntilFinished > 25000 )
+                    alertToAgitate();
+            }
+
+            @Override
+            public void onFinish() {
+                timerIsRunning = false;
+                btnStartPause.setText("Start");
+                btnStartPause.setVisibility(View.INVISIBLE);
+                btnReset.setVisibility(View.VISIBLE);
+            }
+        }.start();
+
         timerIsRunning = true;
         btnStartPause.setText("pause");
         btnReset.setVisibility(View.INVISIBLE);
+    }
+
+    private void alertToAgitate() {
+        Toast.makeText(this, "Time to agitate chemistry", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -266,7 +308,7 @@ public class Controller_DevelopActivity extends AppCompatActivity {
     }
 
     private void pauseTimer() {
-        countDownTimer.cancel();
+        developTimer.cancel();
         timerIsRunning = false;
         btnStartPause.setText("Start");
         btnReset.setVisibility(View.VISIBLE);
@@ -279,5 +321,9 @@ public class Controller_DevelopActivity extends AppCompatActivity {
         btnReset.setVisibility(View.INVISIBLE);
         btnStartPause.setVisibility(View.VISIBLE);
     }
+
+
+
+
 }
 

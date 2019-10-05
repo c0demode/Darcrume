@@ -45,9 +45,9 @@ public class FilmArrayAdapter extends ArrayAdapter<Film> {
         Film currentItem = getItem(position);
 
         if(currentItem.getType().equals("BW")){
-            imageView.setImageResource(R.drawable.bw);
+            imageView.setImageResource(R.drawable.ic_camera_roll_bw);
         }else{
-            imageView.setImageResource(R.drawable.color);
+            imageView.setImageResource(R.drawable.ic_camera_roll_color);
         }
 
         textView_Brand.setText(currentItem.getBrand());

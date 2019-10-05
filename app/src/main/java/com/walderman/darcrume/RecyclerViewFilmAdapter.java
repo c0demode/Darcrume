@@ -74,9 +74,9 @@ public class RecyclerViewFilmAdapter extends RecyclerView.Adapter<RecyclerViewFi
         holder.textView_ISO.setText("ISO: " + currentItem.getIso());
         holder.textView_Exposures.setText("Exp: " + currentItem.getExp());
         if(currentItem.getType().equals("BW")){
-            drawableId=R.drawable.bw;
+            drawableId=R.drawable.ic_camera_roll_bw;
         }else{
-            drawableId=R.drawable.color;
+            drawableId=R.drawable.ic_camera_roll_color;
         }
         holder.imageView.setImageResource(drawableId);
     }

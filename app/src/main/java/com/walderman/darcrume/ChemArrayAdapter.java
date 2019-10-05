@@ -44,7 +44,10 @@ public class ChemArrayAdapter extends ArrayAdapter<Chem> {
 
         Chem currentItem = getItem(position);
 
-        imageView.setImageResource(R.drawable.chem_placeholder);
+        if (currentItem.getBw_Color().equals("BW"))
+            imageView.setImageResource(R.drawable.ic_chemistry_bw);
+        else if (currentItem.getBw_Color().equals("COLOR"))
+            imageView.setImageResource(R.drawable.ic_chemistry_color);
 
         textView_Brand.setText(currentItem.getBrand());
         textView_Name.setText(currentItem.getName());

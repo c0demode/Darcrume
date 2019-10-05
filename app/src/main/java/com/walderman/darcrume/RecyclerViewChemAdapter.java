@@ -73,10 +73,11 @@ public class RecyclerViewChemAdapter extends RecyclerView.Adapter<RecyclerViewCh
         holder.textView_Name.setText(currentItem.getName());
         holder.textView_ItemText1.setText("ISO: " + currentItem.getBw_Color());
         holder.textView_ItemText2.setText("Exp: " + currentItem.getChemRole());
+
         if(currentItem.getBw_Color().equals("BW")){
-            drawableId=R.drawable.bw;
+            drawableId=R.drawable.ic_chemistry_bw;
         }else{
-            drawableId=R.drawable.color;
+            drawableId=R.drawable.ic_chemistry_color;
         }
         holder.imageView.setImageResource(drawableId);
     }

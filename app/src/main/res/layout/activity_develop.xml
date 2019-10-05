@@ -40,15 +40,6 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner_Chem3">
 
         <Button
-            android:id="@+id/btn_setIntervalTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Set Timer"
-            app:layout_constraintBottom_toBottomOf="@+id/editText_IntervalSec"
-            app:layout_constraintStart_toEndOf="@+id/editText_IntervalSec"
-            app:layout_constraintTop_toTopOf="@+id/editText_IntervalSec" />
-
-        <Button
             android:id="@+id/btn_setMainTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,43 +49,19 @@
             app:layout_constraintTop_toTopOf="@+id/editText_DevSec" />
 
         <EditText
-            android:id="@+id/editText_IntervalMin"
-            android:layout_width="60dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:ems="10"
-            android:inputType="number"
-            android:text="00"
-            android:textAlignment="center"
-            android:textColor="@color/theme1ColorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_IntervalTime"
-            app:layout_constraintStart_toEndOf="@+id/textView_DevTime" />
-
-        <EditText
-            android:id="@+id/editText_IntervalSec"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number"
-            android:text="00"
-            android:textAlignment="center"
-            android:textColor="@color/theme1ColorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/editText_IntervalMin"
-            app:layout_constraintStart_toEndOf="@+id/textView_colon2"
-            app:layout_constraintTop_toTopOf="@+id/editText_IntervalMin" />
-
-        <EditText
             android:id="@+id/editText_DevMin"
             android:layout_width="60dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="10"
             android:inputType="number"
-            android:text="00"
+            android:hint="00"
+            android:textColorHint="@color/theme1ColorAccent"
             android:textAlignment="center"
             android:textColor="@color/theme1ColorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_DevTime"
-            app:layout_constraintStart_toEndOf="@+id/textView_DevTime" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView_DevTime"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/editText_DevSec"
@@ -102,23 +69,13 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:text="00"
+            android:hint="00"
+            android:textColorHint="@color/theme1ColorAccent"
             android:textAlignment="center"
             android:textColor="@color/theme1ColorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/editText_DevMin"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_colon"
-            app:layout_constraintTop_toTopOf="@+id/editText_DevMin" />
-
-        <TextView
-            android:id="@+id/textView_colon2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="\:"
-            android:textColor="@color/theme1ColorAccent"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/editText_IntervalMin"
-            app:layout_constraintStart_toEndOf="@+id/editText_IntervalMin"
-            app:layout_constraintTop_toTopOf="@+id/editText_IntervalMin" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView_colon"
@@ -136,24 +93,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginBottom="2dp"
             android:text="Dev Time:"
             android:textColor="@color/theme1ColorAccent"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView_IntervalTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="Interval \nTime:"
-            android:textColor="@color/theme1ColorAccent"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_DevTime" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
