@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Controller_Notes extends AppCompatActivity {
+public class Notes extends AppCompatActivity {
     DatabaseHelper db;
     EditText editTextNotes;
     Button btnSaveNotes;

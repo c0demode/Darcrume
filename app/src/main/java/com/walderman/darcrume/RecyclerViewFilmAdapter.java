@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class RecyclerViewFilmAdapter extends RecyclerView.Adapter<RecyclerViewFi
         public TextView textView_Name;
         public TextView textView_ISO;
         public TextView textView_Exposures;
+        public ConstraintLayout constraintLayout;
 
         public MyViewHolder(@NonNull View itemView, final OnItemClickListener listener){
             super(itemView);
@@ -37,6 +39,7 @@ public class RecyclerViewFilmAdapter extends RecyclerView.Adapter<RecyclerViewFi
             textView_Name = itemView.findViewById(R.id.textView_ItemName);
             textView_ISO = itemView.findViewById(R.id.textView_ItemText1);
             textView_Exposures = itemView.findViewById(R.id.textView_ItemText2);
+            constraintLayout = itemView.findViewById(R.id.recyclerView_Item_ConstraintLayout);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -59,7 +62,7 @@ public class RecyclerViewFilmAdapter extends RecyclerView.Adapter<RecyclerViewFi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
         MyViewHolder mvh = new MyViewHolder(v, listener);
         return mvh;
     }
@@ -67,7 +70,7 @@ public class RecyclerViewFilmAdapter extends RecyclerView.Adapter<RecyclerViewFi
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position){
         Film currentItem = filmList.get(position);
-        int drawableId=-1;
+        int drawableId;
         //holder.imageView.setImageResource(currentItem.getImageResource());
         holder.textView_Brand.setText(currentItem.getBrand());
         holder.textView_Name.setText(currentItem.getName());

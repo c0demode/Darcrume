@@ -203,9 +203,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int exp = film.getExp();
         String type = film.getType();
         SQLiteDatabase db = this.getWritableDatabase();
-
         db.execSQL("UPDATE FILMS SET (BRAND, NAME, ISO, EXPOSURES, BW_COLOR) = ('" + brand + "','" + name + "','" + iso + "','" + exp + "','" + type + "') WHERE FILM_ID = " + filmId);
-
         Film updatedFilm = selectFilm(filmId);
         return updatedFilm;
     }

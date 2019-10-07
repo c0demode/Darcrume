@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Controller_MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     DatabaseHelper db;
     private Button btnManageFilms;
     private Button btnManageChems;
@@ -69,22 +69,22 @@ public class Controller_MainActivity extends AppCompatActivity {
     }
 
     private void moveToNotes() {
-        Intent intent = new Intent(Controller_MainActivity.this, Controller_Notes.class);
+        Intent intent = new Intent(MainActivity.this, Notes.class);
         startActivity(intent);
     }
 
     private void moveToManageChems() {
-        Intent intent = new Intent(Controller_MainActivity.this, Controller_ManageChemsActivity.class);
+        Intent intent = new Intent(MainActivity.this, ManageChemsActivity.class);
         startActivity(intent);
     }
 
     private void moveToDevelop() {
-        Intent intent = new Intent(Controller_MainActivity.this, Controller_DevelopActivity.class);
+        Intent intent = new Intent(MainActivity.this, DevelopActivity.class);
         startActivity(intent);
     }
 
     private void moveToManageFilms() {
-        Intent intent = new Intent(Controller_MainActivity.this, Controller_ManageFilmsActivity.class);
+        Intent intent = new Intent(MainActivity.this, ManageFilmsActivity.class);
         startActivity(intent);
     }
 

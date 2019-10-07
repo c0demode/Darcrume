@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme1ColorPrimaryDark"
+    tools:context=".EditAddFilm">
+
+    <Button
+        android:id="@+id/btnEAF_Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_rounded_corners_blue"
+        android:text="SAVE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".9" />
+
+    <Button
+        android:id="@+id/btnEAF_Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_rounded_corners_blue"
+        android:text="CANCEL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".9" />
+
+    <EditText
+        android:id="@+id/etEAF_Brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:shadowColor="@color/theme1ColorAccent"
+        android:textColor="@color/theme1ColorAccent"
+        android:textColorHint="@color/theme1ColorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEditAddFilmHeader" />
+
+    <EditText
+        android:id="@+id/etEAF_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/theme1ColorAccent"
+        android:textColorHint="@color/theme1ColorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEAF_Brand" />
+
+    <RadioGroup
+        android:id="@+id/rgEAF_BwCol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerEAF_ISO">
+
+        <RadioButton
+            android:id="@+id/rbEAF_BW"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Black and White"
+            android:textColor="@color/theme1ColorAccent"
+            android:textColorHint="@color/theme1ColorAccent" />
+
+        <RadioButton
+            android:id="@+id/rbEAF_Col"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Color"
+            android:textColor="@color/theme1ColorAccent"
+            android:textColorHint="@color/theme1ColorAccent" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rgEAF_Exp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/rgEAF_BwCol">
+
+        <RadioButton
+            android:id="@+id/rbEAF_24exp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="24 Exposures"
+            android:textColor="@color/theme1ColorAccent"
+            android:textColorHint="@color/theme1ColorAccent" />
+
+        <RadioButton
+            android:id="@+id/rbEAF_36exp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="36 Exposures"
+            android:textColor="@color/theme1ColorAccent"
+            android:textColorHint="@color/theme1ColorAccent" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/spinnerEAF_ISO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/btn_rounded_corners_blue"
+        android:entries="@array/spinnerISOs"
+        app:layout_constraintStart_toStartOf="@+id/etEAF_Name"
+        app:layout_constraintTop_toBottomOf="@+id/etEAF_Name" />
+
+    <TextView
+        android:id="@+id/tvEditAddFilmHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Changes depending on Edit or Add"
+        android:textColor="@color/theme1ColorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEAF_ISO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="ISO:"
+        android:textColor="@color/theme1ColorAccent"
+        android:textColorHint="@color/theme1ColorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerEAF_ISO"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerEAF_ISO"
+        app:layout_constraintTop_toTopOf="@+id/spinnerEAF_ISO" />
+
+    <TextView
+        android:id="@+id/tvEAF_Brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Brand:"
+        android:textColor="@color/theme1ColorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/etEAF_Brand"
+        app:layout_constraintEnd_toStartOf="@+id/etEAF_Brand"
+        app:layout_constraintTop_toTopOf="@+id/etEAF_Brand" />
+
+    <TextView
+        android:id="@+id/tvEAF_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Name:"
+        android:textColor="@color/theme1ColorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/etEAF_Name"
+        app:layout_constraintEnd_toStartOf="@+id/etEAF_Name"
+        app:layout_constraintTop_toTopOf="@+id/etEAF_Name" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent=".5"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

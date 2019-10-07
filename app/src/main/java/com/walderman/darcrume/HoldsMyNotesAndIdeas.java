@@ -15,39 +15,16 @@ public class HoldsMyNotesAndIdeas {
  */
 
 /**
+ * https://www.youtube.com/watch?v=eL69kj-_Wvs for film and chem
  * Go through and add comments
  * Go through and add try/catch
  * Generally add polish!
  */
 
-/**
- * timer starts
- * 30 seconds go by
- * for a 5 second period, timer flashes and sound plays
- * repeat until timer reaches 10 seconds, then alert user to dump chems
- *
- * startTimer() has a countDownTimer that takes setTime() and a count down interval
- * instead of always passing setTimer to CountDownTimer constructor, there should be logic to determine if the timer is already rolling.
- *
- * private void startTimer() {
- *         countDownTimer = new CountDownTimer(setTimer(), 1000) {
- *         . . . rest of code . . .
- *     }else{
- *         countDownTimer = new CountDownTimer(***REMAINING TIME***, 1000)
- *     }
- * }
- *
- * There should also be a new CountDownTimer that is constructed with (a longer Tick)
- *  1 tick == 1000 == 1 second
- *  should be every thirty seconds so == 30000
- *  onTick(?)
- *      sound alarm
- *      TOAST message
- *
- * onFinish
- *      sound alarm
- *      toast mesage to dump and Rinse
- *
- */
+//Film Activity Changes:
+    /**
+     * 1. add bw / color list filter buttons
+     * 2. selected film item
+     */
 
 }

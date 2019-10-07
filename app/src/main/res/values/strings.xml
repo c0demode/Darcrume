@@ -30,6 +30,18 @@
 
 
     //ShowFilmsActivity strings
+    <string name="actDev_chem1">Chem 1</string>
+
+    //activity_manage_chems chemRole array
+    <string name="actDev_chem2">Chem 2</string>
+
+    //activity_manage_chems chemRole array
+    <string name="actDev_chem3">Chem 3</string>
+
+    //activity_manage_chems chemRole array
+    <string name="actDev_chem4">Chem 4</string>
+
+    //Values for Timer Activity
     <string-array name="spinnerISOs">
         <item>25</item>
         <item>50</item>
@@ -40,8 +52,6 @@
         <item>800</item>
         <item>1600</item>
     </string-array>
-
-    //activity_manage_chems chemRole array
     <string-array name="chemRolesAll">
         <item>Select a Chemistry Role...</item>
         <item>BW Developer</item>
@@ -51,25 +61,16 @@
         <item>Color Blix</item>
         <item>Color Stabilizer</item>
     </string-array>
-
-    //activity_manage_chems chemRole array
     <string-array name="chemRolesBW">
         <item>BW Developer</item>
         <item>BW Stop Bath</item>
         <item>BW Fixer</item>
     </string-array>
-
-    //activity_manage_chems chemRole array
     <string-array name="chemRolesColor">
         <item>Color Developer</item>
         <item>Color Blix</item>
         <item>Color Stabilizer</item>
     </string-array>
 
-    //Values for Timer Activity
-    <string name="actDev_chem1">Chem 1</string>
-    <string name="actDev_chem2">Chem 2</string>
-    <string name="actDev_chem3">Chem 3</string>
-    <string name="actDev_chem4">Chem 4</string>
 
 </resources>

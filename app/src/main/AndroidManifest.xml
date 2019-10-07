@@ -9,25 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Controller_LoginActivity">
+        <activity android:name=".HowTo" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Controller_MainActivity"></activity>
-
-        <activity android:name=".Controller_ManageFilmsActivity"></activity>
-
-        <activity android:name=".Controller_ManageChemsActivity"></activity>
-
-        <activity android:name=".Controller_Notes"></activity>
-
-        <activity android:name=".Controller_DevelopActivity"></activity>
-
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ManageFilmsActivity" />
+        <activity android:name=".ManageChemsActivity" />
+        <activity android:name=".Notes" />
+        <activity android:name=".DevelopActivity" />
+        <activity android:name=".EditAddFilm"
+            android:parentActivityName=".ManageFilmsActivity"></activity>
     </application>
 
 </manifest>

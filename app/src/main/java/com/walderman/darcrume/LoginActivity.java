@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Controller_LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     DatabaseHelper db;
     EditText editTextUsername;
     EditText editTextPassword;
@@ -57,7 +57,7 @@ public class Controller_LoginActivity extends AppCompatActivity {
     }
 
     private void openMainActivity() {
-        Intent intent = new Intent(Controller_LoginActivity.this, Controller_MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

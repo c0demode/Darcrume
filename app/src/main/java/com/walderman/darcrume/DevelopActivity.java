@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Controller_DevelopActivity extends AppCompatActivity {
+public class DevelopActivity extends AppCompatActivity {
     private static long startTimeInMilliseconds = 0;
     private DatabaseHelper db;
     private TextView tvChem1;
@@ -33,7 +33,7 @@ public class Controller_DevelopActivity extends AppCompatActivity {
     private CountDownTimer intervalTimer;
     private Boolean timerIsRunning = false;
     private long timeRemainingInMilliseconds = startTimeInMilliseconds;
-    private MediaPlayer sound;// = MediaPlayer.create(Controller_DevelopActivity.this, R.raw.accomplished);
+    private MediaPlayer sound;// = MediaPlayer.create(DevelopActivity.this, R.raw.accomplished);
     private ArrayList<Chem> chem1List = new ArrayList<>();
     private ArrayList<Chem> chem2List = new ArrayList<>();
     private ArrayList<Chem> chem3List = new ArrayList<>();
@@ -74,13 +74,14 @@ public class Controller_DevelopActivity extends AppCompatActivity {
      * This method is called during onCreate. It finds views for all variables that needs views.
      */
     private void configureVariables() {
-        sound = MediaPlayer.create(Controller_DevelopActivity.this, R.raw.accomplished);
+        sound = MediaPlayer.create(DevelopActivity.this, R.raw.accomplished);
 
         tvChem1 = findViewById(R.id.textView_SelectChem1);
         tvChem2 = findViewById(R.id.textView_SelectChem2);
         tvChem3 = findViewById(R.id.textView_SelectChem3);
 
         radDevBW = findViewById(R.id.radDevBW);
+        radDevBW.setChecked(true);
         radDevCol = findViewById(R.id.radDevCol);
 
         filmSpinner = findViewById(R.id.spinner_SelectFilm);
@@ -272,9 +273,7 @@ public class Controller_DevelopActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 timerIsRunning = false;
-                btnStartPause.setText("Start");
-                btnStartPause.setVisibility(View.INVISIBLE);
-                btnReset.setVisibility(View.VISIBLE);
+                Toast.makeText(DevelopActivity.this, "Pour out chemistry and follow next step!", Toast.LENGTH_LONG).show();
             }
         }.start();
 

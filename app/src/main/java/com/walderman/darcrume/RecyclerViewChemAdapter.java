@@ -59,7 +59,7 @@ public class RecyclerViewChemAdapter extends RecyclerView.Adapter<RecyclerViewCh
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
         MyViewHolder mvh = new MyViewHolder(v, listener);
         return mvh;
     }
