@@ -72,28 +72,9 @@
         <item>Color Stabilizer</item>
     </string-array>
 
-    <string name="howToBW">Prep work:
-	Load film into reels and development tank. For instructions on how to do this, look here.
-	Bring chemistry to between 68-72 degrees Fahrenheit. Depending on the season, you may have to float your chemistry bottles in warmer or cooler water for a period of time.
-	Note the recommended development time according to your film and developer. Look here for help.
-
-Development steps:
-	Set the timer for the first phase of development. At 30 second intervals, the app will remind you to agitate the chemistry. This means to invert the film tank a few times, for a total of roughly 5 seconds. Make sure to secure the lid during this step!
-	Allow the timer to count down. At the end, pour out your developer. This should go down the drain.
-	Fill the film tank with tap water. Perform 2 to 3 inversions and dump the water down the drain.
-	Set the timer for 30 seconds.
-	Pour in the Stop Bath and start the timer.
-	Pour out the Stop Bath. This can usually be poured back into your storage container.
-	Set the timer for 5 minutes.
-	Pour in the Fixer and start the timer.
-	At 30 second intervals, the app will remind you to agitate the chemistry. Invert the film tank a few times, for a total of roughly 5 seconds. Make sure to secure the lid during this step!
-	Pour out the Fixer. This can usually be poured back into your storage container.
-	The film is now safe to expose to light. Remove the lid from the film tank and run cold water over the film reels inside.
-	Allow the tank to fill up, then dump out the water. Repeat this step 2-3 times a minute for 10 minutes.
-	You can now remove the film from the reels. Hang it up to dry in a dust free environment for several hours.
-	You\'re done!</string>
-
-    <string name="howToColor"> color
-	You\'re done!</string>
+    <string name="howToPrep">Prep:\nLoad the film into the development tank.\nDecide on development times by referring to www.digitaltruth.com</string>
+    <string name="howToApp">App Settings:\nOn the Develop screen, select your film and chemicals.\nNote that you cannot pause a chemical reaction, so be prepared to complete the entire process before clicking Start.</string>
+    <string name="howToDevBW">Development Steps:\nSet the timer, pour in Developer, and click start.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Developer into the storage container.\n\nSet the timer according to Stop Bath label instructions, pour in the Stop Bath, and start the timer.\n\nWhen the timer stops, pour the Stop Bath back into the storage container.\n\nSet the timer according to Fixer label instructions, pour in Fixer, and start the timer.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Fixer back into the storage container.\n\nRemove the lid of the development tank and rinse thoroughly with clean water.\n\nHang up film to dry. You’re done!\n\n\n</string>
+    <string name="howToDevCol">Development Steps:\nSet the timer, pour in Developer, and click start.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Developer into the storage container.\n\nSet the timer according to Blix label instructions, pour in the Blix, and start the timer.\n\nWhen the timer stops, pour the Blix back into the storage container.\n\nSet the timer according to Stabilizer label instructions, pour in Stabilizer, and start the timer.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Stabilizer back into the storage container.\n\nRemove the lid of the development tank and rinse thoroughly with clean water.\n\nHang up film to dry. You’re done!\n\n\n</string>
 
 </resources>

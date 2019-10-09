@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper db;
@@ -81,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void moveToNotes() {
-        Intent intent = new Intent(MainActivity.this, Notes.class);
+        Intent intent = new Intent(MainActivity.this, NotesActivity.class);
         startActivity(intent);
     }
 

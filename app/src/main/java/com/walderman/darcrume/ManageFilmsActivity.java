@@ -95,7 +95,7 @@ public class ManageFilmsActivity extends AppCompatActivity {
     }
 
     private void buildRecyclerView() {
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.rvManageFilms);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         adapter = new RecyclerViewFilmAdapter(filterFilmList(filmList));

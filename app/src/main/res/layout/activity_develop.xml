@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@drawable/btn_rounded_corners_blue"
         android:text="start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@drawable/btn_rounded_corners_blue"
         android:text="reset"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +45,8 @@
             android:id="@+id/btn_setMainTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set Timer"
+            android:background="@drawable/btn_rounded_corners_blue"
+            android:text=" Set Timer "
             app:layout_constraintBottom_toBottomOf="@+id/editText_DevSec"
             app:layout_constraintStart_toEndOf="@+id/editText_DevSec"
             app:layout_constraintTop_toTopOf="@+id/editText_DevSec" />
@@ -94,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="2dp"
-            android:text="Dev Time:"
+            android:text="Enter Time:"
             android:textColor="@color/theme1ColorAccent"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -261,23 +264,15 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner_Chem2" />
 
     <Button
-        android:id="@+id/btnDevAddNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="Add Note"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/btnDevLogSession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Log Session"
+        android:background="@drawable/btn_rounded_corners_blue"
+        android:text="  Log Session  "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
 
     <androidx.constraintlayout.widget.Guideline

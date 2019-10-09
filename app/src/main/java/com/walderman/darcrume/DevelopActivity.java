@@ -29,7 +29,6 @@ public class DevelopActivity extends AppCompatActivity implements NoteDialog.Not
     private Button btnSetTimer;
     private Button btnStartStop;
     private Button btnReset;
-    private Button btnDevAddNote;
     private Button btnDevLogSession;
     private CountDownTimer developTimer;
     private CountDownTimer intervalTimer;
@@ -99,7 +98,7 @@ public class DevelopActivity extends AppCompatActivity implements NoteDialog.Not
         textViewCountDown = findViewById(R.id.textView_Countdown);
         btnStartStop = findViewById(R.id.btn_start_pause);
         btnReset = findViewById(R.id.btn_reset);
-        btnDevAddNote = findViewById(R.id.btnDevAddNote);
+
         btnDevLogSession = findViewById(R.id.btnDevLogSession);
 
     }

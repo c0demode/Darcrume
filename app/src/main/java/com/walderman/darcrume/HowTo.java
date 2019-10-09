@@ -18,19 +18,19 @@ public class HowTo extends AppCompatActivity {
         setContentView(R.layout.activity_howto);
         rbBW = findViewById(R.id.rbHowToBW);
         rbCol = findViewById(R.id.rbHowToColor);
-        tvInstructions = findViewById(R.id.tvInstructions);
+        tvInstructions = findViewById(R.id.tvHowToDevelopSteps);
 
         rbBW.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvInstructions.setText(getString(R.string.howToBW));
+                tvInstructions.setText(getString(R.string.howToDevBW));
             }
         });
 
         rbCol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvInstructions.setText(getString(R.string.howToColor));
+                tvInstructions.setText(getString(R.string.howToDevCol));
             }
         });
     }

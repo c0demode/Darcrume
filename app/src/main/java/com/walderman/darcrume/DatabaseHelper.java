@@ -470,6 +470,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='NOTES'");
     }
 
+    public ArrayList<Note> getAllNotes() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Note> allNotes = new ArrayList<>();
+
+        Cursor noteResult = db.rawQuery("SELECT * FROM NOTES WHERE NOTE_TEXT IS NOT NULL", null);
+        while (noteResult.moveToNext()) {
+            int noteId = noteResult.getInt(noteResult.getColumnIndex("NOTE_ID"));
+            String noteText = noteResult.getString(noteResult.getColumnIndex("NOTE_TEXT"));
+
+              Cursor sessionResult = db.rawQuery("SELECT RECIPE_ID, DEVDATE FROM SESSION_HISTORY WHERE NOTE_ID = " + noteId, null);
+              while (sessionResult.moveToNext()) {
+                  int recipeId = sessionResult.getInt(sessionResult.getColumnIndex("RECIPE_ID"));
+                  String devdate = sessionResult.getString(sessionResult.getColumnIndex("DEVDATE"));
+
+                  Cursor recipeResult = db.rawQuery("SELECT FILM_ID FROM RECIPE WHERE RECIPE_ID = " + recipeId,null);
+                  while (recipeResult.moveToNext()){
+                      int filmId = recipeResult.getInt(recipeResult.getColumnIndex("FILM_ID"));
+
+                      Cursor filmResult = db.rawQuery("SELECT BRAND, NAME FROM FILMS WHERE FILM_ID = " + filmId, null);
+                      while (filmResult.moveToNext()){
+                          String filmName = filmResult.getString(0) + " " + filmResult.getString(1);
+
+                          Note note = new Note(devdate, filmName, noteText);
+                          allNotes.add(note);
+                      }
+                  }
+              }
+        }
+        return allNotes;
+    }
+
 
     /**
      * .______       _______   ______  __  .______    _______

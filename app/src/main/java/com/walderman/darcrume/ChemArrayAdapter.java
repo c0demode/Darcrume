@@ -51,8 +51,8 @@ public class ChemArrayAdapter extends ArrayAdapter<Chem> {
 
         textView_Brand.setText(currentItem.getBrand());
         textView_Name.setText(currentItem.getName());
-        textView_ChemText1.setText("placeholder");
-        textView_ChemText2.setText("placeholder2");
+        textView_ChemText1.setText("");
+        textView_ChemText2.setText("");
 
         return convertView;
     }
