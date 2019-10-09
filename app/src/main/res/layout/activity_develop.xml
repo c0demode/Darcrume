@@ -55,10 +55,10 @@
             android:layout_marginStart="8dp"
             android:ems="10"
             android:inputType="number"
-            android:hint="00"
-            android:textColorHint="@color/theme1ColorAccent"
+            android:text="5"
             android:textAlignment="center"
             android:textColor="@color/theme1ColorAccent"
+            android:textColorHint="@color/theme1ColorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_DevTime"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,10 +69,10 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:hint="00"
-            android:textColorHint="@color/theme1ColorAccent"
+            android:text="00"
             android:textAlignment="center"
             android:textColor="@color/theme1ColorAccent"
+            android:textColorHint="@color/theme1ColorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_colon"
             app:layout_constraintTop_toTopOf="parent" />
@@ -194,11 +194,10 @@
         android:id="@+id/spinner_Chem3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:background="@drawable/btn_rounded_corners_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_Chem2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_SelectChem3" />
 
     <TextView
         android:id="@+id/textView_Countdown"
@@ -255,13 +254,40 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:text="@string/actDev_chem3"
         android:textColor="@color/theme1ColorAccent"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_Chem3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_Chem2" />
+
+    <Button
+        android:id="@+id/btnDevAddNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Add Note"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnDevLogSession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Log Session"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent=".5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

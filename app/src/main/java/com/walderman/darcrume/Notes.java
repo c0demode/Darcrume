@@ -40,7 +40,7 @@ public class Notes extends AppCompatActivity {
     }
 
     private void insertNote(){
-        if (db.insertNewNote(editTextNotes.getText().toString())){
+        if (db.insertNewNote(editTextNotes.getText().toString()) != -1){
             Toast.makeText(this,"Note Saved!",Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this,"Error - unable to save note.",Toast.LENGTH_SHORT).show();

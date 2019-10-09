@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class DevelopActivity extends AppCompatActivity {
+public class DevelopActivity extends AppCompatActivity implements NoteDialog.NoteDialogListener {
     private static long startTimeInMilliseconds = 0;
     private DatabaseHelper db;
     private TextView tvChem1;
@@ -27,8 +27,10 @@ public class DevelopActivity extends AppCompatActivity {
     private EditText editText_DevSeconds;
     private TextView textViewCountDown;
     private Button btnSetTimer;
-    private Button btnStartPause;
+    private Button btnStartStop;
     private Button btnReset;
+    private Button btnDevAddNote;
+    private Button btnDevLogSession;
     private CountDownTimer developTimer;
     private CountDownTimer intervalTimer;
     private Boolean timerIsRunning = false;
@@ -53,6 +55,7 @@ public class DevelopActivity extends AppCompatActivity {
     private RadioButton radDevBW;
     private RadioButton radDevCol;
     private int timeToSet;
+    private String sessionNote;
 
 
 
@@ -68,7 +71,6 @@ public class DevelopActivity extends AppCompatActivity {
 
         populateSpinners(DatabaseHelper.FilmType.BW);
     }
-
 
     /**
      * This method is called during onCreate. It finds views for all variables that needs views.
@@ -95,8 +97,11 @@ public class DevelopActivity extends AppCompatActivity {
 
         btnSetTimer = findViewById(R.id.btn_setMainTimer);
         textViewCountDown = findViewById(R.id.textView_Countdown);
-        btnStartPause = findViewById(R.id.btn_start_pause);
+        btnStartStop = findViewById(R.id.btn_start_pause);
         btnReset = findViewById(R.id.btn_reset);
+        btnDevAddNote = findViewById(R.id.btnDevAddNote);
+        btnDevLogSession = findViewById(R.id.btnDevLogSession);
+
     }
 
     private void setOnClickListeners(){
@@ -117,15 +122,18 @@ public class DevelopActivity extends AppCompatActivity {
         btnSetTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTimer();
+                if(Integer.parseInt(editText_DevMinutes.getText().toString()) + Integer.parseInt(editText_DevSeconds.getText().toString()) > 0)
+                    setTimer();
+                else
+                    Toast.makeText(getApplicationContext(), "Please enter a time", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btnStartPause.setOnClickListener(new View.OnClickListener() {
+        btnStartStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (timerIsRunning) {
-                    pauseTimer();
+                    stopTimer();
                 } else {
                     startTimer();
                 }
@@ -153,24 +161,14 @@ public class DevelopActivity extends AppCompatActivity {
             }
         });
 
-        editText_DevMinutes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    editText_DevMinutes.setHint("");
-                else
-                    editText_DevMinutes.setHint("Your hint");
-            }
-        });
-
-        editText_DevMinutes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    editText_DevMinutes.setHint("");
-                else
-                    editText_DevMinutes.setHint("Your hint");
+        btnDevLogSession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openNoteDialog();
             }
         });
     }
+
 
 
     private void populateSpinners(DatabaseHelper.FilmType filmType) {
@@ -216,7 +214,6 @@ public class DevelopActivity extends AppCompatActivity {
 
     }
 
-
     /** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
      * .___________. __  .___  ___.  _______ .______       **
      * |           ||  | |   \/   | |   ____||   _  \      **
@@ -232,55 +229,6 @@ public class DevelopActivity extends AppCompatActivity {
      *
      * @return
      */
-    private int setTimer() {
-        int timeMin = 60000 * Integer.parseInt(editText_DevMinutes.getText().toString());
-        int timeSec = 1000 * Integer.parseInt(editText_DevSeconds.getText().toString());
-        timeToSet = timeMin + timeSec;
-
-        //pass timeToSet to a method that will divide out minutes and seconds, and put a colon between them,
-        String formattedTime = formatMillisecondsToMinutesSecond(timeToSet);
-        textViewCountDown.setText(formattedTime);
-        timeRemainingInMilliseconds = timeToSet;
-        return timeToSet;
-    }
-
-    private void startTimer() {
-
-        developTimer = new CountDownTimer(timeToSet, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timeRemainingInMilliseconds = millisUntilFinished;
-                updateCountDownText();
-            }
-
-            @Override
-            public void onFinish() {
-                timerIsRunning = false;
-                btnStartPause.setText("Start");
-                btnStartPause.setVisibility(View.INVISIBLE);
-                btnReset.setVisibility(View.VISIBLE);
-            }
-        }.start();
-
-        intervalTimer = new CountDownTimer(timeToSet, 30000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timeRemainingInMilliseconds = millisUntilFinished;
-                if ( timeToSet - millisUntilFinished > 25000 )
-                    alertToAgitate();
-            }
-
-            @Override
-            public void onFinish() {
-                timerIsRunning = false;
-                Toast.makeText(DevelopActivity.this, "Pour out chemistry and follow next step!", Toast.LENGTH_LONG).show();
-            }
-        }.start();
-
-        timerIsRunning = true;
-        btnStartPause.setText("pause");
-        btnReset.setVisibility(View.INVISIBLE);
-    }
 
     private void alertToAgitate() {
         Toast.makeText(this, "Time to agitate chemistry", Toast.LENGTH_SHORT).show();
@@ -306,23 +254,97 @@ public class DevelopActivity extends AppCompatActivity {
         textViewCountDown.setText(updatedCountDownText);
     }
 
-    private void pauseTimer() {
+    private int setTimer() {
+        int timeMin = 60000 * Integer.parseInt(editText_DevMinutes.getText().toString());
+        int timeSec = 1000 * Integer.parseInt(editText_DevSeconds.getText().toString());
+        timeToSet = timeMin + timeSec;
+
+        //pass timeToSet to a method that will divide out minutes and seconds, and put a colon between them,
+        String formattedTime = formatMillisecondsToMinutesSecond(timeToSet);
+        textViewCountDown.setText(formattedTime);
+        timeRemainingInMilliseconds = timeToSet;
+        return timeToSet;
+    }
+
+    private void startTimer() {
+
+        developTimer = new CountDownTimer(timeToSet, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeRemainingInMilliseconds = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                timerIsRunning = false;
+                btnStartStop.setText("Start");
+                btnStartStop.setVisibility(View.INVISIBLE);
+                btnReset.setVisibility(View.VISIBLE);
+            }
+        }.start();
+
+        intervalTimer = new CountDownTimer(timeToSet, 30000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeRemainingInMilliseconds = millisUntilFinished;
+                if ( timeToSet - millisUntilFinished > 25000 ) {
+                    sound.start();
+                    alertToAgitate();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                timerIsRunning = false;
+                Toast.makeText(DevelopActivity.this, "Pour out chemistry and follow next step!", Toast.LENGTH_LONG).show();
+            }
+        }.start();
+
+        timerIsRunning = true;
+        btnStartStop.setText("Stop");
+        btnReset.setVisibility(View.INVISIBLE);
+    }
+
+    private void stopTimer() {
         developTimer.cancel();
-        timerIsRunning = false;
-        btnStartPause.setText("Start");
+        intervalTimer.cancel();
         btnReset.setVisibility(View.VISIBLE);
-        sound.start();
     }
 
     private void resetTimer() {
         timeRemainingInMilliseconds = setTimer();
         updateCountDownText();
         btnReset.setVisibility(View.INVISIBLE);
-        btnStartPause.setVisibility(View.VISIBLE);
+        btnStartStop.setVisibility(View.VISIBLE);
+
+        btnStartStop.setText("Start");
+
+        timerIsRunning = false;
+    }
+
+    private void openNoteDialog() {
+        NoteDialog noteDialog = new NoteDialog();
+        noteDialog.show(getSupportFragmentManager(),"Note Dialog");
+    }
+
+    @Override
+    public void applyText(String note) {
+        sessionNote = note;
+        //we have to wait until we get back a sessionNote before we call saveSession()
+        saveSession();
     }
 
 
+    private void saveSession() {
+        int filmId = filmArrayAdapter.getItem(filmSpinner.getSelectedItemPosition()).getFilm_id();
+        int chem1Id = chemArrayAdapter1.getItem(chem1Spinner.getSelectedItemPosition()).getChemId();
+        int chem2Id = chemArrayAdapter2.getItem(chem2Spinner.getSelectedItemPosition()).getChemId();
+        int chem3Id = chemArrayAdapter3.getItem(chem3Spinner.getSelectedItemPosition()).getChemId();
+        int recipeId = db.addNewRecipe(filmId, chem1Id, chem2Id, chem3Id);
+        int note_id = db.insertNewNote(sessionNote);
 
-
+        db.addNewSession(recipeId, note_id);
+    }
 }
 

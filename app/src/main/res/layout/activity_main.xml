@@ -23,6 +23,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:id="@+id/btnHowToActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_corners_blue"
+            android:text="How To"
+            android:textColor="@color/theme1ColorAccent" />
+
+        <Button
             android:id="@+id/btnManageFilms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

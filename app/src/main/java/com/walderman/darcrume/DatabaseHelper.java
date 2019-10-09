@@ -8,7 +8,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -23,7 +26,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String createTABLE_FILMS = "CREATE TABLE FILMS(FILM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, ISO INTEGER, EXPOSURES INTEGER)";
     private static final String createTABLE_CHEMS = "CREATE TABLE CHEMS(CHEM_ID INTEGER PRIMARY KEY AUTOINCREMENT, BRAND TEXT, NAME TEXT, BW_COLOR TEXT, CHEM_ROLE TEXT)";
     private static final String createTABLE_NOTES = "CREATE TABLE NOTES(NOTE_ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTE_TEXT TEXT)";
-    private static final String createTABLE_SESSION_HISTORY = "CREATE TABLE SESSION_HISTORY(SESSION_ID INTEGER PRIMARY KEY AUTOINCREMENT, RECIPE_ID INTEGER, BW_COLOR TEXT, DATE DATE)";
+    private static final String createTABLE_SESSION_HISTORY = "CREATE TABLE SESSION_HISTORY(SESSION_ID INTEGER PRIMARY KEY AUTOINCREMENT, RECIPE_ID INTEGER, NOTE_ID INTEGER, DEVDATE DATE," +
+                                                    "FOREIGN KEY(RECIPE_ID) REFERENCES RECIPE(RECIPE_ID)," +
+                                                    "FOREIGN KEY(NOTE_ID) REFERENCES NOTES(NOTE_ID))";
+    private static final String createTABLE_RECIPE = "CREATE TABLE RECIPE(RECIPE_ID INTEGER PRIMARY KEY AUTOINCREMENT, FILM_ID INTEGER, CHEM1_ID INTEGER, CHEM2_ID INTEGER, CHEM3_ID INTEGER, " +
+                                                     "FOREIGN KEY(FILM_ID) REFERENCES FILMS(FILM_ID)," +
+                                                     "FOREIGN KEY(CHEM1_ID) REFERENCES CHEMS(CHEM_ID)," +
+                                                     "FOREIGN KEY(CHEM2_ID) REFERENCES CHEMS(CHEM_ID)," +
+                                                     "FOREIGN KEY(CHEM3_ID) REFERENCES CHEMS(CHEM_ID))";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTABLE_CHEMS);
         db.execSQL(createTABLE_SESSION_HISTORY);
         db.execSQL(createTABLE_NOTES);
+        db.execSQL(createTABLE_RECIPE);
     }
 
     @Override
@@ -433,7 +444,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * |__| \__|  \______/      |__|     |_______|_______/
      */
 
-    public boolean insertNewNote(String note) {
+    public int insertNewNote(String note) {
         try {
             //get instance of database
             SQLiteDatabase db = this.getWritableDatabase();
@@ -443,13 +454,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put("NOTE_TEXT", note);
 
             //insert new film into database
-            db.insert("NOTES", null, cv);
-            return true;
+            int id = (int)db.insert("NOTES", null, cv);
+            return id;
         } catch (Exception e) {
             e.printStackTrace();
 
         }
-        return false;
+        return -1;
     }
 
     public void truncateNotesTable() {
@@ -458,6 +469,74 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Delete the sequence for TABLE_FILMS which will reset primary key.
         db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='NOTES'");
     }
+
+
+    /**
+     * .______       _______   ______  __  .______    _______
+     * |   _  \     |   ____| /      ||  | |   _  \  |   ____|
+     * |  |_)  |    |  |__   |  ,----'|  | |  |_)  | |  |__
+     * |      /     |   __|  |  |     |  | |   ___/  |   __|
+     * |  |\  \----.|  |____ |  `----.|  | |  |      |  |____
+     * | _| `._____||_______| \______||__| | _|      |_______|
+     *
+     */
+
+    public int addNewRecipe(int filmId, int chem1Id, int chem2Id, int chem3Id) {
+        if (checkIfRecipeExists(filmId, chem1Id, chem2Id, chem3Id) == -1){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("FILM_ID", filmId);
+        cv.put("CHEM1_ID", chem1Id);
+        cv.put("CHEM2_ID", chem2Id);
+        cv.put("CHEM3_ID", chem3Id);
+
+        int newRecipeId = (int)db.insert("RECIPE", null, cv);
+        return newRecipeId;
+        } else {
+            return checkIfRecipeExists(filmId, chem1Id, chem2Id, chem3Id);
+        }
+
+    }
+
+    public int checkIfRecipeExists(int filmId, int chem1Id, int chem2Id, int chem3Id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM RECIPE WHERE  " +
+                                        "FILM_ID = '" + filmId + "' AND " +
+                                        "CHEM1_ID = '" + chem1Id + "' AND " +
+                                        "CHEM2_ID = '" + chem2Id + "' AND " +
+                                        "CHEM3_ID = '" + chem3Id + "'", null);
+
+        while (result.moveToNext()) {
+            return result.getInt(result.getColumnIndex("RECIPE_ID"));
+        }
+        return -1;
+    }
+
+    /**
+     *      _______. _______     _______.     _______. __    ______   .__   __.
+     *     /       ||   ____|   /       |    /       ||  |  /  __  \  |  \ |  |
+     *    |   (----`|  |__     |   (----`   |   (----`|  | |  |  |  | |   \|  |
+     *     \   \    |   __|     \   \        \   \    |  | |  |  |  | |  . `  |
+     * .----)   |   |  |____.----)   |   .----)   |   |  | |  `--'  | |  |\   |
+     * |_______/    |_______|_______/    |_______/    |__|  \______/  |__| \__|
+     *
+     */
+
+    public int addNewSession(int recipe_id, int note_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        ContentValues cv = new ContentValues();
+        cv.put("RECIPE_ID", recipe_id);
+        cv.put("NOTE_ID", note_id);
+        //cv.put("DEVDATE", );
+
+        int id = (int)db.insert("SESSION_HISTORY", null, cv);
+
+        return id;
+    }
+
+
 
 
     /**

@@ -72,5 +72,28 @@
         <item>Color Stabilizer</item>
     </string-array>
 
+    <string name="howToBW">Prep work:
+	Load film into reels and development tank. For instructions on how to do this, look here.
+	Bring chemistry to between 68-72 degrees Fahrenheit. Depending on the season, you may have to float your chemistry bottles in warmer or cooler water for a period of time.
+	Note the recommended development time according to your film and developer. Look here for help.
+
+Development steps:
+	Set the timer for the first phase of development. At 30 second intervals, the app will remind you to agitate the chemistry. This means to invert the film tank a few times, for a total of roughly 5 seconds. Make sure to secure the lid during this step!
+	Allow the timer to count down. At the end, pour out your developer. This should go down the drain.
+	Fill the film tank with tap water. Perform 2 to 3 inversions and dump the water down the drain.
+	Set the timer for 30 seconds.
+	Pour in the Stop Bath and start the timer.
+	Pour out the Stop Bath. This can usually be poured back into your storage container.
+	Set the timer for 5 minutes.
+	Pour in the Fixer and start the timer.
+	At 30 second intervals, the app will remind you to agitate the chemistry. Invert the film tank a few times, for a total of roughly 5 seconds. Make sure to secure the lid during this step!
+	Pour out the Fixer. This can usually be poured back into your storage container.
+	The film is now safe to expose to light. Remove the lid from the film tank and run cold water over the film reels inside.
+	Allow the tank to fill up, then dump out the water. Repeat this step 2-3 times a minute for 10 minutes.
+	You can now remove the film from the reels. Hang it up to dry in a dust free environment for several hours.
+	You\'re done!</string>
+
+    <string name="howToColor"> color
+	You\'re done!</string>
 
 </resources>

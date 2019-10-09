@@ -4,8 +4,6 @@ public class HoldsMyNotesAndIdeas {
 
 /**
  * simplify develop activity.
- * login activity should check db to make sure a WGU user exists, or else reset db.
- * add interval timer
  * fix start/stop/resume/reset
  * https://youtu.be/ARezg1D9Zd0 floating window
  * https://www.youtube.com/watch?v=0DH2tZjJtm0 hopefully better floating window
@@ -21,10 +19,13 @@ public class HoldsMyNotesAndIdeas {
  * Generally add polish!
  */
 
-//Film Activity Changes:
-    /**
-     * 1. add bw / color list filter buttons
-     * 2. selected film item
-     */
+/**
+ * add session date
+ * fix foreign keys
+ * (or dont, or dont)
+ *
+ * When click Log Session, dialog asks if you want to add a note, passes note back into string, passed to db method
+ */
+
 
 }

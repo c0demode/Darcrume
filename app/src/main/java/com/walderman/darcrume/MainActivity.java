@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper db;
+    private Button btnHowTo;
     private Button btnManageFilms;
     private Button btnManageChems;
     private Button btnNotes;
     private Button btnDevelop;
     private Button btnNuke;
-    private TextView debugtextview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void configureVariables() {
         db = new DatabaseHelper(this);
+        btnHowTo = findViewById(R.id.btnHowToActivity);
         btnManageFilms = findViewById(R.id.btnManageFilms);
         btnManageChems = findViewById(R.id.btnChems);
         btnNotes = findViewById(R.id.btnNote);
@@ -36,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners() {
+        btnHowTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveToHowTo();
+            }
+        });
         btnManageFilms.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -66,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
                 resetDbToDefault();
             }
         });
+    }
+
+    private void moveToHowTo() {
+        Intent intent = new Intent(MainActivity.this, HowTo.class);
+        startActivity(intent);
     }
 
     private void moveToNotes() {
