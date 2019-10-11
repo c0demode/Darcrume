@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class DevelopActivity extends AppCompatActivity implements NoteDialog.NoteDialogListener {
+
     private static long startTimeInMilliseconds = 0;
     private DatabaseHelper db;
     private TextView tvChem1;
@@ -25,7 +26,7 @@ public class DevelopActivity extends AppCompatActivity implements NoteDialog.Not
     private TextView tvChem3;
     private EditText editText_DevMinutes;
     private EditText editText_DevSeconds;
-    private TextView textViewCountDown;
+    public TextView textViewCountDown;
     private Button btnSetTimer;
     private Button btnStartStop;
     private Button btnReset;
@@ -54,7 +55,7 @@ public class DevelopActivity extends AppCompatActivity implements NoteDialog.Not
     private RadioButton radDevBW;
     private RadioButton radDevCol;
     private int timeToSet;
-    private String sessionNote;
+    private String sessionNote;//All Variables
 
 
 
@@ -168,8 +169,6 @@ public class DevelopActivity extends AppCompatActivity implements NoteDialog.Not
         });
     }
 
-
-
     private void populateSpinners(DatabaseHelper.FilmType filmType) {
 
         //Initialize variables
@@ -238,7 +237,7 @@ public class DevelopActivity extends AppCompatActivity implements NoteDialog.Not
      * @param milliseconds
      * @return
      */
-    private String formatMillisecondsToMinutesSecond(int milliseconds) {
+    public String formatMillisecondsToMinutesSecond(int milliseconds) {
         int minutes = (milliseconds / 1000) / 60;
         int seconds = (milliseconds / 1000) % 60;
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
@@ -253,7 +252,7 @@ public class DevelopActivity extends AppCompatActivity implements NoteDialog.Not
         textViewCountDown.setText(updatedCountDownText);
     }
 
-    private int setTimer() {
+    public int setTimer() {
         int timeMin = 60000 * Integer.parseInt(editText_DevMinutes.getText().toString());
         int timeSec = 1000 * Integer.parseInt(editText_DevSeconds.getText().toString());
         timeToSet = timeMin + timeSec;

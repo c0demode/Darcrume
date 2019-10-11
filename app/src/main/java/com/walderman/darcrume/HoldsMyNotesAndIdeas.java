@@ -27,5 +27,10 @@ public class HoldsMyNotesAndIdeas {
  * When click Log Session, dialog asks if you want to add a note, passes note back into string, passed to db method
  */
 
-
+/**
+ * Add search functionality with multiple row results and displays
+ * Add ability to generate reports with multiple columns, multiple rows, date-time stamp, and title
+ * Fix logic in Chemistry that causes crash if a chem is SELECTED when "ADD CHEM" is clicked. There should be logic to ensure that an existing chem has not been selected.
+ *              this could be a copy of the Films functionality if I want to do that work. 😑😣
+ */
 }

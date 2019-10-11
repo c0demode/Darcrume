@@ -42,6 +42,11 @@
     <string name="actDev_chem4">Chem 4</string>
 
     //Values for Timer Activity
+    <string name="howToPrep">Prep:\nLoad the film into the development tank.\nDecide on development times by referring to www.digitaltruth.com</string>
+    <string name="howToApp">App Settings:\nOn the Develop screen, select your film and chemicals.\nNote that you cannot pause a chemical reaction, so be prepared to complete the entire process before clicking Start.</string>
+    <string name="howToDevBW">Development Steps:\nSet the timer, pour in Developer, and click start.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Developer into the storage container.\n\nSet the timer according to Stop Bath label instructions, pour in the Stop Bath, and start the timer.\n\nWhen the timer stops, pour the Stop Bath back into the storage container.\n\nSet the timer according to Fixer label instructions, pour in Fixer, and start the timer.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Fixer back into the storage container.\n\nRemove the lid of the development tank and rinse thoroughly with clean water.\n\nHang up film to dry. You’re done!\n\n\n</string>
+    <string name="howToDevCol">Development Steps:\nSet the timer, pour in Developer, and click start.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Developer into the storage container.\n\nSet the timer according to Blix label instructions, pour in the Blix, and start the timer.\n\nWhen the timer stops, pour the Blix back into the storage container.\n\nSet the timer according to Stabilizer label instructions, pour in Stabilizer, and start the timer.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Stabilizer back into the storage container.\n\nRemove the lid of the development tank and rinse thoroughly with clean water.\n\nHang up film to dry. You’re done!\n\n\n</string>
+
     <string-array name="spinnerISOs">
         <item>25</item>
         <item>50</item>
@@ -71,10 +76,5 @@
         <item>Color Blix</item>
         <item>Color Stabilizer</item>
     </string-array>
-
-    <string name="howToPrep">Prep:\nLoad the film into the development tank.\nDecide on development times by referring to www.digitaltruth.com</string>
-    <string name="howToApp">App Settings:\nOn the Develop screen, select your film and chemicals.\nNote that you cannot pause a chemical reaction, so be prepared to complete the entire process before clicking Start.</string>
-    <string name="howToDevBW">Development Steps:\nSet the timer, pour in Developer, and click start.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Developer into the storage container.\n\nSet the timer according to Stop Bath label instructions, pour in the Stop Bath, and start the timer.\n\nWhen the timer stops, pour the Stop Bath back into the storage container.\n\nSet the timer according to Fixer label instructions, pour in Fixer, and start the timer.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Fixer back into the storage container.\n\nRemove the lid of the development tank and rinse thoroughly with clean water.\n\nHang up film to dry. You’re done!\n\n\n</string>
-    <string name="howToDevCol">Development Steps:\nSet the timer, pour in Developer, and click start.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Developer into the storage container.\n\nSet the timer according to Blix label instructions, pour in the Blix, and start the timer.\n\nWhen the timer stops, pour the Blix back into the storage container.\n\nSet the timer according to Stabilizer label instructions, pour in Stabilizer, and start the timer.\n\nWhen notified, agitate chemistry by inverting the development tank 3-4 times.\n\nWhen the timer stops, pour the Stabilizer back into the storage container.\n\nRemove the lid of the development tank and rinse thoroughly with clean water.\n\nHang up film to dry. You’re done!\n\n\n</string>
 
 </resources>
