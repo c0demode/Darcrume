@@ -9,15 +9,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Database name & Version
-    private static final String DATABASE_NAME = "darcrumeManager";
+    private static final String DATABASE_NAME = "darcrumeDB.db";
     private static final int DATABASE_VERSION = 1;
+
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     /**
      * Create tables
@@ -35,9 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                                      "FOREIGN KEY(CHEM2_ID) REFERENCES CHEMS(CHEM_ID)," +
                                                      "FOREIGN KEY(CHEM3_ID) REFERENCES CHEMS(CHEM_ID))";
 
-    public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -501,6 +504,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allNotes;
     }
 
+    public ArrayList<Note> searchNotes(String search){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Note> noteSearchResults = new ArrayList<>();
+
+        Cursor noteResult = db.rawQuery("SELECT * FROM NOTES WHERE NOTE_TEXT LIKE '%" + search + "%'", null);
+        while (noteResult.moveToNext()) {
+            int noteId = noteResult.getInt(noteResult.getColumnIndex("NOTE_ID"));
+            String noteText = noteResult.getString(noteResult.getColumnIndex("NOTE_TEXT"));
+
+            Cursor sessionResult = db.rawQuery("SELECT RECIPE_ID, DEVDATE FROM SESSION_HISTORY WHERE NOTE_ID = " + noteId, null);
+            while (sessionResult.moveToNext()) {
+                int recipeId = sessionResult.getInt(sessionResult.getColumnIndex("RECIPE_ID"));
+                String devdate = sessionResult.getString(sessionResult.getColumnIndex("DEVDATE"));
+
+                Cursor recipeResult = db.rawQuery("SELECT FILM_ID FROM RECIPE WHERE RECIPE_ID = " + recipeId,null);
+                while (recipeResult.moveToNext()){
+                    int filmId = recipeResult.getInt(recipeResult.getColumnIndex("FILM_ID"));
+
+                    Cursor filmResult = db.rawQuery("SELECT BRAND, NAME FROM FILMS WHERE FILM_ID = " + filmId, null);
+                    while (filmResult.moveToNext()){
+                        String filmName = filmResult.getString(0) + " " + filmResult.getString(1);
+
+                        Note note = new Note(devdate, filmName, noteText);
+                        noteSearchResults.add(note);
+                    }
+                }
+            }
+        }
+        if (noteSearchResults.size() == 0){
+            return null;
+        }
+        return noteSearchResults;
+    }
+
 
     /**
      * .______       _______   ______  __  .______    _______
@@ -555,19 +592,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int addNewSession(int recipe_id, int note_id) {
         SQLiteDatabase db = this.getWritableDatabase();
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        String devDate = formatter.format(date).substring(0,10);
 
 
         ContentValues cv = new ContentValues();
         cv.put("RECIPE_ID", recipe_id);
         cv.put("NOTE_ID", note_id);
-        //cv.put("DEVDATE", );
+        cv.put("DEVDATE", devDate);
 
         int id = (int)db.insert("SESSION_HISTORY", null, cv);
 
         return id;
     }
 
+    /**
+     * .______       _______ .______     ______   .______     .___________.
+     * |   _  \     |   ____||   _  \   /  __  \  |   _  \    |           |
+     * |  |_)  |    |  |__   |  |_)  | |  |  |  | |  |_)  |   `---|  |----`
+     * |      /     |   __|  |   ___/  |  |  |  | |      /        |  |
+     * |  |\  \----.|  |____ |  |      |  `--'  | |  |\  \----.   |  |
+     * | _| `._____||_______|| _|       \______/  | _| `._____|   |__|
+     *
+     */
 
+    public ArrayList<String> retrieveReport(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> report = new ArrayList<>();
+        Cursor result = db.rawQuery("SELECT * FROM SESSION_HISTORY ORDER BY DEVDATE DESC ", null);
+
+        while (result.moveToNext()) {
+            int recipeId = result.getInt(result.getColumnIndex("RECIPE_ID"));
+            String date = result.getString(result.getColumnIndex("DEVDATE"));
+            Cursor recipeResult = db.rawQuery("SELECT FILM_ID FROM RECIPE WHERE RECIPE_ID = " + recipeId,null);
+            while (recipeResult.moveToNext()){
+                int filmId = recipeResult.getInt(recipeResult.getColumnIndex("FILM_ID"));
+
+                Cursor filmResult = db.rawQuery("SELECT BRAND, NAME FROM FILMS WHERE FILM_ID = " + filmId, null);
+                while (filmResult.moveToNext()){
+                    String filmName = filmResult.getString(0) + " " + filmResult.getString(1);
+
+                    report.add(date);
+                    report.add(filmName);
+
+                }
+            }
+        }
+        return report;
+    }
 
 
     /**
@@ -611,5 +684,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertNewUser("WGU", "password");
 
         truncateNotesTable();
+        insertNewNote("Things went well for the first session! I spilled some chemistry on my shoes but that's the only complaint!");
+        insertNewNote("I was a little tired today. Glad I had this app to help me keep track of everything.");
+        insertNewNote("This roll of film has pictures from Tammy's driving test --- YIKES! Decent session. Radio played bland music, yuck.");
+        insertNewNote("I can't wait to see how the shots from WGU Graduation come out!! Looking forward to those for sure!!!");
+
+        truncateRecipeTable();
+        addNewRecipe(9,4,5,6);
+        addNewRecipe(5,1,2,9);
+
+        truncateSessionTable();
+        addNewSession(1,1);
+        addNewSession(1,2);
+        addNewSession(2,3);
+        addNewSession(1,4);
+    }
+
+    private void truncateSessionTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete from SESSION_HISTORY");
+        //Delete the sequence for TABLE_FILMS which will reset primary key.
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='SESSION_HISTORY'");
+
+    }
+
+    private void truncateRecipeTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete from RECIPE");
+        //Delete the sequence for TABLE_FILMS which will reset primary key.
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='RECIPE'");
     }
 }

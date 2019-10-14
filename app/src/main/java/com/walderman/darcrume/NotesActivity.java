@@ -18,6 +18,8 @@ public class NotesActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewNoteAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private Button btnNoteSearch;
+    private EditText etNoteSearch;
     private ArrayList<Note> noteList = new ArrayList<>();
 
     @Override
@@ -31,6 +33,21 @@ public class NotesActivity extends AppCompatActivity {
     private void configureVariables() {
         db = new DatabaseHelper(getApplicationContext());
         noteList = db.getAllNotes();
+        btnNoteSearch = findViewById(R.id.btnNoteSearch);
+        etNoteSearch = findViewById(R.id.etNote_Search);
+
+        btnNoteSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchNotes();
+            }
+        });
+    }
+
+    private void searchNotes() {
+        String search = etNoteSearch.getText().toString();
+        noteList = db.searchNotes(search);
+        buildRecyclerView();
     }
 
     private void buildRecyclerView() {

@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnManageChems;
     private Button btnNotes;
     private Button btnDevelop;
+    private Button btnReport;
     private Button btnNuke;
 
     @Override
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btnManageChems = findViewById(R.id.btnChems);
         btnNotes = findViewById(R.id.btnNote);
         btnDevelop = findViewById(R.id.btnDevelop);
+        btnReport = findViewById(R.id.btnReports);
         btnNuke = findViewById(R.id.btnNuke);
     }
 
@@ -66,12 +68,18 @@ public class MainActivity extends AppCompatActivity {
                 moveToDevelop();
             }
         });
-        btnNuke.setOnClickListener(new View.OnClickListener() {
+        btnReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resetDbToDefault();
+                moveToReports();
             }
         });
+        //btnNuke.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        resetDbToDefault();
+        //    }
+        //});
     }
 
     private void moveToHowTo() {
@@ -96,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void moveToManageFilms() {
         Intent intent = new Intent(MainActivity.this, ManageFilmsActivity.class);
+        startActivity(intent);
+    }
+
+    private void moveToReports() {
+        Intent intent = new Intent(MainActivity.this, ReportsActivity.class);
         startActivity(intent);
     }
 

@@ -66,6 +66,15 @@
             android:textColor="@color/theme1ColorAccent"
             android:background="@drawable/btn_rounded_corners_blue"/>
 
+        <Button
+            android:id="@+id/btnReports"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/btn_rounded_corners_blue"
+            android:text="Report Last 3 Sessions"
+            android:textColor="@color/theme1ColorAccent" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="75dp" />
@@ -77,7 +86,9 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/btn_rounded_corners_blue"
             android:text="Nuke and Reset DB"
-            android:textColor="@color/theme1ColorAccent" />
+            android:textColor="@color/theme1ColorAccent"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
     </LinearLayout>
 
