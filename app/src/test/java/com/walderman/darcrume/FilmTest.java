@@ -1,7 +1,5 @@
 package com.walderman.darcrume;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;
